@@ -1,18 +1,14 @@
 import React from 'react';
 import {AdminLayout} from "@/components";
 
-
-const Admin = () => {
-    // const { data: session } = useSession();
-    // console.log(session);
-    // isAdminEmail(data.)
+const SettingsAdminPage = () => {
     return (
         <div className="h-screen flex">
             <AdminLayout>
-                <div>Hello admin</div>
+                <div>Admin Events</div>
             </AdminLayout>
         </div>
     );
 };
 
-export default Admin;
+export default SettingsAdminPage;
