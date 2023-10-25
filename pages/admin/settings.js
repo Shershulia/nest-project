@@ -5,7 +5,7 @@ const SettingsAdminPage = () => {
     return (
         <div className="h-screen flex">
             <AdminLayout>
-                <div>Admin Events</div>
+                <div>Admin Settings</div>
             </AdminLayout>
         </div>
     );
