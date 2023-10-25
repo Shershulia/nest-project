@@ -12,7 +12,7 @@ const Input = ({ label, value, onChange, className }) => {
                 onChange={event => {
                     onChange(event.target.value)
                 }}
-                className={"flex border-2 justify-center items-center rounded-lg border-black " + className}
+                className={"flex border-2 justify-center items-center border-black " + className}
             />
         </div>
     );
