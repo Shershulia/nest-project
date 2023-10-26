@@ -1,17 +1,23 @@
 import {Admin} from "@/models/Admin";
 import {mongooseConnect} from "@/lib/mongoose";
 import {getServerSession} from "next-auth";
-import {authOptions} from "@/pages/api/auth/[...nextauth]";
+import {authOptions, isAdminRequest} from "@/pages/api/auth/[...nextauth]";
 
 export default async function handler(req, res) {
     try {
-        const session = await getServerSession(req,res,authOptions);
 
 
         await mongooseConnect();
+        await isAdminRequest(req,res);
 
-        if (req.method === "GET") {
-            res.status(200).json("created");
+
+        if (req.method === "POST") {
+            const {email} = req.body;
+            if(await Admin.findOne({email})){
+                res.state(400).json({message:'already exsists!'})
+            }else {
+                res.json(await Admin.create({email}));
+            }
         }
     }
     catch (error) {
