@@ -21,7 +21,10 @@ export default async function handler(req, res) {
             }
         }
         if (req.method === "GET") {
-            res.json(await User.find({}, { email: 1, _id: 0 }));
+            res.json(await Admin.find({}, { email: 1 }));
+        }
+        if (req.method === "DELETE") {
+            res.json(await Admin.deleteOne({_id:req.query?.id}));
         }
     }
     catch (error) {
