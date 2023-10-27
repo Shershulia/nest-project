@@ -2,6 +2,7 @@ import {Admin} from "@/models/Admin";
 import {mongooseConnect} from "@/lib/mongoose";
 import {getServerSession} from "next-auth";
 import {authOptions, isAdminRequest} from "@/pages/api/auth/[...nextauth]";
+import {User} from "@/models/User";
 
 export default async function handler(req, res) {
     try {
@@ -18,6 +19,9 @@ export default async function handler(req, res) {
             }else {
                 res.json(await Admin.create({email}));
             }
+        }
+        if (req.method === "GET") {
+            res.json(await User.find({}, { email: 1, _id: 0 }));
         }
     }
     catch (error) {

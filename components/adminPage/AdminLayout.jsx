@@ -1,5 +1,5 @@
 import React from 'react';
-import {AdminNavBar} from "@/components/index";
+import {AdminNavBar} from "@/components";
 
 const AdminLayout = ({children}) => {
     return (
