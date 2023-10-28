@@ -49,8 +49,8 @@ const EventForm = () => {
                     <Input label={"Place"} value={place} onChange={setPlace} className={styles}/>
                 </div>
                 <div className={"flex justify-center items-center"}>
-                    <Input label={"Price"} value={price} onChange={setPrice}  className={styles}></Input>
-                    <Input label={"Number of people"} value={numberOfPeople} onChange={setNumberOfPeople}  className={styles}></Input>
+                    <Input label={"Price"} value={price} onChange={setPrice}  className={styles} isDigits={true}></Input>
+                    <Input label={"Number of people"} value={numberOfPeople} onChange={setNumberOfPeople}  className={styles} isDigits={true}></Input>
 
                 </div>
             </form>
