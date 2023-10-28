@@ -1,11 +1,11 @@
 import React from 'react';
-import {AdminLayout} from "@/components";
+import {AdminLayout, EventForm} from "@/components";
 
 const EventsAdminPage = () => {
     return (
         <div className="h-screen flex">
             <AdminLayout>
-                <div>Admin Events</div>
+                <EventForm/>
 
             </AdminLayout>
         </div>

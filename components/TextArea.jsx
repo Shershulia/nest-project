@@ -1,11 +1,14 @@
 import React from 'react';
 import {Title} from "@/components/index";
 
-const Input = ({ label = "", value, onChange, className= "" }) => {
+const TextArea = ({ label = "", value, onChange, className= "" }) => {
+
+
+
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
             {label !=="" && <Title text={label} ></Title>}
-            <input
+            <textarea
                 value={value}
                 onChange={event => {
                     onChange(event.target.value)
@@ -16,4 +19,4 @@ const Input = ({ label = "", value, onChange, className= "" }) => {
     );
 };
 
-export default Input;
+export default TextArea;

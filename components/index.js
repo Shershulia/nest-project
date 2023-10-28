@@ -5,6 +5,10 @@ import AddAdminComponent from "@/components/adminPage/AddAdminComponent";
 import Spinner from "@/components/Spinner";
 import DeleteAdmin from "@/components/adminPage/DeleteAdmin";
 import Title from "@/components/Title"
+import TextArea from "@/components/TextArea";
+import CalendarIcon from "@/components/icons/CalendarIcon";
+import TimePicker from "@/components/TimePicker";
+import EventForm from "@/components/adminEventPage/EventForm";
 export {
     AdminNavBar,
     AdminLayout,
@@ -12,5 +16,9 @@ export {
     AddAdminComponent,
     Spinner,
     DeleteAdmin,
-    Title
+    Title,
+    TextArea,
+    CalendarIcon,
+    TimePicker,
+    EventForm
 }
