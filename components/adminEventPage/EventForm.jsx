@@ -11,7 +11,7 @@ const EventForm = ({
     place: existingPlace,
     price: existingPrice,
     numberOfPeople: existingNumberOfPeople,
-    images
+    images:existingImages
                    }) => {
     const [name,setName] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
@@ -24,6 +24,7 @@ const EventForm = ({
     const [place, setPlace] = useState(existingPlace || "");
     const [price, setPrice] = useState(existingPrice || 0);
     const [numberOfPeople, setNumberOfPeople] = useState(existingNumberOfPeople || 0);
+    const [images, setImages] = useState(existingImages || [])
 
     useEffect(()=> {
         axios.get("/api/users").then(res => {
@@ -57,11 +58,9 @@ const EventForm = ({
             const response = await axios.post("/api/upload",data, {
                 headers:{"Content-Type": "multipart/form-data"}
             });
-            // fetch("api/upload",{
-            //     method:"POST",
-            //     body:data,
-            //
-            // })
+            setImages(oldImages =>{
+                return [...oldImages, ...response.data.links];
+            })
             console.log(response.data)
         }
 
@@ -99,8 +98,14 @@ const EventForm = ({
                 </div>
                 <div className={"flex flex-col items-center"}>
                     <Title text={"Photos"}/>
-                    <div className={"mb-2"}>
-                        <label className={"w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
+                    <div className={"mb-2 flex flex-wrap gap-2"}>
+                        {!!images?.length && images.map(link=>(
+                                <div key={link} className={" h-24 w-24"}>
+                                    <img src={link} alt={""} className={"rounded-lg"}/>
+                                </div>
+                            )
+                        )}
+                        <label className={"inline-block w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
                             </svg>
