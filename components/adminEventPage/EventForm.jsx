@@ -66,7 +66,7 @@ const EventForm = ({
 
     }
     return (
-        <div className={"shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px] rounded-xl flex flex-col justify-evenly  h-full"}>
+        <div className={"flex flex-col justify-evenly  h-full bg-white py-8"}>
             <form className={"mb-10"}>
                 <Input label={"Name"} value={name} onChange={setName} className={styles}></Input>
                 <TextArea label={"Description"} value={description} onChange={setDescription} className={"w-3/4 rounded-md"}></TextArea>
