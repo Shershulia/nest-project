@@ -1,6 +1,7 @@
 import {mongooseConnect} from "@/lib/mongoose";
 import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
 import {Event} from "@/models/Event"
+import {Admin} from "@/models/Admin";
 export default async function handler(req, res) {
     try {
 
@@ -14,6 +15,9 @@ export default async function handler(req, res) {
         }
         if (req.method === "GET") {
             res.json(await Event.find());
+        }
+        if (req.method==="DELETE"){
+            res.json(await Event.deleteOne({_id:req.query?.id}))
         }
     }
     catch (error) {
