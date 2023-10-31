@@ -8,13 +8,17 @@ const Input = ({ label = "", value, onChange, className = "", isDigits = false }
             <input
                 value={value}
                 onChange={(event) => {
-                    const newValue = event.target.value;
-                    // Allow only positive numbers or an empty string
-                    if (/^\d*\.?\d*$/.test(newValue)) {
-                        onChange(newValue);
+
+                    if (isDigits){
+                        const newValue = event.target.value;
+                        if (/^\d*\.?\d*$/.test(newValue)) {
+                            onChange(newValue);
+                        }
+                    }else{
+                        onChange(event.target.value)
                     }
                 }}
-                className={"flex border-2 justify-center items-center border-black " + className}
+                className={"flex border-2 justify-center items-center border-black p-2 " + className}
                 type={isDigits ? 'number' : 'text'}
                 min={isDigits ? "0" : null}
             />

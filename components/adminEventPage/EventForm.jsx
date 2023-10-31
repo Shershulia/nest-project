@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Input, Spinner, TextArea, TimePicker, Title} from "@/components";
 import axios from "axios";
+import Swal from "sweetalert2";
 const styles = "rounded-md mb-2 text-center";
 const EventForm = ({
     _id,
@@ -36,8 +37,20 @@ const EventForm = ({
     },[]);
 
     const addEvent = ()=>{
-        alert("Save")
-        console.log("Save")
+        const data = {name,description,date,contactPerson,place,price,numberOfPeople,images}
+        axios.post("/api/events",data).then(res=>{
+            Swal.fire(
+                'Good job!',
+                `Event with name ${res.data.name} was added successfully`,
+                'success'
+            )
+        }).catch((error) => {
+            Swal.fire(
+                'Error',
+                "Hm... Something went wrong, please contact support with your case. " + error.message,
+                'error'
+            )
+        })
     }
     const clearAll = ()=>{
         setName("");
@@ -47,6 +60,7 @@ const EventForm = ({
         setPlace("");
         setPrice(0);
         setNumberOfPeople(0);
+        setImages([]);
     }
     async function uploadImages(event){
         const files = event.target?.files;
@@ -67,7 +81,7 @@ const EventForm = ({
     }
     return (
         <div className={"flex flex-col justify-evenly  h-full bg-white py-8"}>
-            <form className={"mb-10"}>
+            <div className={"mb-10"}>
                 <Input label={"Name"} value={name} onChange={setName} className={styles}></Input>
                 <TextArea label={"Description"} value={description} onChange={setDescription} className={"w-3/4 rounded-md"}></TextArea>
                 <TimePicker label={"Choose date"} value={date} setValue={setDate}></TimePicker>
@@ -121,12 +135,12 @@ const EventForm = ({
                         )}
                     </div>
                 </div>
-            </form>
+            </div>
             <div className={"flex items-center justify-center"}>
                 <button className={"bg-green-600 hover:bg-green-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
-                onChange={addEvent}>Save</button>
+                onClick={addEvent}>Save</button>
                 <button className={"bg-yellow-600 hover:bg-yellow-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
-                onChange={clearAll}>Clear</button>
+                        onClick={clearAll}>Clear</button>
             </div>
 
         </div>

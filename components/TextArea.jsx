@@ -13,7 +13,7 @@ const TextArea = ({ label = "", value, onChange, className= "" }) => {
                 onChange={event => {
                     onChange(event.target.value)
                 }}
-                className={"flex border-2 justify-center items-center border-black " + className}
+                className={"flex border-2 justify-center items-center border-black p-2 " + className}
             />
         </div>
     );
