@@ -10,6 +10,7 @@ import CalendarIcon from "@/components/icons/CalendarIcon";
 import TimePicker from "@/components/TimePicker";
 import EventForm from "@/components/adminEventPage/EventForm";
 import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing";
+import EventEditRow from "@/components/adminEventPage/EventEditRow";
 export {
     AdminNavBar,
     AdminLayout,
@@ -22,5 +23,6 @@ export {
     CalendarIcon,
     TimePicker,
     EventForm,
-    GetEventsForEditing
+    GetEventsForEditing,
+    EventEditRow
 }
