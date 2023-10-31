@@ -11,8 +11,9 @@ export default async function handler(req, res) {
         if (req.method==="POST"){
             const {name, description,date,contactPerson,place,price,numberOfPeople,images} = req.body;
             res.json(await Event.create({name, description,date,contactPerson,place,price,numberOfPeople,images}));
-
-
+        }
+        if (req.method === "GET") {
+            res.json(await Event.find());
         }
     }
     catch (error) {

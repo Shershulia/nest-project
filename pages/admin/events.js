@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AdminLayout, EventForm } from "@/components";
+import {AdminLayout, EventForm, GetEventsForEditing} from "@/components";
 
 const EventsAdminPage = () => {
     const [eventFormStart, setEventFormStart] = useState(false);
@@ -37,6 +37,13 @@ const EventsAdminPage = () => {
                     >
                         Edit event
                     </button>
+                    <div
+                        className={`overflow-hidden transition-max-height duration-300 ${
+                            eventFormEdit ? 'max-h-full' : 'max-h-0'
+                        } `}
+                    >
+                        {eventFormEdit && <GetEventsForEditing/>}
+                    </div>
                 </div>
 
             </AdminLayout>
