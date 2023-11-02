@@ -14,7 +14,7 @@ const EventsAdminPage = () => {
                         onClick={() => {
                             setEventFormStart(prevState => !prevState);
                         }}
-                        className={`border border-black py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-gray-200' : 'bg-white'
+                        className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-gray-200' : 'bg-white'
                         } transition-all duration-300`}
                     >
                         Create event

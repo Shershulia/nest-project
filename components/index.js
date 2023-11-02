@@ -11,6 +11,8 @@ import TimePicker from "@/components/TimePicker";
 import EventForm from "@/components/adminEventPage/EventForm";
 import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing";
 import EventEditRow from "@/components/adminEventPage/EventEditRow";
+import SearchBar from "@/components/SearchBar"
+import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 export {
     AdminNavBar,
     AdminLayout,
@@ -24,5 +26,7 @@ export {
     TimePicker,
     EventForm,
     GetEventsForEditing,
-    EventEditRow
+    EventEditRow,
+    SearchBar,
+    MagnifyingGlass
 }
