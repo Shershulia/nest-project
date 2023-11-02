@@ -5,7 +5,6 @@ import {Admin} from "@/models/Admin";
 export default async function handler(req, res) {
     try {
 
-
         await mongooseConnect();
         await isAdminRequest(req,res);
 
@@ -18,6 +17,11 @@ export default async function handler(req, res) {
         }
         if (req.method==="DELETE"){
             res.json(await Event.deleteOne({_id:req.query?.id}))
+        }
+        if (req.method==='PUT'){
+            const {_id,name, description,date,contactPerson,place,price,numberOfPeople,images} = req.body;
+            await Event.updateOne({_id},{name, description,date,contactPerson,place,price,numberOfPeople,images})
+            res.json(true);
         }
     }
     catch (error) {

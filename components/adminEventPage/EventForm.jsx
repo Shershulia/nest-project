@@ -12,7 +12,7 @@ const EventForm = ({
     place: existingPlace,
     price: existingPrice,
     numberOfPeople: existingNumberOfPeople,
-    images:existingImages
+    images:existingImages,
                    }) => {
     const [name,setName] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
@@ -38,19 +38,38 @@ const EventForm = ({
 
     const addEvent = ()=>{
         const data = {name,description,date,contactPerson,place,price,numberOfPeople,images}
-        axios.post("/api/events",data).then(res=>{
-            Swal.fire(
-                'Good job!',
-                `Event with name ${res.data.name} was added successfully`,
-                'success'
-            )
-        }).catch((error) => {
-            Swal.fire(
-                'Error',
-                "Hm... Something went wrong, please contact support with your case. " + error.message,
-                'error'
-            )
-        })
+        if (existingTitle){
+            const dataToEdit ={_id,...data}
+            axios.put("/api/events",dataToEdit).then(res=>{
+                Swal.fire(
+                    'Good job!',
+                    `Event with name ${data.name} was edited successfully`,
+                    'success'
+                )
+            }).catch((error) => {
+                Swal.fire(
+                    'Error',
+                    "Hm... Something went wrong, please contact support with your case. " + error.message,
+                    'error'
+                )
+            })
+        }
+        else {
+            axios.post("/api/events",data).then(res=>{
+                Swal.fire(
+                    'Good job!',
+                    `Event with name ${res.data.name} was added successfully`,
+                    'success'
+                )
+            }).catch((error) => {
+                Swal.fire(
+                    'Error',
+                    "Hm... Something went wrong, please contact support with your case. " + error.message,
+                    'error'
+                )
+            })
+        }
+
     }
     const clearAll = ()=>{
         setName("");
