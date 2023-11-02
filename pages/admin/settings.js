@@ -3,7 +3,7 @@ import {AdminLayout} from "@/components";
 
 const SettingsAdminPage = () => {
     return (
-        <div className="h-screen flex">
+        <div className="h-full flex bg-blue-600">
             <AdminLayout>
                 <div>Admin Settings</div>
             </AdminLayout>

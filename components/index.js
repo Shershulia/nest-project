@@ -5,6 +5,14 @@ import AddAdminComponent from "@/components/adminPage/AddAdminComponent";
 import Spinner from "@/components/Spinner";
 import DeleteAdmin from "@/components/adminPage/DeleteAdmin";
 import Title from "@/components/Title"
+import TextArea from "@/components/TextArea";
+import CalendarIcon from "@/components/icons/CalendarIcon";
+import TimePicker from "@/components/TimePicker";
+import EventForm from "@/components/adminEventPage/EventForm";
+import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing";
+import EventEditRow from "@/components/adminEventPage/EventEditRow";
+import SearchBar from "@/components/SearchBar"
+import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 export {
     AdminNavBar,
     AdminLayout,
@@ -12,5 +20,13 @@ export {
     AddAdminComponent,
     Spinner,
     DeleteAdmin,
-    Title
+    Title,
+    TextArea,
+    CalendarIcon,
+    TimePicker,
+    EventForm,
+    GetEventsForEditing,
+    EventEditRow,
+    SearchBar,
+    MagnifyingGlass
 }
