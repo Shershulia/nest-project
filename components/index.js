@@ -13,6 +13,8 @@ import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing
 import EventEditRow from "@/components/adminEventPage/EventEditRow";
 import SearchBar from "@/components/SearchBar"
 import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
+import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
+import WrongPermission from "@/components/adminPage/WrongPermission";
 export {
     AdminNavBar,
     AdminLayout,
@@ -28,5 +30,7 @@ export {
     GetEventsForEditing,
     EventEditRow,
     SearchBar,
-    MagnifyingGlass
+    MagnifyingGlass,
+    ArrowLeftIcon,
+    WrongPermission
 }

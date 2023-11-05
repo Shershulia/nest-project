@@ -1,23 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {AddAdminComponent, AdminLayout, DeleteAdmin, Title} from "@/components";
-import {mongooseConnect} from "@/lib/mongoose";
-import {Admin} from "@/models/Admin";
-import {useSession} from "next-auth/react";
-import {checkIfUserIsAdmin} from "@/utils/adminUtils";
+import React from 'react';
+import {AddAdminComponent, AdminLayout, DeleteAdmin, WrongPermission} from "@/components";
+import { getAdminServerSideProps} from "@/utils/adminUtils";
 
-const AdminsAdminPage = ({admins}) => {
-
-    const { data: session } = useSession();
-    const [isAdmin, setIsAdmin] = useState(false);
-
-    useEffect( () => {
-        if (session) {
-            const userIsAdmin = checkIfUserIsAdmin(session.user.email, admins);
-            setIsAdmin( userIsAdmin);
-        }else {
-
-        }
-    },[session])
+const AdminsAdminPage = ({isAdmin}) => {
 
     return (
         isAdmin ? (
@@ -28,21 +13,13 @@ const AdminsAdminPage = ({admins}) => {
             </AdminLayout>
         </div>):
             (
-                <div className="h-screen flex bg-blue-600 w-full">
-                    <Title text={"Wrong permission level"}/>
-                </div>
+                <WrongPermission/>
             )
     );
 };
 
 export default AdminsAdminPage;
 
-export async function getServerSideProps(){
-    await mongooseConnect();
-    const admins = await Admin.find({}, { email: 1 })
-    return{
-        props:{
-            admins:JSON.parse(JSON.stringify(admins)),
-        }
-    }
+export async function getServerSideProps(ctx){
+    return await getAdminServerSideProps(ctx);
 }
