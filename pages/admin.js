@@ -1,20 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {AddAdminComponent, AdminLayout, Input, Title} from "@/components";
-import {useSession} from "next-auth/react";
+import React from 'react';
+import {AdminLayout, Title} from "@/components";
+import {getSession, useSession} from "next-auth/react";
 import {Admin} from "@/models/Admin";
 import {mongooseConnect} from "@/lib/mongoose";
 import {checkIfUserIsAdmin} from "@/utils/adminUtils";
 
 
-const AdminPage = ({admins}) => {
+const AdminPage = ({isAdmin}) => {
     const { data: session } = useSession();
-    const [isAdmin, setIsAdmin] = useState(false);
-    useEffect( () => {
-        if (session) {
-            const userIsAdmin = checkIfUserIsAdmin(session.user.email, admins);
-            setIsAdmin( userIsAdmin);
-        }
-    },[session])
 
     return (
         isAdmin ? (
@@ -34,12 +27,18 @@ const AdminPage = ({admins}) => {
 
 export default AdminPage;
 
-export async function getServerSideProps(){
+//Check of admin permission happens on server side
+export async function getServerSideProps(ctx){
     await mongooseConnect();
     const admins = await Admin.find({}, { email: 1 })
+    const userInformation = await getSession(ctx);
+    let userIsAdmin=false;
+    if (userInformation){
+        userIsAdmin = checkIfUserIsAdmin(userInformation.user.email,admins)
+    }
     return{
         props:{
-            admins:JSON.parse(JSON.stringify(admins)),
+            isAdmin: JSON.parse(JSON.stringify(userIsAdmin))
         }
     }
 }
