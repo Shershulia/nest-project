@@ -9,7 +9,6 @@ const AdminNavBar = () => {
     const activeLink = inactiveLink+' bg-white text-blue-900 ';
     const router = useRouter();
     const {pathname} = router;
-    console.log(pathname)
     return (
          <div className={"flex flex-col w-1/4 text-center items-center justify-between gap-4 h-screen"}>
              <div className={"flex items-center py-2 "}>
