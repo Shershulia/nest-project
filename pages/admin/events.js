@@ -26,7 +26,7 @@ const EventsAdminPage = ({isAdmin}) => {
                             eventFormStart ? 'max-h-full' : 'max-h-0'
                         } `}
                     >
-                        {eventFormStart && <EventForm />}
+                        {eventFormStart && <EventForm closeEvent={setEventFormStart} />}
                     </div>
                 </div>
                 <div>

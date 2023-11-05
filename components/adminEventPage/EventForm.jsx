@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Input, Spinner, TextArea, TimePicker, Title} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {format} from "date-fns";
 const styles = "rounded-md mb-2 text-center";
 const EventForm = ({
     _id,
@@ -13,10 +14,11 @@ const EventForm = ({
     price: existingPrice,
     numberOfPeople: existingNumberOfPeople,
     images:existingImages,
+    closeEvent
                    }) => {
     const [name,setName] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
-    const [date, setDate] = useState(existingDate || new Date());
+    const [date, setDate] = useState(format(new Date(existingDate), 'MMMM do yyyy hh:mm a') || new Date());
 
     const [contactPerson, setContactPerson] = useState(existingContactPerson || "");
 
@@ -36,7 +38,9 @@ const EventForm = ({
             console.log(error);
         })
     },[]);
-
+    const closeForm = () =>{
+        closeEvent(false);
+    }
     const addEvent = ()=>{
         const data = {name,description,date,contactPerson,place,price,numberOfPeople,images}
         if (existingTitle){
@@ -46,7 +50,9 @@ const EventForm = ({
                     'Good job!',
                     `Event with name ${data.name} was edited successfully`,
                     'success'
-                )
+                ).then(() => {
+                    closeForm();
+                })
             }).catch((error) => {
                 Swal.fire(
                     'Error',
@@ -61,7 +67,9 @@ const EventForm = ({
                     'Good job!',
                     `Event with name ${res.data.name} was added successfully`,
                     'success'
-                )
+                ).then(() => {
+                    closeForm();
+                })
             }).catch((error) => {
                 Swal.fire(
                     'Error',
@@ -136,7 +144,7 @@ const EventForm = ({
                     <div className={"mb-2 flex flex-wrap gap-2"}>
                         {!!images?.length && images.map(link=>(
                                 <div key={link} className={"h-24 w-24"}>
-                                    <img src={link} alt={""} className={"rounded-lg h-full w-full object-cover"}/>
+                                    <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
                                 </div>
                             )
                         )}

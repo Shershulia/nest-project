@@ -5,12 +5,14 @@ import {EventForm} from "@/components";
 const EventEditRow = ({event,deleteEvent}) => {
     const [editMode, setEditMode] = useState(false);
     const {_id , name , description, date, contactPerson, place , price, numberOfPeople, images} = event
+    console.log({_id , name , description, date, contactPerson, place , price, numberOfPeople, images} )
     return (
         <div className={"w-full flex"}>
             {!editMode && (
                 <>
                     <div className={"flex w-2/3 items-center justify-start gap-10"}>
-                        <Image src={event.images[0]} width={100} height={100} className={"ml-2"}/>
+                        {images.length>0 ? (<Image src={event.images[0]} width={100} height={100} className={"ml-2"} alt={"Image for event " + name}/>) :
+                            (<div className={"h-[100px] w-[100px]"}></div>)}
                         <h1 className={"text-lg font-bold"}>{event.name}</h1>
                         <h2 className={"max-w-1/3"}>{event.description}</h2>
                         <h2 className={"max-w-1/3"}>{event.place}</h2>
