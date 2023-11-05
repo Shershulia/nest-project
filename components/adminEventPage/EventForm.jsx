@@ -27,6 +27,7 @@ const EventForm = ({
     const [numberOfPeople, setNumberOfPeople] = useState(existingNumberOfPeople || 0);
     const [images, setImages] = useState(existingImages || [])
 
+    const [isUploading, setIsUploading] = useState(false);
     useEffect(()=> {
         axios.get("/api/users").then(res => {
             const arrayOfEmails = res.data.map(obj => obj.email);
@@ -82,6 +83,7 @@ const EventForm = ({
         setImages([]);
     }
     async function uploadImages(event){
+        setIsUploading(true)
         const files = event.target?.files;
         if(files?.length>0){
             const data= new FormData();
@@ -94,7 +96,7 @@ const EventForm = ({
             setImages(oldImages =>{
                 return [...oldImages, ...response.data.links];
             })
-            console.log(response.data)
+            setIsUploading(false)
         }
 
     }
@@ -133,10 +135,15 @@ const EventForm = ({
                     <Title text={"Photos"}/>
                     <div className={"mb-2 flex flex-wrap gap-2"}>
                         {!!images?.length && images.map(link=>(
-                                <div key={link} className={" h-24 w-24"}>
-                                    <img src={link} alt={""} className={"rounded-lg"}/>
+                                <div key={link} className={"h-24 w-24"}>
+                                    <img src={link} alt={""} className={"rounded-lg h-full w-full object-cover"}/>
                                 </div>
                             )
+                        )}
+                        {isUploading && (
+                            <div className={"w-24 h-24 flex justify-center items-center"}>
+                                <Spinner fullWidth={true}></Spinner>
+                            </div>
                         )}
                         <label className={"inline-block w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
