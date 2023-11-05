@@ -3,6 +3,8 @@ import {Input, Spinner, TextArea, TimePicker, Title} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {format} from "date-fns";
+import {ReactSortable} from "react-sortablejs";
+
 const styles = "rounded-md mb-2 text-center";
 const EventForm = ({
     _id,
@@ -43,7 +45,7 @@ const EventForm = ({
         closeEvent(false);
     }
     const addEvent = ()=>{
-        const data = {name,description,date,contactPerson,place,price,numberOfPeople,images}
+        const data = {name,description,date: new Date(date),contactPerson,place,price,numberOfPeople,images}
         if (existingTitle){
             const dataToEdit ={_id,...data}
             axios.put("/api/events",dataToEdit).then(res=>{
@@ -51,9 +53,7 @@ const EventForm = ({
                     'Good job!',
                     `Event with name ${data.name} was edited successfully`,
                     'success'
-                ).then(() => {
-                    closeForm();
-                })
+                )
             }).catch((error) => {
                 Swal.fire(
                     'Error',
@@ -109,6 +109,10 @@ const EventForm = ({
         }
 
     }
+
+    const updateImagesOrder = (images) =>{
+        setImages(images)
+    }
     return (
         <div className={"flex flex-col justify-evenly w-full  h-full bg-white py-8 border border-x-black border-t-black"}>
             <div className={"mb-10"}>
@@ -142,17 +146,22 @@ const EventForm = ({
                 </div>
                 <div className={"flex flex-col items-center"}>
                     <Title text={"Photos"}/>
-                    <div className={"mb-2 flex flex-wrap gap-2"}>
+                    <div className={"mb-2 flex flex-wrap gap-2 justify-center items-center"}>
+                        <ReactSortable list={images} setList={updateImagesOrder} className={"flex flex-wrap gap-2"}>
                         {!!images?.length && images.map(link=>(
                                 <div key={link} className={"h-24 w-24"}>
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
                                 </div>
                             )
                         )}
+                        </ReactSortable>
                         {isUploading && (
                             <div className={"w-24 h-24 flex justify-center items-center"}>
                                 <Spinner fullWidth={true}></Spinner>
                             </div>
+                        )}
+                        {!images?.length && !isUploading && (
+                            <div className={""}>No photos</div>
                         )}
                         <label className={"inline-block w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
@@ -165,9 +174,7 @@ const EventForm = ({
                             onChange={(event)=>uploadImages(event)}/>
 
                         </label>
-                        {!images?.length && (
-                            <div>No photos</div>
-                        )}
+
                     </div>
                 </div>
             </div>

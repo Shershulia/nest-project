@@ -39,11 +39,10 @@ const GetEventsForEditing = () => {
 
     return (
         <div className={"w-full"}>
+            <SearchBar data={allEvents} setData={setAllEvents} originalData={fetchedData} title={"Search for event"}/>
             {isLoading && <Spinner fullWidth={true}/>}
-
             {( allEvents.length>0 && !isLoading ) && (
                 <>
-                    <SearchBar data={allEvents} setData={setAllEvents} originalData={fetchedData} title={"Search for event"}/>
                     <div className={"w-full"}>{
                         allEvents.map((event,index) => (
                             <div key={index} className={"w-full flex justify-between border border-y-black border-r-black rounded-lg"}>
