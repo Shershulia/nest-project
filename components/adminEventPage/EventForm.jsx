@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Input, Spinner, TextArea, TimePicker, Title} from "@/components";
+import {DeleteButton, Input, Spinner, TextArea, TimePicker, Title} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {format} from "date-fns";
@@ -113,6 +113,10 @@ const EventForm = ({
     const updateImagesOrder = (images) =>{
         setImages(images)
     }
+
+    const deleteItems = (key)=> {
+        setImages(images.filter((_, index) => index !== key))
+    }
     return (
         <div className={"flex flex-col justify-evenly w-full  h-full bg-white py-8 border border-x-black border-t-black"}>
             <div className={"mb-10"}>
@@ -148,8 +152,9 @@ const EventForm = ({
                     <Title text={"Photos"}/>
                     <div className={"mb-2 flex flex-wrap gap-2 justify-center items-center"}>
                         <ReactSortable list={images} setList={updateImagesOrder} className={"flex flex-wrap gap-2"}>
-                        {!!images?.length && images.map(link=>(
-                                <div key={link} className={"h-24 w-24"}>
+                        {!!images?.length && images.map((link,index)=>(
+                                <div key={link} className={"h-24 w-24 relative"}>
+                                    <DeleteButton onClickFunction={()=>{deleteItems(index)}}/>
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
                                 </div>
                             )
