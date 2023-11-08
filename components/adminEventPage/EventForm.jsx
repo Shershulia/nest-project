@@ -1,9 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {DeleteButton, Input, Spinner, TextArea, TimePicker, Title} from "@/components";
+import {Input, Spinner, TextArea, TimePicker, Title} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
 import {format} from "date-fns";
-import {ReactSortable} from "react-sortablejs";
 import ImageUploadComponent from "@/components/ImageUploadComponent";
 
 const styles = "rounded-md mb-2 text-center";
