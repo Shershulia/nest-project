@@ -16,6 +16,7 @@ import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import WrongPermission from "@/components/adminPage/WrongPermission";
 import DeleteButton from "@/components/adminEventPage/DeleteButton";
+import ImageUploadComponent from "@/components/ImageUploadComponent";
 export {
     AdminNavBar,
     AdminLayout,
