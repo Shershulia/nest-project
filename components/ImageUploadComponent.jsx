@@ -1,13 +1,18 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {ReactSortable} from "react-sortablejs";
+import {useDropzone} from "react-dropzone";
 import {DeleteButton, Spinner, Title} from "@/components/index";
 import axios from "axios";
 
 const ImageUploadComponent = ({title,images,setImages}) => {
+    const onDrop = useCallback(acceptedFiles => {
+        uploadImages(acceptedFiles).then(()=>setIsUploading(false))
+    }, [])
+    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop,accept:{'image/jpeg': ['.jpeg', '.png','.jpg', '.gif']}})
+
     const [isUploading, setIsUploading] = useState(false);
-    async function uploadImages(event){
+    async function uploadImages(files){
         setIsUploading(true)
-        const files = event.target?.files;
         if(files?.length>0){
             const data= new FormData();
             for (const file of files){
@@ -19,7 +24,6 @@ const ImageUploadComponent = ({title,images,setImages}) => {
             setImages(oldImages =>{
                 return [...oldImages, ...response.data.links];
             })
-            setIsUploading(false)
         }
 
     }
@@ -51,17 +55,23 @@ const ImageUploadComponent = ({title,images,setImages}) => {
                 {!images?.length && !isUploading && (
                     <div className={""}>No photos</div>
                 )}
-                <label className={"inline-block w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
-                    </svg>
-                    <div>
-                        Upload
+                <div className={"inline-block w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
+                    <div {...getRootProps()} className={"flex flex-col justify-center items-center"}>
+                        <input {...getInputProps()} type="file" accept={"image/*"} />
+                        {
+                            isDragActive ?
+                                <p>Drop the files here ...</p> :
+                                (<>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-6 h-6">
+                                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 8.25H7.5a2.25 2.25 0 00-2.25 2.25v9a2.25 2.25 0 002.25 2.25h9a2.25 2.25 0 002.25-2.25v-9a2.25 2.25 0 00-2.25-2.25H15m0-3l-3-3m0 0l-3 3m3-3V15" />
+                                    </svg>
+                                    <div>
+                                        Upload
+                                    </div>
+                                </>)
+                        }
                     </div>
-                    <input type="file" className={"hidden"}
-                           onChange={(event)=>uploadImages(event)}/>
-
-                </label>
+                </div>
 
             </div>
         </div>
