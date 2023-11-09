@@ -10,7 +10,7 @@ const RadioButton = ({title, options, state, onChange}) => {
                     <div class="flex items-center mr-4 outline-none">
                         <input  type="radio" value={option} checked={state===option} onChange={(event)=>{onChange(event.target.value)}}
                                 className="outline-none w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 dark:bg-gray-700 dark:border-gray-600"/>
-                        <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">{option}</label>
+                        <label className="ml-2 text-md font-medium text-gray-900 dark:text-gray-300">{option}</label>
                     </div>
                 )))}
             </div>

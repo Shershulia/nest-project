@@ -35,6 +35,7 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
     }
     const updateImagesOrder = (images) =>{
         setImages(images)
+        console.log(images)
     }
 
     const deleteItems = (key)=> {
@@ -48,7 +49,13 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
                     {!!images?.length && images.map((link,index)=>(
                             <div key={link} className={"h-24 w-24 relative"}>
                                 <DeleteButton onClickFunction={()=>{deleteItems(index)}}/>
-                                <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
+                                {isDocuments ? (
+                                    <label>1</label>
+                                ) : (
+                                    <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
+
+                                )
+                                }
                             </div>
                         )
                     )}
