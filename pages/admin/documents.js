@@ -1,6 +1,6 @@
 import React from 'react';
 import {getAdminServerSideProps} from "@/utils/adminUtils";
-import {AdminLayout, WrongPermission} from "@/components";
+import {AdminLayout, DocumentForm, WrongPermission} from "@/components";
 
 const DocumentsAdminPage = ({isAdmin}) => {
     return (
@@ -8,6 +8,7 @@ const DocumentsAdminPage = ({isAdmin}) => {
                 <div className="h-full flex bg-blue-600">
                     <AdminLayout>
                         <div>Documents</div>
+                        <DocumentForm></DocumentForm>
                     </AdminLayout>
                 </div>
             ):

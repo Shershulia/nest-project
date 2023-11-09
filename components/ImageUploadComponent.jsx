@@ -4,12 +4,18 @@ import {useDropzone} from "react-dropzone";
 import {DeleteButton, Spinner, Title} from "@/components/index";
 import axios from "axios";
 
-const ImageUploadComponent = ({title,images,setImages}) => {
+const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
     const onDrop = useCallback(acceptedFiles => {
         uploadImages(acceptedFiles).then(()=>setIsUploading(false))
     }, [])
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop,accept:{'image/jpeg': ['.jpeg', '.png','.jpg', '.gif']}})
+    const acceptedFileTypes = isDocuments
+        ?  {'application/pdf': ['.pdf',".doc",".docx"]}
+        :  {'image/jpeg': ['.jpeg', '.png','.jpg', '.gif']};
 
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop,
+        accept: acceptedFileTypes,
+    });
     const [isUploading, setIsUploading] = useState(false);
     async function uploadImages(files){
         setIsUploading(true)
@@ -53,7 +59,7 @@ const ImageUploadComponent = ({title,images,setImages}) => {
                     </div>
                 )}
                 {!images?.length && !isUploading && (
-                    <div className={""}>No photos</div>
+                    <div className={""}>{isDocuments ? "No documents" : "No photos"}</div>
                 )}
                 <div className={"inline-block w-24 h-24 text-center flex items-center justify-center text-sm gap-1 text-gray-500 rounded-lg bg-gray-200 cursor-pointer"}>
                     <div {...getRootProps()} className={"flex flex-col justify-center items-center"}>

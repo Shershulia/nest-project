@@ -17,6 +17,8 @@ import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import WrongPermission from "@/components/adminPage/WrongPermission";
 import DeleteButton from "@/components/adminEventPage/DeleteButton";
 import ImageUploadComponent from "@/components/ImageUploadComponent";
+import DocumentForm from "@/components/adminDocumentsPage/DocumentForm";
+import RadioButton from "@/components/RadioButton";
 export {
     AdminNavBar,
     AdminLayout,
@@ -35,5 +37,8 @@ export {
     MagnifyingGlass,
     ArrowLeftIcon,
     WrongPermission,
-    DeleteButton
+    DeleteButton,
+    DocumentForm,
+    ImageUploadComponent,
+    RadioButton
 }

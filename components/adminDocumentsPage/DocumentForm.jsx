@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {format} from "date-fns";
-import {TextArea, Input, TimePicker, Title} from "@/components";
+import {TextArea, Input, TimePicker, Title, RadioButton, ImageUploadComponent} from "@/components";
 
 const DocumentForm = ({
                       _id,
@@ -14,7 +14,7 @@ const DocumentForm = ({
     const [description, setDescription] = useState(existingDescription || "");
     const [date, setDate] = useState(existingDate ? format(new Date(existingDate), 'MMMM do yyyy hh:mm a') : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
-    const [isDownloadable, setIsDownloadable] = useState(existingIsDownloadable || false);
+    const [isDownloadable, setIsDownloadable] = useState(existingIsDownloadable || "No");
 
     //#TODO: add documents picker add option button to set setIsDownloadable
     return (
@@ -23,6 +23,8 @@ const DocumentForm = ({
             <Input label={"Title of the meeting"} value={title} onChange={setTitle}></Input>
             <TextArea label={"Write in some extra details about the meeting"} value={description} onChange={setDescription}></TextArea>
             <TimePicker label={"Select the date of the meeting"} value={date} setValue={setDate}/>
+            <ImageUploadComponent title={"Select files for meeting"} images={documents} setImages={setDocuments} isDocuments={true}/>
+            <RadioButton title={"Are you allow to download file?"} options={["Yes", "No"]} state={isDownloadable} onChange={setIsDownloadable}/>
         </div>
     );
 };
