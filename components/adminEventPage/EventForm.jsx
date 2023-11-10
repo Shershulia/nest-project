@@ -21,7 +21,7 @@ const EventForm = ({
     const [name,setName] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
 
-    const [date, setDate] = useState(existingDate ? format(new Date(existingDate), 'MMMM do yyyy hh:mm a') : new Date());
+    const [date, setDate] = useState(existingDate ? new Date(existingDate) : new Date());
 
     const [contactPerson, setContactPerson] = useState(existingContactPerson || "");
 
