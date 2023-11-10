@@ -53,7 +53,6 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
                                     <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg"}>{link.split(".com/")[1]}</label>
                                 ) : (
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
-
                                 )
                                 }
                             </div>

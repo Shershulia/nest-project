@@ -99,7 +99,7 @@ const EventForm = ({
 
                     <Input label={"Name"} value={name} onChange={setName} className={styles}></Input>
                     <div className={"w-full flex justify-center items-center"}>
-                        <div className={"w-1/2"}>
+                        <div className={"w-1/2 h-full"}>
                             <TimePicker label={"Choose date"} value={date} setValue={setDate}></TimePicker>
 
                         </div>
@@ -139,6 +139,8 @@ const EventForm = ({
                 onClick={addEvent}>Save</button>
                 <button className={"bg-yellow-600 hover:bg-yellow-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
                         onClick={clearAll}>Clear</button>
+                <button className={"bg-red-600 hover:bg-red-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
+                        onClick={closeForm}>Cancel</button>
             </div>
 
         </div>

@@ -9,8 +9,8 @@ const TimePicker = ({label,value,setValue}) => {
     const [isDisplay, setIsDisplay] = useState(true);
 
     return (
-        <div className='flex flex-col items-center justify-center text-center pb-4'>
-            {isDisplay && (<div>
+        <div className='flex flex-col items-center justify-center text-center pb-4 h-full'>
+            {isDisplay ? (<div>
                 <Title text={label}/>
                 <div className={"flex w-full justify-center items-center"}>
                     <Datetime
@@ -38,7 +38,12 @@ const TimePicker = ({label,value,setValue}) => {
                         onClick={()=>{setIsDisplay(false); setValue("")}}>
                     <p className={"font-bold"}>Without date</p>
                 </button>
-            </div>)
+            </div>) : (
+                <button className={"bg-green-600 w-full h-full rounded-lg hover:bg-green-700 transition-all"}
+                        onClick={()=>{setIsDisplay(true);}}>
+                    <p className={"font-bold"}>Put date back</p>
+                </button>
+            )
             }
 
         </div>

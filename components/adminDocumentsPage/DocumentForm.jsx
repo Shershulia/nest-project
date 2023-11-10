@@ -1,6 +1,8 @@
 import React, {useState} from 'react';
 import {format} from "date-fns";
 import {TextArea, Input, TimePicker, Title, RadioButton, ImageUploadComponent} from "@/components";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 const DocumentForm = ({
                       _id,
@@ -9,23 +11,65 @@ const DocumentForm = ({
                       date : existingDate,
                       documents: existingDocuments,
                       isDownloadable: existingIsDownloadable,
+                      closeEvent,
                       }) => {
     const [title, setTitle] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
-    const [date, setDate] = useState(existingDate ? format(new Date(existingDate), "DD MMM YYYY ,") : new Date());
+    const [date, setDate] = useState(existingDate ? new Date(existingDate) : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
-    const [isDownloadable, setIsDownloadable] = useState(existingIsDownloadable || "No");
+    const [isDownloadable, setIsDownloadable] = useState(existingIsDownloadable===true ? "Yes":"No");
 
 
-    const addRefer = () =>{
-        console.log(date)
+    const closeForm = () =>{
+        closeEvent(false);
     }
-    const clearAll = () =>{
+    const addRefer = ()=>{
+        const data = {title,description,date: new Date(date),documents,isDownloadable: isDownloadable !== "No"}
+        if (existingTitle){
+            const dataToEdit ={_id,...data}
+            axios.put("/api/documents",dataToEdit).then(res=>{
+                Swal.fire(
+                    'Good job!',
+                    `Document with title ${data.t} was edited successfully`,
+                    'success'
+                )
+            }).catch((error) => {
+                Swal.fire(
+                    'Error',
+                    "Hm... Something went wrong, please contact support with your case. " + error.message,
+                    'error'
+                )
+            })
+        }
+        else {
+            axios.post("/api/documents",data).then(res=>{
+                Swal.fire(
+                    'Good job!',
+                    `Document with title ${res.data.name} was added successfully`,
+                    'success'
+                ).then(() => {
+                    closeForm();
+                })
+            }).catch((error) => {
+                Swal.fire(
+                    'Error',
+                    "Hm... Something went wrong, please contact support with your case. " + error.message,
+                    'error'
+                )
+            })
+        }
 
+    }
+    const clearAll = ()=>{
+        setTitle("");
+        setDescription("");
+        setDate(new Date);
+        setIsDownloadable("No");
+        setDocuments([]);
     }
 
     return (
-        <div className={"flex flex-col justify-evenly w-full  h-full bg-white py-8 border border-x-black border-t-black"}>
+        <div className={"flex flex-col justify-evenly w-full  h-full bg-white pb-4 border border-x-black border-t-black"}>
             <div>
                 <Title text={"Create meeting document"}/>
                 <Input label={"Title of the meeting"} value={title} onChange={setTitle} className={'rounded-md w-1/2'}></Input>
@@ -43,7 +87,7 @@ const DocumentForm = ({
                 <button className={"bg-yellow-600 hover:bg-yellow-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
                         onClick={clearAll}>Clear</button>
                 <button className={"bg-red-600 hover:bg-red-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
-                        onClick={clearAll}>Cancel</button>
+                        onClick={closeForm}>Cancel</button>
             </div>
 
         </div>
