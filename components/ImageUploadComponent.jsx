@@ -50,7 +50,7 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
                             <div key={link} className={"h-24 w-24 relative"}>
                                 <DeleteButton onClickFunction={()=>{deleteItems(index)}}/>
                                 {isDocuments ? (
-                                    <label>1</label>
+                                    <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg"}>{link.split(".com/")[1]}</label>
                                 ) : (
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
 

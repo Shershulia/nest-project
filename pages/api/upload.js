@@ -25,7 +25,12 @@ export default async function handle(req,res){
     const links = []
     for (const file of files.file){
         const extension = file.originalFilename.split(".").pop();
-        const newFileName = Date.now() + "." + extension;
+
+        const newFileName = ((extension==="pdf") || (extension==="doc") || (extension==="docx"))
+            ?
+            file.originalFilename
+            :
+            Date.now() + "." + extension;
         await client.send(new PutObjectCommand({
             Bucket:bucketName,
             Key:newFileName,
