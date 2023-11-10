@@ -19,6 +19,7 @@ import DeleteButton from "@/components/adminEventPage/DeleteButton";
 import ImageUploadComponent from "@/components/ImageUploadComponent";
 import DocumentForm from "@/components/adminDocumentsPage/DocumentForm";
 import RadioButton from "@/components/RadioButton";
+import DocumentModal from "@/components/adminDocumentsPage/DocumentModal";
 export {
     AdminNavBar,
     AdminLayout,
@@ -40,5 +41,6 @@ export {
     DeleteButton,
     DocumentForm,
     ImageUploadComponent,
-    RadioButton
+    RadioButton,
+    DocumentModal
 }

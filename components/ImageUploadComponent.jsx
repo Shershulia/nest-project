@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {ReactSortable} from "react-sortablejs";
 import {useDropzone} from "react-dropzone";
-import {DeleteButton, Spinner, Title} from "@/components/index";
+import {DeleteButton, DocumentModal, Spinner, Title} from "@/components/index";
 import axios from "axios";
 
 const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
@@ -50,7 +50,8 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
                             <div key={link} className={"h-24 w-24 relative"}>
                                 <DeleteButton onClickFunction={()=>{deleteItems(index)}}/>
                                 {isDocuments ? (
-                                    <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg"}>{link.split(".com/")[1]}</label>
+                                        <DocumentModal title={link.split(".com/")[1]} link={link}>
+                                        </DocumentModal>
                                 ) : (
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
                                 )

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {getAdminServerSideProps} from "@/utils/adminUtils";
-import {AdminLayout, DocumentForm, GetEventsForEditing, WrongPermission} from "@/components";
+import {AdminLayout, DocumentForm, DocumentModal, GetEventsForEditing, WrongPermission} from "@/components";
 
 const DocumentsAdminPage = ({isAdmin}) => {
     const [eventFormStart, setEventFormStart] = useState(false);
@@ -47,7 +47,7 @@ const DocumentsAdminPage = ({isAdmin}) => {
                                 {eventFormEdit && <GetEventsForEditing isMeetingForm={true}/>}
                             </div>
                         </div>
-
+                        <DocumentModal/>
                     </AdminLayout>
                 </div>
             ):
