@@ -12,13 +12,13 @@ const DocumentForm = ({
                       }) => {
     const [title, setTitle] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
-    const [date, setDate] = useState(existingDate ? format(new Date(existingDate), 'MMMM do yyyy hh:mm a') : new Date());
+    const [date, setDate] = useState(existingDate ? format(new Date(existingDate), "DD MMM YYYY ,") : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
     const [isDownloadable, setIsDownloadable] = useState(existingIsDownloadable || "No");
 
 
     const addRefer = () =>{
-
+        console.log(date)
     }
     const clearAll = () =>{
 

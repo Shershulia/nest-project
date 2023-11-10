@@ -5,7 +5,7 @@ import Swal from "sweetalert2";
 import {format} from "date-fns";
 import ImageUploadComponent from "@/components/ImageUploadComponent";
 
-const styles = "rounded-md mb-2 text-center";
+const styles = "rounded-md mb-2 text-center w-1/2";
 const EventForm = ({
     _id,
     title : existingTitle,
@@ -95,15 +95,24 @@ const EventForm = ({
     return (
         <div className={"flex flex-col justify-evenly w-full  h-full bg-white py-8 border border-x-black border-t-black"}>
             <div className={"mb-10"}>
-                <Input label={"Name"} value={name} onChange={setName} className={styles}></Input>
+                <div className={"flex"}>
+
+                    <Input label={"Name"} value={name} onChange={setName} className={styles}></Input>
+                    <div className={"w-full flex justify-center items-center"}>
+                        <div className={"w-1/2"}>
+                            <TimePicker label={"Choose date"} value={date} setValue={setDate}></TimePicker>
+
+                        </div>
+                    </div>
+
+                </div>
                 <TextArea label={"Description"} value={description} onChange={setDescription} className={"w-3/4 rounded-md"}></TextArea>
-                <TimePicker label={"Choose date"} value={date} setValue={setDate}></TimePicker>
                 <div className={"flex justify-center items-center"}>
                     <div className={"w-full"}>
                         <Title text={"Contact person"}/>
                         {allUsers.length ?
                             (<div className={"flex justify-center"}>
-                                <select className={"border-2 border-black text-center rounded-md p-2 w-max"}
+                                <select className={"border-2 border-black text-center rounded-md p-2 w-1/2"}
                                         value={contactPerson} onChange={event => setContactPerson(event.target.value)}
                                 >
                                     <option value={""} className={"p-4"}>Choose email</option>
@@ -121,9 +130,9 @@ const EventForm = ({
                 <div className={"flex justify-center items-center"}>
                     <Input label={"Price"} value={price} onChange={setPrice}  className={styles} isDigits={true}></Input>
                     <Input label={"Number of people"} value={numberOfPeople} onChange={setNumberOfPeople}  className={styles} isDigits={true}></Input>
-
                 </div>
                 <ImageUploadComponent title={"Photos"} images={images} setImages={setImages}></ImageUploadComponent>
+
             </div>
             <div className={"flex items-center justify-center"}>
                 <button className={"bg-green-600 hover:bg-green-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
