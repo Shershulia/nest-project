@@ -52,7 +52,6 @@ const SettingsAdminPage = ({isAdmin, mainPictures : loaded}) => {
         isAdmin ? (
         <div className="h-full flex bg-blue-600">
             <AdminLayout>
-                <div>Admin Settings</div>
                 <div className={"flex flex-col items-center"}>
                     <ImageUploadComponent title={"Main pictures"}
                                           setImages={setMainPictures}
