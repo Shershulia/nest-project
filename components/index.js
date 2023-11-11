@@ -20,6 +20,8 @@ import ImageUploadComponent from "@/components/ImageUploadComponent";
 import DocumentForm from "@/components/adminDocumentsPage/DocumentForm";
 import RadioButton from "@/components/RadioButton";
 import DocumentModal from "@/components/adminDocumentsPage/DocumentModal";
+import ReceiptRow from "@/components/adminReceiptPage/ReceiptRow";
+import PaperClipIcon from "@/components/icons/PaperClipIcon";
 export {
     AdminNavBar,
     AdminLayout,
@@ -42,5 +44,7 @@ export {
     DocumentForm,
     ImageUploadComponent,
     RadioButton,
-    DocumentModal
+    DocumentModal,
+    ReceiptRow,
+    PaperClipIcon
 }
