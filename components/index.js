@@ -22,7 +22,9 @@ import RadioButton from "@/components/RadioButton";
 import DocumentModal from "@/components/adminDocumentsPage/DocumentModal";
 import ReceiptRow from "@/components/adminReceiptPage/ReceiptRow";
 import PaperClipIcon from "@/components/icons/PaperClipIcon";
+import ReceiptModal from "@/components/adminReceiptPage/ReceiptModal";
 export {
+    ReceiptModal,
     AdminNavBar,
     AdminLayout,
     Input,

@@ -1,6 +1,6 @@
 import React from 'react';
 import {format} from "date-fns";
-import {PaperClipIcon} from "@/components";
+import {PaperClipIcon, ReceiptModal} from "@/components";
 
 const ReceiptRow = ({receipt,index}) => {
     const {_id,description,date,amount,contactPerson,paid,files} = receipt
@@ -12,14 +12,7 @@ const ReceiptRow = ({receipt,index}) => {
                 <p className={"font-bold"}>{amount},-</p>
                 <p>{contactPerson}</p>
             </div>
-            {paid ? (
-                <button className={"flex w-1/3 h-full justify-center items-center border-x border-black p-2 hover:bg-green-400 transition-all duration-500 gap-2"}>
-                    <p>See payments</p>
-                    <PaperClipIcon/>
-                </button>
-            ):(
-                <button className={"flex w-1/3 h-full justify-center items-center border-x border-black p-2 hover:bg-red-400 transition-all duration-500"}>Pay</button>
-            )}
+            <ReceiptModal receipt={receipt}></ReceiptModal>
         </div>
     );
 };
