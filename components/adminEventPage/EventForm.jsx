@@ -33,7 +33,7 @@ const EventForm = ({
     const [images, setImages] = useState(existingImages || [])
 
     useEffect(()=> {
-        axios.get("/api/users").then(res => {
+        axios.get("/api/admin/users").then(res => {
             const arrayOfEmails = res.data.map(obj => obj.email);
             setAllUsers(arrayOfEmails)
         }).catch((error) => {
@@ -47,7 +47,7 @@ const EventForm = ({
         const data = {name,description,date: new Date(date),contactPerson,place,price,numberOfPeople,images}
         if (existingTitle){
             const dataToEdit ={_id,...data}
-            axios.put("/api/events",dataToEdit).then(res=>{
+            axios.put("/api/admin/events",dataToEdit).then(res=>{
                 Swal.fire(
                     'Good job!',
                     `Event with name ${data.name} was edited successfully`,
@@ -62,7 +62,7 @@ const EventForm = ({
             })
         }
         else {
-            axios.post("/api/events",data).then(res=>{
+            axios.post("/api/admin/events",data).then(res=>{
                 Swal.fire(
                     'Good job!',
                     `Event with name ${res.data.name} was added successfully`,

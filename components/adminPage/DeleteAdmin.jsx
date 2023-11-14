@@ -8,14 +8,14 @@ const DeleteAdmin = () => {
     const [allAdmins,setAllAdmins]=useState([]);
 
     useEffect(()=> {
-        axios.get("/api/admin").then(res => {
+        axios.get("/api/admin/admin").then(res => {
             setAllAdmins(res.data)
         }).catch((error) => {
             console.log(error);
         })
     },[]);
     const deleteAdminFun = () =>{
-        axios.delete(`/api/admin/?id=${deleteAdmin}`).then(res=>{
+        axios.delete(`/api/admin/admin/?id=${deleteAdmin}`).then(res=>{
             Swal.fire(
                 'Good job!',
                 `Admin was deleted successfully`,

@@ -28,7 +28,7 @@ const SettingsAdminPage = ({isAdmin, mainPictures : loaded}) => {
                     confirmButtonText: 'Change',
                 }).then(async (result) => {
                     if (result.isConfirmed) {
-                        await axios.put('/api/settings',{...loaded,images:mainPictures}).then(res=>{
+                        await axios.put('/api/admin/settings',{...loaded,images:mainPictures}).then(res=>{
                             Swal.fire({
                                 title:'Images is changed',
                                 icon:"success",

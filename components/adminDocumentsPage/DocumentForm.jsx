@@ -27,7 +27,7 @@ const DocumentForm = ({
         const data = {title,description,date: new Date(date),documents,isDownloadable: isDownloadable !== "No"}
         if (existingTitle){
             const dataToEdit ={_id,...data}
-            axios.put("/api/documents",dataToEdit).then(res=>{
+            axios.put("/api/admin/documents",dataToEdit).then(res=>{
                 Swal.fire(
                     'Good job!',
                     `Document with title ${data.t} was edited successfully`,
@@ -42,7 +42,7 @@ const DocumentForm = ({
             })
         }
         else {
-            axios.post("/api/documents",data).then(res=>{
+            axios.post("/api/admin/documents",data).then(res=>{
                 Swal.fire(
                     'Good job!',
                     `Document with title ${res.data.name} was added successfully`,

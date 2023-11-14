@@ -11,7 +11,7 @@ const GetEventsForEditing = ({isMeetingForm = false}) => {
 
     const loadEvents  = () =>{
         setIsLoading(true);
-        axios.get(isMeetingForm ? "/api/documents" :"/api/events").then(response=>{
+        axios.get(isMeetingForm ? "/api/admin/documents" :"/api/admin/events").then(response=>{
             setAllEvents(response.data)
             console.log(response.data)
 
@@ -31,7 +31,7 @@ const GetEventsForEditing = ({isMeetingForm = false}) => {
             confirmButtonText: 'Delete',
         }).then(async (result) => {
             if (result.isConfirmed) {
-                await axios.delete(`/api/${isMeetingForm ? "documents" :"events"}/?id=${_id}`);
+                await axios.delete(`/api/admin/${isMeetingForm ? "documents" :"events"}/?id=${_id}`);
                 await Swal.fire('Deleted!', '', 'success');
                 loadEvents();
             }

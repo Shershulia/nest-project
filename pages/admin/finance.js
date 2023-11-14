@@ -11,17 +11,17 @@ const FinanceAdminPage = ({isAdmin}) => {
     const loadReceipts = () =>{
         setIsLoading(true);
         if (navigationState==="Confirmed"){
-            axios.get("/api/receipts/?nav=confirmed").then(res=>{
+            axios.get("/api/admin/receipts/?nav=confirmed").then(res=>{
                 setReceipts(res.data);
                 setIsLoading(false)
             })
         }else if (navigationState==="All"){
-            axios.get("/api/receipts/?nav=all").then(res=>{
+            axios.get("/api/admin/receipts/?nav=all").then(res=>{
                 setReceipts(res.data);
                 setIsLoading(false)
             })
         }else{
-            axios.get("/api/receipts/?nav=new").then(res=>{
+            axios.get("/api/admin/receipts/?nav=new").then(res=>{
                 setReceipts(res.data);
                 setIsLoading(false)
             })
