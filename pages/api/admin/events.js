@@ -1,6 +1,7 @@
 import {mongooseConnect} from "@/lib/mongoose";
 import {isAdminRequest} from "@/pages/api/auth/[...nextauth]";
 import {Event} from "@/models/Event"
+import {Receipt} from "@/models/Receipt";
 
 export default async function handler(req, res) {
     try {
@@ -10,6 +11,8 @@ export default async function handler(req, res) {
 
         if (req.method==="POST"){
             const {name, description,date,contactPerson,place,price,numberOfPeople,images} = req.body;
+               // for test
+            // await Receipt.create({description,date:new Date(),amount:100,contactPerson:contactPerson,paid:false,files:images})
                 res.json(await Event.create({name, description,date,contactPerson,place,price,numberOfPeople,images}));
         }
         if (req.method === "GET") {

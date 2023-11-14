@@ -9,7 +9,7 @@ const overlayStyles = "w-screen h-screen top-0 left-0 right-0 left-0 fixed trans
 
 const ReceiptModal = ({receipt}) => {
     const [modal, setModal] = useState(false);
-    const {_id,amount,paid,files} = receipt
+    const {_id,description,amount,paid,files} = receipt
     const [documents, setDocuments] = useState([]);
 
     const [confirmation, setConfirmation] = useState(null);
@@ -21,23 +21,34 @@ const ReceiptModal = ({receipt}) => {
         },[modal])
     }
 
-    const confirmAsPaid = () =>{
-        const dataToEdit = {orderId:_id,files};
-        console.log(dataToEdit)
-        axios.post("/api/admin/confirmPayment",dataToEdit).then(res=>{
-            Swal.fire(
-                'Good job!',
-                `Was successfully paid`,
-                'success'
-            )
-        }).catch((error) => {
+    const confirmAsPaid = async () => {
+        const dataToEdit = { orderId: _id, files };
+
+        try {
+            const result = await Swal.fire({
+                title: 'Do you want to confirm this payment',
+                showCancelButton: true,
+                confirmButtonText: 'Confirm',
+            });
+
+            if (result.isConfirmed) {
+                const response = await axios.post("/api/admin/confirmPayment", dataToEdit);
+                Swal.fire(
+                    'Good job!',
+                    'Was successfully paid',
+                    'success'
+                );
+            }
+        } catch (error) {
+            console.error(error);
             Swal.fire(
                 'Error',
-                "Hm... Something went wrong, please contact support with your case. " + error.message,
+                'Hm... Something went wrong, please contact support with your case.',
                 'error'
-            )
-        })
-    }
+            );
+        }
+    };
+
 
     return (
         <div className={"w-1/3 h-full flex justify-center items-center"}>
@@ -64,6 +75,7 @@ const ReceiptModal = ({receipt}) => {
                                         (
                                             <div className={"flex flex-col h-full w-full justify-center items-center"}>
                                                 <p className={"text-center text-lg text-bold font-bold"}>To pay : {amount},-</p>
+                                                <p className={"text-center text-lg text-bold mt-2"}>{description}</p>
                                                 <ImageUploadComponent title={"Upload screenshots of payments"} images={documents} setImages={setDocuments}/>
                                                 <button onClick={confirmAsPaid}
                                                     className={"w-1/3 bg-green-500 p-2 rounded-lg text-white hover:bg-green-700 transition-all duration-500 mt-6"}>Confirm as paid</button>
