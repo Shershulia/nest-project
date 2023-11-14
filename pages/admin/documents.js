@@ -6,7 +6,6 @@ const DocumentsAdminPage = ({isAdmin}) => {
     const [eventFormStart, setEventFormStart] = useState(false);
     const [eventFormEdit, setEventFormEdit] = useState(false);
 
-
     return (
         isAdmin ? (
                 <div className="h-full flex bg-blue-600">

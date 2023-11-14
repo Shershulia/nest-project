@@ -1,7 +1,6 @@
 import mongoose, {model, Schema,models} from "mongoose";
 
 const PaymentConfirmationSchema = new Schema({
-    description:String,
     orderId:{
         type:mongoose.Types.ObjectId,
         ref:'Receipt'
