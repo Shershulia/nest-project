@@ -23,6 +23,7 @@ import DocumentModal from "@/components/adminDocumentsPage/DocumentModal";
 import ReceiptRow from "@/components/adminReceiptPage/ReceiptRow";
 import PaperClipIcon from "@/components/icons/PaperClipIcon";
 import ReceiptModal from "@/components/adminReceiptPage/ReceiptModal";
+import WhiteBox from "@/components/WhiteBox";
 export {
     ReceiptModal,
     AdminNavBar,
@@ -48,5 +49,6 @@ export {
     RadioButton,
     DocumentModal,
     ReceiptRow,
-    PaperClipIcon
+    PaperClipIcon,
+    WhiteBox
 }
