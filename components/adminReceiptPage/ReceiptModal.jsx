@@ -1,7 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import {ImageUploadComponent, PaperClipIcon} from "@/components";
+import {DeleteButton, DocumentModal, ImageUploadComponent, PaperClipIcon} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {format} from "date-fns";
 
 
 const overlayStyles = "w-screen h-screen top-0 left-0 right-0 left-0 fixed transition-all duration-300 ";
@@ -70,7 +71,18 @@ const ReceiptModal = ({receipt}) => {
                             <button className={"absolute top-0 right-0 p-2 border-black rounded-lg bg-white"} onClick={()=>setModal(false)}>Close</button>
                                 {
                                     paid ?
-                                        (<p>{confirmation?.orderId} Order Id</p>)
+                                        (<>
+                                                <p className={"mb-4"}>Was paid : {format(new Date(confirmation?.createdAt), 'MMMM do yyyy hh:mm a')}</p>
+                                                <div className={"mb-2 flex flex-wrap gap-2 justify-center items-center"}>
+                                                    {!!confirmation?.files?.length && confirmation?.files.map((link,index)=>(
+                                                        <div key={link} className={"h-24 w-24 relative"}>
+                                                                <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
+                                                        </div>
+                                            ))}
+                                                    {!confirmation?.files?.length && <p>No confirmation screenshots found</p>}
+                                                </div>
+                                        </>
+                                            )
                                         :
                                         (
                                             <div className={"flex flex-col h-full w-full justify-center items-center"}>
