@@ -1,26 +1,31 @@
 import {mongooseConnect} from "@/lib/mongoose";
 import {RevealWrapper} from "next-reveal";
-import {CalendarIcon, ShareIcon, WhiteBox} from "@/components";
+import {CalendarIcon, PlusIcon, ShareIcon, WhiteBox} from "@/components";
 import {Event} from "@/models/Event";
 import {format} from "date-fns";
 import axios from "axios";
+import {useSession} from "next-auth/react";
+import {data} from "autoprefixer";
+
 const SingeProductPage = ({event}) => {
+    const { data: session } = useSession()
 
     const createGoogleCalendarEvent = () =>{
-        const eventToSend ={
-            "summary":event.name,
-            "description":event.description,
-            "start":{
-                "dateTime":event.date.toIsoString(),
-                "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone
-            },
-            "end":{
-                "dateTime":event.date.setHours(event.date.getHours()+2).toIsoString(),
-                "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone
-            }
-        }
-        axios.post("https://www.googleapis.com/calendar/v3/calendars/primary/events",eventToSend).then(res=>
-        console.log(res.data))
+        // const eventToSend ={
+        //     "summary":event.name,
+        //     "description":event.description,
+        //     "start":{
+        //         "dateTime":event.date.toIsoString(),
+        //         "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone
+        //     },
+        //     "end":{
+        //         "dateTime":event.date.setHours(event.date.getHours()+2).toIsoString(),
+        //         "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone
+        //     }
+        // }
+       // axios.post("https://www.googleapis.com/calendar/v3/calendars/primary/events",eventToSend).then(res=>
+        //console.log(res.data))
+        console.log(session)
     }
 
     return (
@@ -34,7 +39,7 @@ const SingeProductPage = ({event}) => {
                             {event.place && <div className={"flex gap-2"}> <p className={"font-bold"}>Place: </p> {event.place}</div>}
                             {event.numberOfPeople!==0 && <div className={"flex gap-2"}> <p className={"font-bold"}>Number of people: </p> {event.numberOfPeople}</div> }
                             {event.price!==0 && <div className={"flex gap-2"}> <p className={"font-bold"}>Price: </p> {event.price}</div> }
-                            {event.contactPerson && <div className={"flex gap-2"}> <p className={"font-bold"}>Contact person: </p> {event.contactPerson}</div> }
+                            {event.contactPerson && <div className={"flex flex-col truncate max-w-full"}> <p className={"font-bold"}>Contact person: </p> {event.contactPerson}</div> }
 
                         </div>
                     </WhiteBox>
@@ -48,6 +53,12 @@ const SingeProductPage = ({event}) => {
                         <CalendarIcon/>
                         <p>Add to calendar</p>
                     </button>
+                    <button  onClick={()=>{}} className={`w-full bg-blue-600 border rounded-full text-white ${session ? "hover:bg-white hover:text-blue-600 hover:border-blue-600 " : "cursor-not-allowed opacity-50 "}` +
+                        "mt-4 py-2 flex justify-center items-center gap-4 transition-all duration-500 font-semibold"}>
+                        <PlusIcon/>
+                        <p>{session ? `Join Event ${event.price},-`: "You should be authorized to join event"}</p>
+                    </button>
+
                 </div>
             </RevealWrapper>
 
