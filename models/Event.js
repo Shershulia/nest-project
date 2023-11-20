@@ -6,10 +6,8 @@ const EventSchema = new Schema({
         required:true,
     },
     description:String,
-    date:{
-        type:Date,
-        required:true,
-    },
+    date:Date,
+
     contactPerson:String,
     place:String,
     price:Number,

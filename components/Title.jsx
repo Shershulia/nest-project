@@ -2,7 +2,7 @@ import React from 'react';
 
 const Title = ({text, className = ""}) => {
     return (
-        <div className={"flex justify-center items-center py-4"}>
+        <div className={"flex justify-center items-center py-4 w-full"}>
             <h1 className={`text-xl font-bold ${className}`}>{text}</h1>
         </div>
     );

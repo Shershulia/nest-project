@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
-import {AdminLayout, EventForm, GetEventsForEditing} from "@/components";
+import {AdminLayout, EventForm, GetEventsForEditing, WrongPermission} from "@/components";
+import {getAdminServerSideProps} from "@/utils/adminUtils";
 
-const EventsAdminPage = () => {
+const EventsAdminPage = ({isAdmin}) => {
     const [eventFormStart, setEventFormStart] = useState(false);
     const [eventFormEdit, setEventFormEdit] = useState(false);
 
 
     return (
+        isAdmin ? (
         <div className="h-full flex bg-blue-600">
             <AdminLayout>
                 <div>
@@ -24,7 +26,7 @@ const EventsAdminPage = () => {
                             eventFormStart ? 'max-h-full' : 'max-h-0'
                         } `}
                     >
-                        {eventFormStart && <EventForm />}
+                        {eventFormStart && <EventForm closeEvent={setEventFormStart} />}
                     </div>
                 </div>
                 <div>
@@ -48,7 +50,16 @@ const EventsAdminPage = () => {
 
             </AdminLayout>
         </div>
-    );
+        ):
+    (
+        <WrongPermission/>
+    )
+);
 };
 
 export default EventsAdminPage;
+
+//Check of admin permission happens on server side
+export async function getServerSideProps(ctx){
+    return await getAdminServerSideProps(ctx);
+}

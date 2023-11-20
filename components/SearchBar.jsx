@@ -1,14 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import {MagnifyingGlass, Title} from "@/components/index";
 
-const SearchBar = ({data, setData, originalData, title}) => {
+const SearchBar = ({data, setData, originalData, title, isDocuments}) => {
     const [searchValue, setSearchValue] = useState("")
     const searchFun = () =>{
 
         if (searchValue === "") {
             setData(originalData); // Reset to original data if the search query is empty
         } else {
-            const filteredData = data.filter((event) => event.name.toLowerCase().includes(searchValue.toLowerCase()));
+            const filteredData = data.filter((event) => {
+                const property = isDocuments ? event.title : event.name;
+                return property.toLowerCase().includes(searchValue.toLowerCase())
+            });
             setData(filteredData); // Update data based on the filtered query
         }
 
