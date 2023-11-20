@@ -1,32 +1,14 @@
 import {mongooseConnect} from "@/lib/mongoose";
 import {RevealWrapper} from "next-reveal";
-import {CalendarIcon, PlusIcon, ShareIcon, ShareLinks, WhiteBox} from "@/components";
+import {AddToCalendarButton, CalendarIcon, PlusIcon, ShareLinks, WhiteBox} from "@/components";
 import {Event} from "@/models/Event";
 import {format} from "date-fns";
-import axios from "axios";
 import {useSession} from "next-auth/react";
-import {data} from "autoprefixer";
-import {useRouter} from "next/router";
+
 
 const SingeProductPage = ({event}) => {
     const { data: session } = useSession()
-    const createGoogleCalendarEvent = () =>{
-        // const eventToSend ={
-        //     "summary":event.name,
-        //     "description":event.description,
-        //     "start":{
-        //         "dateTime":event.date.toIsoString(),
-        //         "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone
-        //     },
-        //     "end":{
-        //         "dateTime":event.date.setHours(event.date.getHours()+2).toIsoString(),
-        //         "timeZone": Intl.DateTimeFormat().resolvedOptions().timeZone
-        //     }
-        // }
-       // axios.post("https://www.googleapis.com/calendar/v3/calendars/primary/events",eventToSend).then(res=>
-        //console.log(res.data))
-        console.log(session)
-    }
+
 
     return (
         <div className={"bg-white h-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
@@ -44,18 +26,14 @@ const SingeProductPage = ({event}) => {
                         </div>
                     </WhiteBox>
 
-                    <button  onClick={createGoogleCalendarEvent} className={"w-full border-blue-600 border rounded-full text-blue-600 bg-white " +
-                        "mt-4 py-2 flex justify-center items-center md:gap-4 hover:bg-blue-600 hover:text-white transition-all duration-500 font-semibold"}>
-                        <CalendarIcon/>
-                        <p>Add to calendar</p>
-                    </button>
+                    <AddToCalendarButton event={event}/>
                     <button  onClick={()=>{}} className={`w-full bg-blue-600 border rounded-full text-white ${session ? "hover:bg-white hover:text-blue-600 hover:border-blue-600 " : "cursor-not-allowed opacity-50 "}` +
                         "mt-4 py-2 flex justify-center items-center md:gap-4 transition-all duration-500 font-semibold"}>
                         <PlusIcon/>
                         <p>{session ? `Join Event ${event.price},-`: "You should be authorized to join event"}</p>
                     </button>
                     <div className={"w-full gap-4 px-2"}>
-                        <ShareLinks size={36} title={"Share event:"}></ShareLinks>
+                        <ShareLinks size={36} title={"Share event:"} quote={"Look at this event"}></ShareLinks>
                     </div>
 
 

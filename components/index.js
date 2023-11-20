@@ -27,6 +27,7 @@ import WhiteBox from "@/components/WhiteBox";
 import ShareIcon from "@/components/icons/ShareIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
 import ShareLinks from "@/components/ShareLinks";
+import AddToCalendarButton from "@/components/AddToCalendarButton";
 export {
     ReceiptModal,
     AdminNavBar,
@@ -56,5 +57,6 @@ export {
     WhiteBox,
     ShareIcon,
     PlusIcon,
-    ShareLinks
+    ShareLinks,
+    AddToCalendarButton
 }

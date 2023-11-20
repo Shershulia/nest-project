@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
     EmailIcon,
     EmailShareButton,
@@ -12,43 +12,44 @@ import {
 import {useRouter} from "next/router";
 import {Title} from "@/components/index";
 
-const ShareLinks = ({size=32,title}) => {
+const ShareLinks = ({size=32,title,quote}) => {
     const { asPath  } = useRouter()
-    const link = "http://localhost:3000" + asPath
+    const link = process.env.NEXT_PUBLIC_INTERNAL_URI + asPath;
+
     return (
         <div className={"flex flex-col justify-center items-center"}>
             <Title text={title}/>
             <div className={"w-full flex items-center justify-around flex-wrap"}>
                 <FacebookShareButton
                     url={link}
-                    quote={'Share event with your Facebook followers'}
+                    quote={quote}
                     hashtag={'#nestbest'}
                 >
                     <FacebookIcon size={size} round />
                 </FacebookShareButton>
                 <ViberShareButton
-                    url={'https://github.com/next-share'}
-                    title={'Share event with your Viber contacts'}
+                    url={link}
+                    title={quote}
                 >
                     <ViberIcon size={size} round />
                 </ViberShareButton>
                 <TelegramShareButton
                     url={link}
-                    title={'Share event with your Telegram contacts'}
+                    title={quote}
                 >
                     <TelegramIcon size={size} round />
                 </TelegramShareButton>
 
                 <TwitterShareButton
                     url={link}
-                    title={'Share event with your Twitter followers'}
+                    title={quote}
                 >
                     <TwitterIcon size={size} round />
                 </TwitterShareButton>
 
                 <WhatsappShareButton
                     url={link}
-                    title={'Share event with your Whatsapp contacts'}
+                    title={quote}
                     separator=":: "
                 >
                     <WhatsappIcon size={size} round />
@@ -60,7 +61,7 @@ const ShareLinks = ({size=32,title}) => {
                 <a
                     href={`mailto:?to=${encodeURIComponent(link)}&subject=${encodeURIComponent('Look at the event ')}&body=${encodeURIComponent(`I want to invite you to invite you to event ${link}`)}`}
                 >
-                    <EmailIcon size={40} round />
+                    <EmailIcon size={size} round />
                 </a>
 
             </div>
