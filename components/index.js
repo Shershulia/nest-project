@@ -26,6 +26,7 @@ import ReceiptModal from "@/components/adminReceiptPage/ReceiptModal";
 import WhiteBox from "@/components/WhiteBox";
 import ShareIcon from "@/components/icons/ShareIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
+import ShareLinks from "@/components/ShareLinks";
 export {
     ReceiptModal,
     AdminNavBar,
@@ -54,5 +55,6 @@ export {
     PaperClipIcon,
     WhiteBox,
     ShareIcon,
-    PlusIcon
+    PlusIcon,
+    ShareLinks
 }
