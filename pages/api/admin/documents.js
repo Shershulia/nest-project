@@ -8,9 +8,9 @@ export default async function handler(req, res) {
         await isAdminRequest(req,res);
 
         if (req.method==="POST"){
-            const {title, description,date,documents,isDownloadable} = req.body;
+            const {title, description,date,documents} = req.body;
 
-            res.json(await MeetingDocument.create({title, description,date, documents, isDownloadable }));
+            res.json(await MeetingDocument.create({title, description,date, documents }));
         }
         if (req.method === "GET") {
             res.json(await MeetingDocument.find());
@@ -19,8 +19,8 @@ export default async function handler(req, res) {
             res.json(await MeetingDocument.deleteOne({_id:req.query?.id}))
         }
         if (req.method==='PUT'){
-            const {_id,title, description,date,documents,isDownloadable} = req.body;
-            await MeetingDocument.updateOne({_id},{title, description,date,documents,isDownloadable})
+            const {_id,title, description,date,documents} = req.body;
+            await MeetingDocument.updateOne({_id},{title, description,date,documents})
             res.json(true);
         }
     }

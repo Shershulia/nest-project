@@ -9,27 +9,25 @@ const DocumentForm = ({
                       description: existingDescription,
                       date : existingDate,
                       documents: existingDocuments,
-                      isDownloadable: existingIsDownloadable,
                       closeEvent,
                       }) => {
     const [title, setTitle] = useState(existingTitle || "");
     const [description, setDescription] = useState(existingDescription || "");
     const [date, setDate] = useState(existingDate ? new Date(existingDate) : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
-    const [isDownloadable, setIsDownloadable] = useState(existingIsDownloadable===true ? "Yes":"No");
 
 
     const closeForm = () =>{
         closeEvent(false);
     }
     const addRefer = ()=>{
-        const data = {title,description,date: new Date(date),documents,isDownloadable: isDownloadable !== "No"}
+        const data = {title,description,date: new Date(date),documents}
         if (existingTitle){
             const dataToEdit ={_id,...data}
             axios.put("/api/admin/documents",dataToEdit).then(res=>{
                 Swal.fire(
                     'Good job!',
-                    `Document with title ${data.t} was edited successfully`,
+                    `Document with title ${data.title} was edited successfully`,
                     'success'
                 )
             }).catch((error) => {
@@ -44,7 +42,7 @@ const DocumentForm = ({
             axios.post("/api/admin/documents",data).then(res=>{
                 Swal.fire(
                     'Good job!',
-                    `Document with title ${res.data.name} was added successfully`,
+                    `Document with title ${res.data.title} was added successfully`,
                     'success'
                 ).then(() => {
                     closeForm();
@@ -75,8 +73,6 @@ const DocumentForm = ({
                 <TextArea label={"Write in some extra details about the meeting"} value={description} onChange={setDescription} className={'rounded-md w-1/2'}></TextArea>
                 <div className={"flex gap-6 justify-center"}>
                     <TimePicker label={"Select the date of the meeting"} value={date} setValue={setDate} />
-                    <RadioButton title={"Are you allow to download file?"} options={["Yes", "No"]} state={isDownloadable} onChange={setIsDownloadable}/>
-
                 </div>
                 <ImageUploadComponent title={"Select files for meeting"} images={documents} setImages={setDocuments} isDocuments={true}/>
             </div>

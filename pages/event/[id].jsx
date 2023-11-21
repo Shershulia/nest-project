@@ -6,7 +6,6 @@ import {format} from "date-fns";
 import {useSession} from "next-auth/react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {useRouter} from "next/router";
 
 
 const SingeProductPage = ({event}) => {
@@ -159,10 +158,10 @@ export default SingeProductPage;
 export async function getServerSideProps(context){
     await mongooseConnect();
     const {id} = context.query;
-    const product = await Event.findById(id);
+    const event = await Event.findById(id);
     return {
         props:{
-            event:JSON.parse(JSON.stringify(product))
+            event:JSON.parse(JSON.stringify(event))
         }
     }
 }
