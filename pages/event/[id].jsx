@@ -4,11 +4,51 @@ import {AddToCalendarButton, CalendarIcon, PlusIcon, ShareLinks, WhiteBox} from 
 import {Event} from "@/models/Event";
 import {format} from "date-fns";
 import {useSession} from "next-auth/react";
+import axios from "axios";
+import Swal from "sweetalert2";
 
 
 const SingeProductPage = ({event}) => {
     const { data: session } = useSession()
+    const joinEvent = () =>{
+        if(event.participants.includes(session.user.email)){
+            const dataToEdit ={_id:event._id,numberOfPeople:event.numberOfPeople,participants:event.participants,flag:"d"}
 
+            axios.put("/api/joinEvent",dataToEdit).then(res=>{
+                if (res.data){
+                    Swal.fire(
+                        'Good job!',
+                        `You was unassigned for this event`,
+                        'success'
+                    )
+                }
+            }).catch((error) => {
+                Swal.fire(
+                    'Error',
+                    "Hm... Something went wrong, please contact support with your case. " + error.message,
+                    'error'
+                )
+            })
+        }else{
+            const dataToEdit ={_id:event._id,numberOfPeople:event.numberOfPeople,participants:event.participants,flag:"a"}
+            axios.put("/api/joinEvent",dataToEdit).then(res=>{
+                if (res.data){
+                    Swal.fire(
+                        'Good job!',
+                        `You was assign for this event`,
+                        'success'
+                    )
+                }
+            }).catch((error) => {
+                Swal.fire(
+                    'Error',
+                    "Hm... Something went wrong, please contact support with your case. " + error.message,
+                    'error'
+                )
+            })
+        }
+
+    }
 
     return (
         <div className={"bg-white min-h-screen h-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
@@ -19,7 +59,7 @@ const SingeProductPage = ({event}) => {
                             <p className={"font-bold text-4xl mb-4 text-black"}>Details</p>
                             {event.date && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Date: </p> {format(new Date(event.date), 'MMMM do yyyy hh:mm a')}</div>}
                             {event.place && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Place: </p> {event.place}</div>}
-                            {event.numberOfPeople!==0 && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Number of people: </p> {event.numberOfPeople}</div> }
+                            {event.numberOfPeople!==0 && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Number of people: </p> {event.participants.length}/{event.numberOfPeople}</div> }
                             {event.price!==0 && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Price: </p> {event.price}</div> }
                             {event.contactPerson && <div className={"flex flex-col truncate max-w-full text-black"}> <p className={"font-bold"}>Contact person: </p> {event.contactPerson}</div> }
 
@@ -27,10 +67,27 @@ const SingeProductPage = ({event}) => {
                     </WhiteBox>
 
                     <AddToCalendarButton event={event}/>
-                    <button  onClick={()=>{}} className={`w-full bg-blue-600 border rounded-full text-white ${session ? "hover:bg-white hover:text-blue-600 hover:border-blue-600 " : "cursor-not-allowed opacity-50 "}` +
-                        "mt-4 py-2 flex justify-center items-center md:gap-4 transition-all duration-500 font-semibold"}>
-                        <PlusIcon/>
-                        <p>{session ? `Join Event ${event.price},-`: "You should be authorized to join event"}</p>
+                    <button  onClick={joinEvent} className={`w-full bg-blue-600 border rounded-full text-white mt-4 py-2 flex justify-center items-center md:gap-4 transition-all duration-500 font-semibold ${
+                        session
+                            ? (event.participants.length >= event.numberOfPeople && !event.participants.includes(session.user.email) ) 
+                                ? "cursor-not-allowed opacity-50"
+                                : "hover:bg-white hover:text-blue-600 hover:border-blue-600"
+                            : "cursor-not-allowed opacity-50 "
+                    }`}
+                    >
+                            {session
+                                ? event.participants.includes(session.user.email)
+                                    ? (<p>You already joined this event, click here to unassign</p>)
+                                    : event.participants.length >= event.numberOfPeople
+                                        ? (<p>This event is full, try to apply later</p>)
+                                        : (<>
+                                                <PlusIcon></PlusIcon>
+                                                <p>Join Event {event.price},-</p>
+                                        </>
+                                            )
+                                : (<p>You should be authorized to join event</p>)}
+
+
                     </button>
                     <div className={"w-full gap-4 px-2"}>
                         <ShareLinks size={36} title={"Share event:"} quote={"Look at this event"}></ShareLinks>
