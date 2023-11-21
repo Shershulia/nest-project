@@ -6,6 +6,7 @@ import {format} from "date-fns";
 import ImageUploadComponent from "@/components/ImageUploadComponent";
 
 const styles = "rounded-md mb-2 text-center w-1/2";
+
 const EventForm = ({
     _id,
     title : existingTitle,
@@ -15,6 +16,7 @@ const EventForm = ({
     place: existingPlace,
     price: existingPrice,
     numberOfPeople: existingNumberOfPeople,
+    duration:existingDuration,
     images:existingImages,
     closeEvent
                    }) => {
@@ -31,7 +33,7 @@ const EventForm = ({
     const [price, setPrice] = useState(existingPrice || 0);
     const [numberOfPeople, setNumberOfPeople] = useState(existingNumberOfPeople || 0);
     const [images, setImages] = useState(existingImages || [])
-
+    const [duration, setDuration] = useState(existingDuration || 0)
     useEffect(()=> {
         axios.get("/api/admin/users").then(res => {
             const arrayOfEmails = res.data.map(obj => obj.email);
@@ -44,7 +46,7 @@ const EventForm = ({
         closeEvent(false);
     }
     const addEvent = ()=>{
-        const data = {name,description,date: new Date(date),contactPerson,place,price,numberOfPeople,images}
+        const data = {name,description,date: new Date(date),contactPerson,place,price,numberOfPeople,images,duration,participants:[]}
         if (existingTitle){
             const dataToEdit ={_id,...data}
             axios.put("/api/admin/events",dataToEdit).then(res=>{
@@ -101,10 +103,8 @@ const EventForm = ({
                     <div className={"w-full flex justify-center items-center"}>
                         <div className={"w-1/2 h-full"}>
                             <TimePicker label={"Choose date"} value={date} setValue={setDate}></TimePicker>
-
                         </div>
                     </div>
-
                 </div>
                 <TextArea label={"Description"} value={description} onChange={setDescription} className={"w-3/4 rounded-md"}></TextArea>
                 <div className={"flex justify-center items-center"}>
@@ -127,7 +127,8 @@ const EventForm = ({
                     </div>
                     <Input label={"Place"} value={place} onChange={setPlace} className={styles}/>
                 </div>
-                <div className={"flex justify-center items-center"}>
+                <div className={"flex w-2/3 m-auto justify-center items-center"}>
+                    <Input label={"Duration, mins"} value={duration} onChange={setDuration} className={styles} isDigits={true}></Input>
                     <Input label={"Price"} value={price} onChange={setPrice}  className={styles} isDigits={true}></Input>
                     <Input label={"Number of people"} value={numberOfPeople} onChange={setNumberOfPeople}  className={styles} isDigits={true}></Input>
                 </div>

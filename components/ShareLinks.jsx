@@ -19,7 +19,7 @@ const ShareLinks = ({size=32,title,quote}) => {
     return (
         <div className={"flex flex-col justify-center items-center"}>
             <Title text={title}/>
-            <div className={"w-full flex items-center justify-around flex-wrap"}>
+            <div className={"w-full flex items-center justify-around flex-wrap "}>
                 <FacebookShareButton
                     url={link}
                     quote={quote}

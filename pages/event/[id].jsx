@@ -11,7 +11,7 @@ const SingeProductPage = ({event}) => {
 
 
     return (
-        <div className={"bg-white h-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
+        <div className={"bg-white min-h-screen h-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
             <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12"}>
                 <div className={"md:py-12 py-6 md:pl-60 w-full "}>
                     <WhiteBox>
