@@ -6,45 +6,82 @@ import {format} from "date-fns";
 import {useSession} from "next-auth/react";
 import axios from "axios";
 import Swal from "sweetalert2";
+import {useRouter} from "next/router";
 
 
 const SingeProductPage = ({event}) => {
     const { data: session } = useSession()
-    const joinEvent = () =>{
-        if(event.participants.includes(session.user.email)){
-            const dataToEdit ={_id:event._id,numberOfPeople:event.numberOfPeople,participants:event.participants,flag:"d"}
 
-            axios.put("/api/joinEvent",dataToEdit).then(res=>{
-                if (res.data){
-                    Swal.fire(
-                        'Good job!',
-                        `You was unassigned for this event`,
-                        'success'
-                    )
+
+    const joinEvent = () => {
+        if (event.participants.includes(session.user.email)) {
+            Swal.fire({
+                title: `Do you unassign from this event`,
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const dataToEdit = {
+                        _id: event._id,
+                        numberOfPeople: event.numberOfPeople,
+                        participants: event.participants,
+                        flag: "d"
+                    }
+                    axios.put("/api/joinEvent", dataToEdit).then(res => {
+                        if (res.data) {
+                            Swal.fire(
+                                'Good job!',
+                                `You was unassigned for this event`,
+                                'success'
+                            ).then(result=>{
+                                location.reload();
+
+                            })
+
+                        }
+                    }).catch((error) => {
+                        Swal.fire(
+                            'Error',
+                            "Hm... Something went wrong, please contact support with your case. " + error.message,
+                            'error'
+                        )
+
+                    })
                 }
-            }).catch((error) => {
-                Swal.fire(
-                    'Error',
-                    "Hm... Something went wrong, please contact support with your case. " + error.message,
-                    'error'
-                )
             })
-        }else{
-            const dataToEdit ={_id:event._id,numberOfPeople:event.numberOfPeople,participants:event.participants,flag:"a"}
-            axios.put("/api/joinEvent",dataToEdit).then(res=>{
-                if (res.data){
-                    Swal.fire(
-                        'Good job!',
-                        `You was assign for this event`,
-                        'success'
-                    )
+        } else {
+            Swal.fire({
+                title: `Do you assign for this event?`,
+                showCancelButton: true,
+                confirmButtonText: 'Yes',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    const dataToEdit = {
+                        _id: event._id,
+                        numberOfPeople: event.numberOfPeople,
+                        participants: event.participants,
+                        flag: "a"
+                    }
+                    axios.put("/api/joinEvent", dataToEdit).then(res => {
+                        if (res.data) {
+                            Swal.fire(
+                                'Good job!',
+                                `You was assign for this event`,
+                                'success'
+                            ).then(result=>{
+                                location.reload();
+
+                            })
+
+                        }
+                    }).catch((error) => {
+                        Swal.fire(
+                            'Error',
+                            "Hm... Something went wrong, please contact support with your case. " + error.message,
+                            'error'
+                        )
+                    })
                 }
-            }).catch((error) => {
-                Swal.fire(
-                    'Error',
-                    "Hm... Something went wrong, please contact support with your case. " + error.message,
-                    'error'
-                )
             })
         }
 

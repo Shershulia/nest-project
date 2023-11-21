@@ -12,11 +12,10 @@ export default async function handler(req, res) {
             const {_id,numberOfPeople,participants,flag} = req.body;
             if(flag==="a"){
                 const newParticipants =[...participants,user.email]
-                if ((newParticipants.length>=numberOfPeople) || newParticipants.includes(user.email)){
+                if ((participants.length>=numberOfPeople) || participants.includes(user.email)){
                     res.json(false)
                 }
-                await Event.updateOne({_id},{participants:newParticipants})
-                res.json(true);
+                res.json(await Event.updateOne({_id},{participants:newParticipants}));
             }else {
                 const newParticipants = participants.filter(e => e !== user.email);
                 await Event.updateOne({_id},{participants:newParticipants})
