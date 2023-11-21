@@ -15,11 +15,11 @@ const SingleDocumentPage = ({meetingDocument}) => {
         event.preventDefault()
         if (operation==="+"){
             if ((index+1)!==numberOfDocuments){
-                setIndex(prevState => prevState++)
+                setIndex(prevState => prevState+1)
             }else alert("No next index")
         }else{
             if (index>0){
-                setIndex(prevState => prevState--)
+                setIndex(prevState => prevState-1)
             }else alert("No previous index")
         }
     }
@@ -35,14 +35,14 @@ const SingleDocumentPage = ({meetingDocument}) => {
 
 
     return (
-        <div className={"bg-white min-h-screen h-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
+        <div className={"bg-white min-h-screen w-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
             <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12"}>
                 <div className={"md:py-12 py-6 md:pl-60 w-full "}>
                     <WhiteBox>
                         <div className={"p-4"}>
                             <p className={"font-bold text-4xl mb-4 text-black"}>Details</p>
                             {meetingDocument.title && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Title: </p> {meetingDocument.title}</div>}
-                            {meetingDocument.description && <div className={"flex flex-wrap gap-2 text-black truncate max-w-full "}> <p className={"font-bold"}>Description: </p> {meetingDocument.description}</div>}
+                            {meetingDocument.description && <div className={"flex flex-wrap gap-2 text-black "}> <p className={"font-bold"}>Description: </p> {meetingDocument.description}</div>}
                             {meetingDocument.date && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Date: </p> {format(new Date(meetingDocument.date), 'MMMM do yyyy hh:mm a')}</div>}
                         </div>
                     </WhiteBox>
@@ -77,13 +77,13 @@ const SingleDocumentPage = ({meetingDocument}) => {
                         <div className={"p-4 w-full"}>
                             {meetingDocument.documents.length && (
                                 <div className={"overflow-hidden"}>
-                                    <embed src={meetingDocument.documents[index]} className={"w-full h-screen translate-y-[-60px]"}
+                                    <embed src={meetingDocument.documents[index]} className={"w-full h-screen"}
                                     />
                                 </div>
                                     )}
                         </div>
-                        {(((index+1)!==numberOfDocuments)&&(index>0)) &&
-                        <div className={"flex py-2 translate-y-[-60px] gap-10 mx-10"}>
+                        {(numberOfDocuments!==1) &&
+                        <div className={"flex py-2 gap-10 mx-10"}>
                             <button onClick={(event)=>{changeIndex(event,"-")}} className={`w-full bg-blue-600 border rounded-full text-white mt-4 py-2 flex justify-center items-center md:gap-4 transition-all duration-500 font-semibold ${
                                 (index>0) ? "hover:bg-white hover:text-blue-600 hover:border-blue-600" : "cursor-not-allowed opacity-50 "
                             }`}>
