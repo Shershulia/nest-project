@@ -11,7 +11,7 @@ import TimePicker from "@/components/TimePicker";
 import EventForm from "@/components/adminEventPage/EventForm";
 import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing";
 import EventEditRow from "@/components/adminEventPage/EventEditRow";
-import SearchBar from "@/components/SearchBar"
+import SearchBarEventOrDocument from "@/components/SearchBarEventOrDocument"
 import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import WrongPermission from "@/components/adminPage/WrongPermission";
@@ -28,6 +28,7 @@ import ShareIcon from "@/components/icons/ShareIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
 import ShareLinks from "@/components/ShareLinks";
 import AddToCalendarButton from "@/components/AddToCalendarButton";
+import SearchBar from "@/components/SearchBar";
 export {
     ReceiptModal,
     AdminNavBar,
@@ -43,7 +44,7 @@ export {
     EventForm,
     GetEventsForEditing,
     EventEditRow,
-    SearchBar,
+    SearchBarEventOrDocument,
     MagnifyingGlass,
     ArrowLeftIcon,
     WrongPermission,
@@ -58,5 +59,6 @@ export {
     ShareIcon,
     PlusIcon,
     ShareLinks,
-    AddToCalendarButton
+    AddToCalendarButton,
+    SearchBar
 }

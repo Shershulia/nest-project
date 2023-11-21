@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {EventEditRow, SearchBar, Spinner, Title} from "@/components";
+import {EventEditRow, SearchBarEventOrDocument, Spinner, Title} from "@/components";
 import Image from "next/image";
 import Swal from "sweetalert2";
 
@@ -40,7 +40,7 @@ const GetEventsForEditing = ({isMeetingForm = false}) => {
 
     return (
         <div className={"w-full"}>
-            <SearchBar data={allEvents} setData={setAllEvents} originalData={fetchedData} title={`Search for ${isMeetingForm ? "document" :"event"}`} isDocuments={isMeetingForm}/>
+            <SearchBarEventOrDocument data={allEvents} setData={setAllEvents} originalData={fetchedData} title={`Search for ${isMeetingForm ? "document" :"event"}`} isDocuments={isMeetingForm}/>
             {isLoading && <Spinner fullWidth={true}/>}
             {( allEvents.length>0 && !isLoading ) && (
                 <>
