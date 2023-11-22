@@ -10,14 +10,19 @@ const Events = () => {
     const getEvents = () =>{
         setEventsLoading(true)
         axios.get(`/api/events?search=${filter}`).then(res=>{
+            setEvents(res.data)
             setEventsLoading(false)
-            console.log(res.data)
         })
     }
 
-    useEffect(()=>{
-        getEvents()
-    },[filter])
+    useEffect(() => {
+        const delayDebounceFn = setTimeout(() => {
+            getEvents()
+        }, 1000)
+        //every filter change will clear previous timer and restart the timer
+        return () => clearTimeout(delayDebounceFn)
+    }, [filter])
+
     return (
         <div className={"bg-white h-screen w-full"}>
             <p>Events</p>
