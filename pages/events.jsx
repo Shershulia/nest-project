@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {MagnifyingGlass, SearchBar} from "@/components";
+import {EventDisplayRow, SearchBar, Spinner, WhiteBox} from "@/components";
+import {RevealWrapper} from "next-reveal";
 
 const Events = () => {
     const [events,setEvents] = useState([]);
@@ -25,6 +26,20 @@ const Events = () => {
 
     return (
         <div className={"bg-white h-screen w-full"}>
+            <RevealWrapper>
+                <div className={"md:py-12 py-6 md:pl-60 w-1/2"}>
+                        {eventsLoading ? (<Spinner fullWidth={true}/>) : (
+                            <div className={"w-full flex flex-col gap-2"}>
+                                {events.length ?
+                                    events.map((event,index)=>(
+                                        <EventDisplayRow event={event} key={index}/>
+                                    )) : (<p>No events found with search option {filter}</p>)}
+                            </div>
+                        )
+                        }
+                </div>
+
+            </RevealWrapper>
             <p>Events</p>
             <SearchBar searchValue={filter} setSearchValue={setFilter}/>
 

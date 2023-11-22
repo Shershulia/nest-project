@@ -9,7 +9,7 @@ export default async function handler(req, res) {
         if (req.method==='GET'){
             const {search} = req.query;
             const events = await Event.find({ name: { $regex: new RegExp(search, 'i') } })
-                .sort({ date: 'asc' })
+                .sort({ date: 'desc' })
                 .limit(10);
             ;
             res.json(events)

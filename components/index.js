@@ -29,6 +29,8 @@ import PlusIcon from "@/components/icons/PlusIcon";
 import ShareLinks from "@/components/ShareLinks";
 import AddToCalendarButton from "@/components/AddToCalendarButton";
 import SearchBar from "@/components/SearchBar";
+import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
+import LocationIcon from "@/components/icons/LocationIcon";
 export {
     ReceiptModal,
     AdminNavBar,
@@ -60,5 +62,7 @@ export {
     PlusIcon,
     ShareLinks,
     AddToCalendarButton,
-    SearchBar
+    SearchBar,
+    EventDisplayRow,
+    LocationIcon
 }
