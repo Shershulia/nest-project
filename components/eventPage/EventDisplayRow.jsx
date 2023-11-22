@@ -1,10 +1,11 @@
 import React from 'react';
 import {CalendarIcon, LocationIcon} from "@/components";
 import {format} from "date-fns";
+import Link from "next/link";
 
 const EventDisplayRow = ({event}) => {
     return (
-        <div className={"w-full p-2 border border-blue-300 rounded-xl flex"}>
+        <Link href={`/event/${event._id}`} className={"w-full p-2 border border-blue-300 rounded-xl flex"}>
             {event.images &&
                 (<div className={"h-[101px] w-2/12 ml-2"}>
                     {event.images[0] ? (<img src={event.images[0]}
@@ -27,7 +28,7 @@ const EventDisplayRow = ({event}) => {
                         <p className={"truncate overflow-hidden w-full"}>{event.place}</p>
                     </div>)}
             </div>
-        </div>
+        </Link>
     );
 };
 

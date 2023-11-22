@@ -25,7 +25,7 @@ const Events = () => {
     }, [filter])
 
     return (
-        <div className={"bg-white h-screen w-full"}>
+        <div className={"bg-white h-full w-full"}>
             <RevealWrapper>
                 <div className={"md:py-12 py-6 md:pl-60 w-1/2"}>
                         {eventsLoading ? (<Spinner fullWidth={true}/>) : (
