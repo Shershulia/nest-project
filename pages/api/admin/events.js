@@ -10,10 +10,8 @@ export default async function handler(req, res) {
         await isAdminRequest(req,res);
 
         if (req.method==="POST"){
-            const {name, description,date,contactPerson,place,price,numberOfPeople,images} = req.body;
-               // for test
-            // await Receipt.create({description,date:new Date(),amount:100,contactPerson:contactPerson,paid:false,files:images})
-                res.json(await Event.create({name, description,date,contactPerson,place,price,numberOfPeople,images}));
+            const {name, description,date,contactPerson,place,price,numberOfPeople,images,duration} = req.body;
+                res.json(await Event.create({name, description,date,contactPerson,place,price,numberOfPeople,images,duration,participants:[]}));
         }
         if (req.method === "GET") {
             res.json(await Event.find());

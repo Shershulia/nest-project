@@ -13,7 +13,5 @@ const MeetingDocumentSchema = new Schema({
     documents:[{
         type: String
     }],
-    isDownloadable: Boolean,
-
 });
 export const MeetingDocument = models?.MeetingDocument || model('MeetingDocument',MeetingDocumentSchema)

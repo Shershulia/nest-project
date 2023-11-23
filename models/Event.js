@@ -7,10 +7,13 @@ const EventSchema = new Schema({
     },
     description:String,
     date:Date,
-
+    duration:Number,
     contactPerson:String,
     place:String,
     price:Number,
+    participants:[{
+        type:String,
+    }],
     numberOfPeople:Number,
     images:[{
         type: String
