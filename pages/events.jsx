@@ -31,7 +31,7 @@ const Events = () => {
     return (
         <FrontendLayout>
 
-            <RevealWrapper className={"sm:w-1/3 w-2/3 "}>
+            <RevealWrapper className={"sm:w-3/12 w-2/3 h-full mb-4 sm:mb-0"}>
                 <WhiteBox>
                     <div className={"p-4"}>
                         <div className={"mb-2 flex flex-col items-center justify-center"}>
@@ -40,8 +40,12 @@ const Events = () => {
                                        title={"Search"}/>
                         </div>
 
-                        <Switcher value={beforeFlag} setValue={setBeforeFlag} title={"Previous events"} />
-                        <Switcher value={freePlacesFlag} setValue={setFreePlacesFlag} title={"Free places available"} />
+
+                        <div className={"flex flex-col"}>
+                            <Switcher value={beforeFlag} setValue={setBeforeFlag} title={"Previous events"} className={"my-2"} />
+                            <Switcher value={freePlacesFlag} setValue={setFreePlacesFlag} title={"Free places"} className={"mb-2"} />
+                        </div>
+
 
                         <hr className={"rounded-lg w-11/12 m-auto bg-gray-300 h-[4px] mb-2"}/>
                         <button onClick={getEvents}
@@ -59,7 +63,11 @@ const Events = () => {
 
             <RevealWrapper className={"w-2/3"}>
                 <WhiteBox>
-                    {eventsLoading ? (<Spinner fullWidth={true}/>) : (
+                    {eventsLoading ? (
+                        <div className={"w-full flex flex-col gap-2 p-6"}>
+                            <Spinner fullWidth={true}/>
+                        </div>
+                        ) : (
                         <div className={"w-full flex flex-col gap-2 p-4"}>
                             {events.length ?
                                 events.map((event,index)=>(

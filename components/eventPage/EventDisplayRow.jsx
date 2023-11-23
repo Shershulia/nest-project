@@ -15,7 +15,7 @@ const EventDisplayRow = ({event}) => {
             )}
             <div className={"w-[4px] h-[101px] flex items-center rounded-full ml-2 border-[3px] border-blue-300 opacity-50 h-full"}/>
             <div className={"w-9/12 ml-2"}>
-                <p className={"font-bold text-lg"}>{event.name}</p>
+                <p className={"font-bold text-lg truncate overflow-hidden w-full"}>{event.name}</p>
                 <p className={"truncate overflow-hidden w-full"}>{event.description}</p>
                 {event.date &&
                     (<div className={"flex justify-center items-center gap-1"}>

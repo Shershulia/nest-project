@@ -11,7 +11,7 @@ const SearchBar = ({searchValue,setSearchValue,
                    placeholder={placeholder}
                    className={"w-[95%] focus:outline-none h-6"}
             />
-            <div className={"absolute right-0 top-1 cursor-pointer invisible sm:visible "}>
+            <div className={"absolute right-0 top-1 cursor-pointer invisible md:visible "}>
                 <MagnifyingGlass className={"w-8 h-8"}/>
             </div>
         </div>
