@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {EventDisplayRow, FrontendLayout, SearchBar, Spinner, Switcher, WhiteBox} from "@/components";
+import {EventDisplayRow, FrontendLayout, LittleEventPage, SearchBar, Spinner, Switcher, WhiteBox} from "@/components";
 import {RevealWrapper} from "next-reveal";
 
 const Events = () => {
@@ -71,7 +71,10 @@ const Events = () => {
                         <div className={"w-full flex flex-col gap-2 p-4"}>
                             {events.length ?
                                 events.map((event,index)=>(
-                                    <EventDisplayRow event={event} key={index}/>
+                                    <>
+                                        <EventDisplayRow event={event} key={index}/>
+                                        <LittleEventPage event={event}/>
+                                    </>
                                 )) : (<p>No events found with search option {filter}</p>)}
                         </div>
                     )

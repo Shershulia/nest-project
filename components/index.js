@@ -33,7 +33,9 @@ import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
 import LocationIcon from "@/components/icons/LocationIcon";
 import FrontendLayout from "@/components/FrontendLayout";
 import Switcher from "@/components/Switcher";
+import LittleEventPage from "@/components/eventPage/LittleEventPage";
 export {
+    LittleEventPage,
     Switcher,
     FrontendLayout,
     ReceiptModal,
