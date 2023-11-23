@@ -53,7 +53,7 @@ const Events = () => {
                                     "justify-center items-center py-2 transition-all duration-500 font-semibold " +
                                     "hover:bg-white hover:text-blue-600 hover:border-blue-600 mb-2"}>Search</button>
                         <button onClick={()=>{setFilter("")}}
-                                className={"m-auto w-full border rounded-lg text-white flex " +
+                                className={"m-auto w-full border rounded-lg text-red flex " +
                                     "justify-center items-center hover:bg-red-300 hover:opacity-50 hover:border-white " +
                                     "py-2 transition-all duration-500 font-semibold " +
                                     "bg-white text-red-600 border-red-600 hover:text-white"}>Clear</button>
@@ -61,19 +61,19 @@ const Events = () => {
                 </WhiteBox>
             </RevealWrapper>
 
-            <RevealWrapper className={"w-2/3"}>
+            <RevealWrapper className={"w-2/3 h-screen "}>
                 <WhiteBox>
                     {eventsLoading ? (
                         <div className={"w-full flex flex-col gap-2 p-6"}>
                             <Spinner fullWidth={true}/>
                         </div>
                         ) : (
-                        <div className={"w-full flex flex-col gap-2 p-4"}>
+                        <div
+                             className={"w-full flex flex-col overflow-y-scroll h-screen gap-2 p-4 scrollbar" }>
                             {events.length ?
                                 events.map((event,index)=>(
                                     <>
                                         <EventDisplayRow event={event} key={index}/>
-                                        <LittleEventPage event={event}/>
                                     </>
                                 )) : (<p>No events found with search option {filter}</p>)}
                         </div>
