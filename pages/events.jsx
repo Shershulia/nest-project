@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {EventDisplayRow, SearchBar, Spinner, WhiteBox} from "@/components";
+import {EventDisplayRow, FrontendLayout, SearchBar, Spinner, WhiteBox} from "@/components";
 import {RevealWrapper} from "next-reveal";
 
 const Events = () => {
@@ -25,9 +25,14 @@ const Events = () => {
     }, [filter])
 
     return (
-        <div className={"bg-white h-full w-full"}>
-            <RevealWrapper>
-                <div className={"md:py-12 py-6 md:pl-60 w-1/2"}>
+        <FrontendLayout>
+            <RevealWrapper className={"w-full"}>
+                <div className={"mb-8 flex flex-col items-center justify-center"}>
+                    <p>Events</p>
+                    <SearchBar searchValue={filter} setSearchValue={setFilter}
+                               fullWidth={true} placeholder={"Search for event"}
+                                title={"Search"}/>
+                </div>
                         {eventsLoading ? (<Spinner fullWidth={true}/>) : (
                             <div className={"w-full flex flex-col gap-2"}>
                                 {events.length ?
@@ -37,13 +42,10 @@ const Events = () => {
                             </div>
                         )
                         }
-                </div>
-
             </RevealWrapper>
-            <p>Events</p>
-            <SearchBar searchValue={filter} setSearchValue={setFilter}/>
 
-        </div>
+
+        </FrontendLayout>
     );
 };
 

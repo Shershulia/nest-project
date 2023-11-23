@@ -1,6 +1,6 @@
 import {mongooseConnect} from "@/lib/mongoose";
 import {RevealWrapper} from "next-reveal";
-import {AddToCalendarButton, CalendarIcon, PlusIcon, ShareLinks, WhiteBox} from "@/components";
+import {AddToCalendarButton, CalendarIcon, FrontendLayout, PlusIcon, ShareLinks, WhiteBox} from "@/components";
 import {Event} from "@/models/Event";
 import {format} from "date-fns";
 import {useSession} from "next-auth/react";
@@ -87,9 +87,21 @@ const SingeProductPage = ({event}) => {
     }
 
     return (
-        <div className={"bg-white min-h-screen h-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
-            <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12"}>
-                <div className={"md:py-12 py-6 md:pl-60 w-full "}>
+        <FrontendLayout>
+            <RevealWrapper origin={'right'} delay={300} className={"sm:w-2/3 w-11/12"}>
+                <WhiteBox>
+                    {event.images.length>0 && <div className={"h-[300px] md:h-[450px]"}>
+                        <img src={event.images[0]} className={"rounded-t-lg h-full w-full object-cover"} />
+                    </div>}
+                    <div className={"p-4"}>
+                        {event.name && <div className={"flex gap-2 text-2xl text-black font-size[50px] font-bold overflow-clip"}>{event.name}</div>}
+                        {event.description && (<div className={"flex gap-2 my-4 text-black  "}>{event.description}</div>) }
+
+                    </div>
+                </WhiteBox>
+            </RevealWrapper>
+
+            <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12 my-4 sm:my-0"}>
                     <WhiteBox>
                         <div className={"p-4"}>
                             <p className={"font-bold text-4xl mb-4 text-black"}>Details</p>
@@ -127,30 +139,12 @@ const SingeProductPage = ({event}) => {
                     </button>
                     <div className={"w-full gap-4 px-2"}>
                         <ShareLinks size={36} title={"Share event:"} quote={"Look at this event"}></ShareLinks>
-                    </div>
-
-
-
-                </div>
-            </RevealWrapper>
-
-            <RevealWrapper origin={'right'} delay={300} className={"sm:w-2/3 w-11/12"}>
-                <div className={"md:py-12 py-6f md:pr-60 w-full"}>
-                    <WhiteBox>
-                        {event.images.length>0 && <div className={"h-[300px] md:h-[450px]"}>
-                            <img src={event.images[0]} className={"rounded-t-lg h-full w-full object-cover"} />
-                        </div>}
-                        <div className={"p-4"}>
-                            {event.name && <div className={"flex gap-2 text-2xl text-black font-size[50px] font-bold overflow-clip"}>{event.name}</div>}
-                            {event.description && (<div className={"flex gap-2 my-4 text-black  "}>{event.description}</div>) }
-
-                        </div>
-                    </WhiteBox>
                 </div>
             </RevealWrapper>
 
 
-        </div>
+
+        </FrontendLayout>
     );
 };
 export default SingeProductPage;

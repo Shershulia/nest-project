@@ -31,7 +31,9 @@ import AddToCalendarButton from "@/components/AddToCalendarButton";
 import SearchBar from "@/components/SearchBar";
 import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
 import LocationIcon from "@/components/icons/LocationIcon";
+import FrontendLayout from "@/components/FrontendLayout";
 export {
+    FrontendLayout,
     ReceiptModal,
     AdminNavBar,
     AdminLayout,
