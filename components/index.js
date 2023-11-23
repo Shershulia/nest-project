@@ -32,7 +32,9 @@ import SearchBar from "@/components/SearchBar";
 import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
 import LocationIcon from "@/components/icons/LocationIcon";
 import FrontendLayout from "@/components/FrontendLayout";
+import Switcher from "@/components/Switcher";
 export {
+    Switcher,
     FrontendLayout,
     ReceiptModal,
     AdminNavBar,
