@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^2.0.2",
     "@aws-sdk/client-s3": "^3.438.0",
     "axios": "^1.5.1",
+    "bootstrap-icons": "^1.11.2",
     "lodash": "^4.17.21",
     "mime-types": "^2.1.35",
     "mongodb": "^6.2.0",
@@ -23,7 +24,8 @@
     "react-datetime": "^3.2.0",
     "react-dom": "^18",
     "react-spinners": "^0.13.8",
-    "sweetalert2": "^11.7.32"
+    "sweetalert2": "^11.7.32",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10",

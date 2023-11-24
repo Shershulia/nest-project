@@ -1,29 +1,132 @@
-import { useSession, signIn, signOut } from "next-auth/react"
-import {useEffect} from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import NavBar from "@/components/NavBar";
+import SideNav from "@/components/SideNav";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Autoplay,
+  Pagination,
+  Navigation,
+  EffectCoverflow,
+  Mousewheel,
+} from "swiper/modules";
+import { useEffect } from "react";
 import axios from "axios";
 
+import "swiper/css/bundle";
 
 export default function Home() {
-    const { data: session } = useSession()
+  const { data: session } = useSession();
 
-    if (!session){
-        return (
-            <div className="bg-red-500 flex justify-center items-center p-2 h-screen">
-                <div className={"text-center w-full"}>
-                    <button className={"bg-white p-2 rounded-md"} onClick={()=>signIn("google")}>Login with Google</button>
-                    <button className={"bg-white p-2 rounded-md"} onClick={()=>signOut()}>Log out</button>
+  return (
+    <div className="flex flex-col h-screen overflow-hidden">
+      {session && <NavBar />}
 
-                </div>
-            </div>)
-    }
-    return (
-            <div className="bg-red-500 flex justify-center items-center p-2 h-screen">
-                <div className={"text-center w-full"}>
-                    <div>Logged in {session.user.email}</div>
-                    <button className={"bg-white p-2 rounded-md"} onClick={()=>signOut()}>Log out</button>
-                </div>
+      <div className="flex flex-1 justify-center items-center">
+        {!session ? (
+          <div className="bg-red-500 flex justify-center items-center p-2 flex-1">
+            <div className="text-center w-full">
+              <button
+                className="bg-white p-2 rounded-md"
+                onClick={() => signIn("google")}
+              >
+                Login with Google
+              </button>
+              <button
+                className="bg-white p-2 rounded-md"
+                onClick={() => signOut()}
+              >
+                Log out
+              </button>
             </div>
-        )
-
-
+          </div>
+        ) : (
+          <div className="flex flex-row w-full">
+            <SideNav currentPage="Home" />
+            <div className="text-center w-5/12 flex flex-col py-16 px-5">
+              <h1 className="text-6xl py-2">Hi {session.user.name}</h1>
+              <h2 className="text-base py-3 leading-9">
+                Welcome to NEST! Established in 1998, we're a vibrant community
+                of Nepalese students and alumni in Trondheim. Join us and experience the essence
+                of Nepal in Norway!
+              </h2>
+            </div>
+            <div className="w-2/3 py-10">
+              <Swiper
+                modules={[Autoplay, Pagination, Navigation, EffectCoverflow, Mousewheel]}
+                slidesPerView={1.5}
+                centeredSlides={true}
+                loop={true}
+                autoplay={{
+                  delay: 5000,
+                }}
+                pagination={{ clickable: true }}
+                navigation={true}
+                effect={"coverflow"}
+                coverflowEffect={{
+                  rotate: 10,
+                  stretch: 10,
+                  depth: 100,
+                  modifier: 2,
+                  slideShadows: true,
+                }}
+                mousewheel={true}
+                className="h-3/5 w-10/12"
+                style={{
+                  "--swiper-theme-color": "#7154e0",
+                  "--swiper-pagination-bullet-inactive-opacity": "0.8",
+                  "--swiper-pagination-bullet-size": "16px",
+                  "--swiper-pagination-bullet-horizontal-gap": "6px",
+                }}
+              >
+                <SwiperSlide
+                  style={{
+                    backgroundImage: `url(https://wallpapercave.com/wp/iptrxid.jpg)`,
+                  }}
+                  className="bg-cover bg-center relative"
+                >
+                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
+                    <h1 className="text-3xl p-2">Avengers</h1>
+                    <h3 className="text-base p-2">They do be avenging</h3>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide
+                  style={{
+                    backgroundImage: `url(https://www.teahub.io/photos/full/99-997464_thor-ragnarok-thor-ragnarok-poster-hd.jpg)`,
+                  }}
+                  className="bg-cover bg-center relative"
+                >
+                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
+                    <h1 className="text-3xl p-2">Thor Ragnarock</h1>
+                    <h3 className="text-base p-2">Death Sis goes on a killing spree</h3>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide
+                  style={{
+                    backgroundImage: `url(https://wallpapers.com/images/hd4/dragon-ball-super-broly-movie-poster-97a8oe0mgan1o2t7.jpg)`,
+                  }}
+                  className="bg-cover bg-center relative"
+                >
+                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
+                    <h1 className="text-3xl p-2">Dragon Ball Super: Broly</h1>
+                    <h3 className="text-base p-2">Autistic Hulk goes on a rampage</h3>
+                  </div>
+                </SwiperSlide>
+                <SwiperSlide
+                  style={{
+                    backgroundImage: `url(https://getwallpapers.com/wallpaper/full/c/d/8/126215.jpg)`,
+                  }}
+                  className="bg-cover bg-center relative"
+                >
+                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
+                    <h1 className="text-3xl p-2">Star Wars: The Force Awakens</h1>
+                    <h3 className="text-base p-2">Something did indeed awaken</h3>
+                  </div>
+                </SwiperSlide>
+              </Swiper>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
