@@ -11,7 +11,7 @@ import TimePicker from "@/components/TimePicker";
 import EventForm from "@/components/adminEventPage/EventForm";
 import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing";
 import EventEditRow from "@/components/adminEventPage/EventEditRow";
-import SearchBar from "@/components/SearchBar"
+import SearchBarEventOrDocument from "@/components/SearchBarEventOrDocument"
 import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
 import WrongPermission from "@/components/adminPage/WrongPermission";
@@ -28,7 +28,16 @@ import ShareIcon from "@/components/icons/ShareIcon";
 import PlusIcon from "@/components/icons/PlusIcon";
 import ShareLinks from "@/components/ShareLinks";
 import AddToCalendarButton from "@/components/AddToCalendarButton";
+import SearchBar from "@/components/SearchBar";
+import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
+import LocationIcon from "@/components/icons/LocationIcon";
+import FrontendLayout from "@/components/FrontendLayout";
+import Switcher from "@/components/Switcher";
+import LittleEventPage from "@/components/eventPage/LittleEventPage";
 export {
+    LittleEventPage,
+    Switcher,
+    FrontendLayout,
     ReceiptModal,
     AdminNavBar,
     AdminLayout,
@@ -43,7 +52,7 @@ export {
     EventForm,
     GetEventsForEditing,
     EventEditRow,
-    SearchBar,
+    SearchBarEventOrDocument,
     MagnifyingGlass,
     ArrowLeftIcon,
     WrongPermission,
@@ -58,5 +67,8 @@ export {
     ShareIcon,
     PlusIcon,
     ShareLinks,
-    AddToCalendarButton
+    AddToCalendarButton,
+    SearchBar,
+    EventDisplayRow,
+    LocationIcon
 }
