@@ -1,21 +1,27 @@
-import React, {useState} from 'react';
-import {AddAdminComponent, AdminLayout, Input} from "@/components";
+import React from 'react';
+import {AdminLayout, Title, WrongPermission} from "@/components";
+import {getAdminServerSideProps} from "@/utils/adminUtils";
 
 
-const Admin = () => {
-    // const { data: session } = useSession();
-    // console.log(session);
-    // isAdminEmail(data.)
-    const [addUser, setAddAdmin] = useState("");
+
+const AdminPage = ({userInformation,isAdmin}) => {
     return (
-        <div className="h-screen flex">
-            <AdminLayout>
-                <div>
-                    <h1>Administration page</h1>
-                </div>
-            </AdminLayout>
-        </div>
+        isAdmin ? (
+            <div className="h-screen flex bg-blue-600">
+                <AdminLayout>
+                    <Title text={`${userInformation?.user.name}, welcome to admin page`} />
+                </AdminLayout>
+            </div>
+        ) : (
+            <WrongPermission/>
+        )
     );
+
 };
 
-export default Admin;
+export default AdminPage;
+
+//Check of admin permission happens on server side
+export async function getServerSideProps(ctx){
+    return await getAdminServerSideProps(ctx);
+}

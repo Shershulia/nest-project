@@ -9,7 +9,7 @@ const AddAdminComponent = () => {
     const [allUsers,setAllUsers]=useState([]);
 
     useEffect(()=> {
-        axios.get("/api/users").then(res => {
+        axios.get("/api/admin/users").then(res => {
             const arrayOfEmails = res.data.map(obj => obj.email);
             setAllUsers(arrayOfEmails)
         }).catch((error) => {
@@ -17,7 +17,7 @@ const AddAdminComponent = () => {
         })
     },[]);
     const addUserFun = () =>{
-        axios.post("/api/admin",{email:addUser}).then(res=>{
+        axios.post("/api/admin/admin",{email:addUser}).then(res=>{
 
             Swal.fire(
                 'Good job!',
