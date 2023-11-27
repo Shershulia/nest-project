@@ -3,6 +3,7 @@ import {Event} from "@/models/Event"
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import {Receipt} from "@/models/Receipt";
+import {EventReceipt} from "@/models/EventReceipt";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 export default async function handler(req, res) {
@@ -26,7 +27,7 @@ export default async function handler(req, res) {
                             product_data: {name:name},
                             unit_amount:price*100,
                         }}]
-                const receiptDoc = await Receipt.create({
+                const eventReceiptDoc = await EventReceipt.create({
                     description: `Payment for event ${name}`,
                     date: new Date(),
                     amount: price,
@@ -40,7 +41,7 @@ export default async function handler(req, res) {
                     success_url:process.env.NEXT_PUBLIC_INTERNAL_URI,
                     cancel_url: process.env.NEXT_PUBLIC_INTERNAL_URI,
                     metadata:{
-                        receiptId: receiptDoc._id.toString()
+                        receiptId: eventReceiptDoc._id.toString()
                     }
                 })
                 res.json({

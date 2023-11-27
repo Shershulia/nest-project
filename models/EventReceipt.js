@@ -1,6 +1,6 @@
 import {model, Schema,models} from "mongoose";
 
-const ReceiptSchema = new Schema({
+const EventReceiptSchema = new Schema({
     description:String,
     date:Date,
     amount:{
@@ -9,10 +9,6 @@ const ReceiptSchema = new Schema({
     },
     contactPerson:String,
     paid:Boolean,
-    files:[{
-        type: String
-    }],
-}, {
-    timestamps:true,
+
 });
-export const Receipt = models?.Receipt || model('Receipt',ReceiptSchema)
+export const EventReceipt = models?.EventReceipt || model('EventReceipt',EventReceiptSchema)

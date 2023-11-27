@@ -58,17 +58,20 @@ const SingeProductPage = ({event}) => {
                         flag: "a"
                     }
                     axios.post("/api/joinEvent", dataToEdit).then(res => {
-                        if (res.data) {
-                            Swal.fire(
-                                'Good job!',
-                                `You was assign for this event`,
-                                'success'
-                            ).then(result=>{
-                                location.reload();
-
-                            })
-
+                        if (res.data.url){
+                            window.location=res.data.url
                         }
+                        // if (res.data) {
+                        //     Swal.fire(
+                        //         'Good job!',
+                        //         `You was assign for this event`,
+                        //         'success'
+                        //     ).then(result=>{
+                        //         location.reload();
+                        //
+                        //     })
+                        //
+                        // }
                     }).catch((error) => {
                         Swal.fire(
                             'Error',
