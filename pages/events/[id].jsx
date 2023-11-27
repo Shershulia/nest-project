@@ -21,9 +21,7 @@ const SingeProductPage = ({event}) => {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     const dataToEdit = {
-                        _id: event._id,
-                        numberOfPeople: event.numberOfPeople,
-                        participants: event.participants,
+                        event,
                         flag: "d"
                     }
                     axios.put("/api/joinEvent", dataToEdit).then(res => {
@@ -56,12 +54,10 @@ const SingeProductPage = ({event}) => {
             }).then(async (result) => {
                 if (result.isConfirmed) {
                     const dataToEdit = {
-                        _id: event._id,
-                        numberOfPeople: event.numberOfPeople,
-                        participants: event.participants,
+                        event,
                         flag: "a"
                     }
-                    axios.put("/api/joinEvent", dataToEdit).then(res => {
+                    axios.post("/api/joinEvent", dataToEdit).then(res => {
                         if (res.data) {
                             Swal.fire(
                                 'Good job!',
