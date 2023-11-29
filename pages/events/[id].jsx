@@ -156,7 +156,7 @@ const SingeProductPage = ({event}) => {
                     </WhiteBox>
                 </RevealWrapper>
             </FrontendLayout>
-        {modal && <PaymentMethodsModals setModal={setModal}/>}
+        {modal && <PaymentMethodsModals event={event} setModal={setModal}/>}
 </>
 );
 };

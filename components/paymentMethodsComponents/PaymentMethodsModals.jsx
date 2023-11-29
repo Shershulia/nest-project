@@ -1,10 +1,16 @@
 import React from 'react';
 import {CreditCardIcon, Title} from "@/components";
-const vipps = require("@/public/vipps-icon.png");
-
+import axios from "axios";
 const overlayStyles = "w-screen h-screen top-0 left-0 right-0 left-0 fixed transition-all duration-300 ";
 const PaymentMethodsModals = ({setModal}) => {
 
+    const payWithVipps = () => {
+        alert("Payment with Vipps");
+        axios.post("/api/vipps/getAccessToken").then(res=>{
+                        window.location=res.data;
+        })
+
+    }
     return (
         <div className={"w-full h-full flex justify-center items-center"}>
 
@@ -20,7 +26,7 @@ const PaymentMethodsModals = ({setModal}) => {
                                     <CreditCardIcon className={"w-6 h-6 sm:w-12 sm:h-12"}/>
                                     <p className={"sm:visible invisible text-xl"}>Pay with card</p>
                                 </button>
-                                <button className={"h-full w-full"}>
+                                <button className={"h-full w-full"} onClick={payWithVipps}>
                                     <img src={"/vipps-icon.png"} alt={"vipps logo"} className={"bg-orange-500 border-black object-fit rounded-lg " +
                                         "w-full h-full"}/>
                                 </button>
