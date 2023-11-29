@@ -33,7 +33,7 @@ export default async function handler(req, res) {
                         'type': 'WALLET'
                     },
                     'customer': {
-                        'phoneNumber': '4791234567'
+                        'phoneNumber': '4796221395'
                     },
                     'reference': 'acme-shop-123-order123abc',
                     'returnUrl': 'https://yourwebsite.come/redirect?reference=abcc123',

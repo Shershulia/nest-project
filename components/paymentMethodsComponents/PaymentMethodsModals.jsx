@@ -7,7 +7,7 @@ const PaymentMethodsModals = ({setModal}) => {
     const payWithVipps = () => {
         alert("Payment with Vipps");
         axios.post("/api/vipps/getAccessToken").then(res=>{
-                        window.location=res.data;
+            window.location=res.data;
         })
 
     }
