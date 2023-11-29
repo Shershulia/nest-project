@@ -22,10 +22,14 @@ export default async function handler(req, res) {
                     // If 'freePlacesFlag' is true, add a condition for available places
                     query.$expr = { $lt: ["$participants.length", "$numberOfPeople"] };
                 }
-
-
-                const events = await Event.find(query).sort({date: 'asc'}).limit(10);
-                res.json(events);
+                if (before==="true") {
+                    // If 'before' is true, return events before today
+                    const events = await Event.find(query).sort({date: 'desc'}).limit(10);
+                    res.json(events);
+                }else {
+                    const events = await Event.find(query).sort({date: 'asc'}).limit(10);
+                    res.json(events);
+                }
             } catch (error) {
                 // Handle any errors that may occur during database query or processing
                 console.error(error);

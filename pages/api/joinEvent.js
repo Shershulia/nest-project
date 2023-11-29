@@ -2,7 +2,7 @@ import {mongooseConnect} from "@/lib/mongoose";
 import {Event} from "@/models/Event"
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
-import {Receipt} from "@/models/Receipt";
+
 import {EventReceipt} from "@/models/EventReceipt";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
@@ -39,7 +39,7 @@ export default async function handler(req, res) {
                         mode:"payment",
                         customer_email:user.email,
                         success_url: `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events/${_id}`,
-                        cancel_url: process.env.NEXT_PUBLIC_INTERNAL_URI,
+                        cancel_url: `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events`,
                         metadata:{
                             receiptId: eventReceiptDoc._id.toString(),
                             eventId: _id.toString(),
