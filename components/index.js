@@ -34,7 +34,11 @@ import LocationIcon from "@/components/icons/LocationIcon";
 import FrontendLayout from "@/components/FrontendLayout";
 import Switcher from "@/components/Switcher";
 import LittleEventPage from "@/components/eventPage/LittleEventPage";
+import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentMethodsModals";
+import CreditCardIcon from "@/components/icons/CreditCardIcon";
 export {
+    CreditCardIcon,
+    PaymentMethodsModals,
     LittleEventPage,
     Switcher,
     FrontendLayout,
