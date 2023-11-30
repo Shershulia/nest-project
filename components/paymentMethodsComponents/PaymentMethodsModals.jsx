@@ -2,11 +2,11 @@ import React from 'react';
 import {CreditCardIcon, Title} from "@/components";
 import axios from "axios";
 const overlayStyles = "w-screen h-screen top-0 left-0 right-0 left-0 fixed transition-all duration-300 ";
-const PaymentMethodsModals = ({setModal}) => {
+const PaymentMethodsModals = ({event,setModal}) => {
 
     const payWithVipps = () => {
         alert("Payment with Vipps");
-        axios.post("/api/vipps/getAccessToken").then(res=>{
+        axios.post("/api/vipps/getAccessToken",{event}).then(res=>{
             window.location=res.data;
         })
 

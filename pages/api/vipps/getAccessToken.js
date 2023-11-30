@@ -1,9 +1,18 @@
 import axios from "axios";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/pages/api/auth/[...nextauth]";
+import createIdempotencyKey from "@/utils/createIdempotencyKey";
 
 export default async function handler(req, res) {
     try{
+        const {user} = await getServerSession(req,res,authOptions);
 
         if (req.method === 'POST') {
+            const {event} = req.body;
+            const {_id,numberOfPeople,price,name,participants} = event
+
+            const idempotencyKey = createIdempotencyKey(user.email,_id);
+
             const token = await axios.post(
                 'https://apitest.vipps.no/accessToken/get',
                 '',
@@ -21,24 +30,22 @@ export default async function handler(req, res) {
                     }
                 }
             )
-            console.log(token)
+            const nowDate = new Date();
+            const originalString = `${nowDate.getMinutes()}-${nowDate.getSeconds()}-${nowDate.getMilliseconds()}-${user.email.split("@")[0]}`;
             const response = await axios.post(
                 'https://apitest.vipps.no/epayment/v1/payments',
                 {
                     'amount': {
                         'currency': 'NOK',
-                        'value': 100
+                        'value': price * 100
                     },
                     'paymentMethod': {
                         'type': 'WALLET'
                     },
-                    'customer': {
-                        'phoneNumber': '4796221395'
-                    },
-                    'reference': 'acme-shop-123-order123abc',
-                    'returnUrl': 'https://yourwebsite.come/redirect?reference=abcc123',
+                    'reference': `${originalString.substring(0,45)}`,
+                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events/${_id}`,
                     'userFlow': 'WEB_REDIRECT',
-                    'paymentDescription': 'One pair of socks'
+                    'paymentDescription': `Event ${name}, Nickname ${user.email} `
                 },
                 {
                     headers: {
@@ -46,14 +53,13 @@ export default async function handler(req, res) {
                         'Authorization':`Bearer ${token.data.access_token}`,
                         'Ocp-Apim-Subscription-Key':  process.env.VIPPS_SUBSCRIPTION_KEY,
                         'Merchant-Serial-Number': process.env.VIPPS_MERCHANT_SERIAL_NUMBER,
-                        'Vipps-System-Name': 'acme',
-                        'Vipps-System-Version': '3.1.2',
-                        'Vipps-System-Plugin-Name': 'acme-webshop',
-                        'Vipps-System-Plugin-Version': '4.5.6',
-                        'Idempotency-Key': '49ca711a-acee-4d01-993b-9487112e1def'
+                        'Idempotency-Key': `${idempotencyKey}`
                     }
                 }
-            );
+            ).catch(err=>{
+                console.log(err.response.data)
+            });
+
             res.json(response.data.redirectUrl)
 
         }else {
