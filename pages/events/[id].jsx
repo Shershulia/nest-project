@@ -56,41 +56,8 @@ const SingeProductPage = ({event}) => {
                 }
             })
         } else {
-            Swal.fire({
-                title: `Do you want to assign for this event?`,
-                showCancelButton: true,
-                confirmButtonText: 'Yes',
-            }).then(async (result) => {
-                setModal(true)
-                // if (result.isConfirmed) {
-                //     const dataToEdit = {
-                //         event,
-                //         flag: "a"
-                //     }
-                //     axios.post("/api/joinEvent", dataToEdit).then(res => {
-                //         if (res.data.url){
-                //             window.location=res.data.url
-                //         }else {
-                //             if (res.data) {
-                //                 Swal.fire(
-                //                     'Good job!',
-                //                     `You was assign for this event`,
-                //                     'success'
-                //                 ).then(result => {
-                //                     location.reload();
-                //                 })
-                //             }
-                //         }
-                //
-                //     }).catch((error) => {
-                //         Swal.fire(
-                //             'Error',
-                //             "Hm... Something went wrong, please contact support with your case. " + error.message,
-                //             'error'
-                //         )
-                //     })
-                // }
-            })
+            setModal(true)
+
         }
 
     }
@@ -107,7 +74,6 @@ const SingeProductPage = ({event}) => {
                             {event.numberOfPeople!==0 && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Number of people: </p> {event.participants.length}/{event.numberOfPeople}</div> }
                             {event.price!==0 && <div className={"flex flex-wrap gap-2 text-black"}> <p className={"font-bold"}>Price: </p> {event.price}</div> }
                             {event.contactPerson && <div className={"flex flex-col truncate max-w-full text-black"}> <p className={"font-bold"}>Contact person: </p> {event.contactPerson}</div> }
-
                         </div>
                     </WhiteBox>
 
