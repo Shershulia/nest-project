@@ -73,7 +73,20 @@ const DocumentForm = ({
                 <div className={"flex gap-6 justify-center"}>
                     <TimePicker label={"Select the date of the meeting"} value={date} setValue={setDate} />
                 </div>
-                <ImageUploadComponent title={"Select files for meeting"} images={documents} setImages={setDocuments} isDocuments={true}/>
+                <div className={"flex flex-col justify-center gap-4 items-center"}>
+                    <Title text={"Select documents"}/>
+                    <div className={"flex justify-center items-center"}>
+                        <ImageUploadComponent images={documents} setImages={setDocuments} isDocuments={true} isTitle={false}/>
+                        <h1 className={"mx-2 font-bold"}>OR </h1>
+                        <div className={"mb-2"}>
+                            <button className={"p-2 rounded-md relative border h-24 w-24 bg-gray-200"}>
+                                <p className={"text-xs font-bold text-center absolute bottom-0"}>Upload using</p>
+                                <img src={"/Google_Drive.png"} alt={"Google Drive logo"}/>
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
             </div>
             <div className={"flex items-center justify-center mt-6"}>
                 <button className={"bg-green-600 hover:bg-green-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
