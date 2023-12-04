@@ -1,15 +1,18 @@
 import {google} from "googleapis";
+const path = require("path")
+const fs =require("fs")
+const REDIRECT_URI = "https://developers.google.com/oauthplayground/";
 
-const auth = new google.auth.GoogleAuth({
-    // your credentials to authenticate
-    keyFile: process.cwd() + "/credentials-for-google-drive.json",
-    // the actions you are permissed to perform using this API, in this case
-    // all CRUD operations are permissed, check out
-    // [ https://developers.google.com/drive/api/guides/api-specific-auth ]
-    // for more advice on scopes
-    scopes: ["https://www.googleapis.com/auth/drive"],
+const oAuth2Client = new google.auth.OAuth2(
+    process.env.GOOGLE_ID,
+    process.env.GOOGLE_SECRET,
+    REDIRECT_URI,
+)
+
+oAuth2Client.setCredentials({refresh_token:process.env.GOOGLE_DRIVE_REFRESH_TOKEN})
+
+export const drive = google.drive({
+    version:"v3",
+    auth:oAuth2Client
 })
-export const GoogleDrive = google.drive({
-    version: "v3",
-    auth
-});
+
