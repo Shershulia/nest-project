@@ -17,8 +17,18 @@ const DocumentForm = ({
     const [documents,setDocuments] = useState(existingDocuments || []);
 
     useEffect( ()=>{
-        axios.get("/api/google/drive").then(response=>{
-            console.log(response.data)
+        const fileBlob = new Blob(["HELLO IT IS A TEST TEXT"], {type: 'text/plain'});
+        fileBlob.name = 'myfile.txt';
+
+        const file = new FormData();
+        file.append('file', fileBlob);
+
+        axios.post('/api/google/drive/upload', file, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(res=>{
+            console.log(res)
         })
     },[])
     const closeForm = () =>{
