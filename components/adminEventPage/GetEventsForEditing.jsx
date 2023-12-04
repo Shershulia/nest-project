@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {EventEditRow, SearchBarEventOrDocument, Spinner, Title} from "@/components";
+import {EventOrDocumentEditRow, SearchBarEventOrDocument, Spinner, Title} from "@/components";
 import Image from "next/image";
 import Swal from "sweetalert2";
 
@@ -47,7 +47,7 @@ const GetEventsForEditing = ({isMeetingForm = false}) => {
                     <div className={"w-full"}>{
                         allEvents.map((event,index) => (
                             <div key={index} className={"w-full flex justify-between border border-y-black border-r-black rounded-lg"}>
-                                <EventEditRow event={event} deleteEvent={deleteEvent} isDocument={isMeetingForm}/>
+                                <EventOrDocumentEditRow event={event} deleteEvent={deleteEvent} isDocument={isMeetingForm}/>
                             </div>
                         ))}
                     </div>

@@ -10,7 +10,7 @@ import CalendarIcon from "@/components/icons/CalendarIcon";
 import TimePicker from "@/components/TimePicker";
 import EventForm from "@/components/adminEventPage/EventForm";
 import GetEventsForEditing from "@/components/adminEventPage/GetEventsForEditing";
-import EventEditRow from "@/components/adminEventPage/EventEditRow";
+import EventOrDocumentEditRow from "@/components/adminEventPage/EventOrDocumentEditRow";
 import SearchBarEventOrDocument from "@/components/SearchBarEventOrDocument"
 import MagnifyingGlass from "@/components/icons/MagnifyingGlass";
 import ArrowLeftIcon from "@/components/icons/ArrowLeftIcon";
@@ -55,7 +55,7 @@ export {
     TimePicker,
     EventForm,
     GetEventsForEditing,
-    EventEditRow,
+    EventOrDocumentEditRow,
     SearchBarEventOrDocument,
     MagnifyingGlass,
     ArrowLeftIcon,

@@ -1,32 +1,21 @@
 import { drive } from "@/utils/googleDriveApi";
 import multiparty from "multiparty";
 import fs from "fs";
-import path from "path"
-import { fileURLToPath } from 'url';
-import { dirname } from 'path';
 
-// Get the file path of the current module
-const __filename = fileURLToPath(import.meta.url);
 
-// Get the directory name of the current module
-const __dirname = dirname(__filename);
-
-// Construct the file path using the correct directory
-const filePath = path.join(__dirname, "vipps-icon.png");
-
-async function uploadFile() {
+async function uploadFile(file) {
     try {
         const response = await drive.files.create({
             requestBody: {
-                name: "example.jpg",
-                mimeType: "image/png",
+                name: file.originalFilename,
+                mimeType: "application/msword",
             },
             media: {
-                mimeType: "image/png",
-                body: fs.createReadStream(filePath),
+                mimeType: "application/msword",
+                body: fs.createReadStream(file.path),
             },
         });
-        console.log(response.data);
+        return response;
     } catch (e) {
         console.log(e.message);
     }
@@ -45,14 +34,10 @@ export default async function handler(req, res) {
 
             try {
                     const file = files.file[0]; // Assuming the file field is named 'file'
-
-                    // Handle the file as needed, for example, log its details
                     console.log("Received file:", file.originalFilename, file.path);
+                    const response = await uploadFile(file)
 
-                    // Handle the file upload logic (you may need to modify this)
-                    // Example: await uploadFile(file);
-
-                    res.json({ msg: "File uploaded successfully" });
+                    res.json(response.data.id);
                 } catch (error) {
                     console.error("Error uploading file:", error);
                     res.status(500).json({ msg: "Error uploading file" });

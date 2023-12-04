@@ -3,7 +3,7 @@ import Image from "next/image";
 import {DocumentForm, EventForm} from "@/components";
 import {format} from "date-fns";
 
-const EventEditRow = ({event,deleteEvent, isDocument}) => {
+const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
     const [editMode, setEditMode] = useState(false);
     const arrayWithDocumentsOrImages = isDocument ? event.documents : event.images
     return (
@@ -14,7 +14,7 @@ const EventEditRow = ({event,deleteEvent, isDocument}) => {
                         {arrayWithDocumentsOrImages.length>0 ? (
                                 <div className={"h-[100px] w-[100px] ml-2"}>
                                     {isDocument ? (
-                                        <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg"}>{arrayWithDocumentsOrImages[0].split(".com/")[1]}</label>
+                                        <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg truncate "}>{arrayWithDocumentsOrImages[0].split(".com/")[1]}</label>
                                     ) : (
                                         <img src={arrayWithDocumentsOrImages[0]} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
                                     )
@@ -47,4 +47,4 @@ const EventEditRow = ({event,deleteEvent, isDocument}) => {
     );
 };
 
-export default EventEditRow;
+export default EventOrDocumentEditRow;

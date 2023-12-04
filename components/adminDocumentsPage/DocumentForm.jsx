@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {TextArea, Input, TimePicker, Title, RadioButton, ImageUploadComponent} from "@/components";
+import {TextArea, Input, TimePicker, Title, RadioButton, ImageUploadComponent, Switcher} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -15,38 +15,43 @@ const DocumentForm = ({
     const [description, setDescription] = useState(existingDescription || "");
     const [date, setDate] = useState(existingDate ? new Date(existingDate) : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
+    const [addToGoogle,setAddToGoogle] = useState(false);
 
-    useEffect(() => {
-        const createAndUploadFile = async () => {
-            try {
-                // Create a blob with text content
-                const fileBlob = new Blob(["HELLO IT IS A TEST TEXT"], { type: 'text/plain' });
-                fileBlob.name = 'myfile.txt';
+    const createAndUploadFile = async () => {
+        try {
+            // Create a blob with text content
+            const fileBlob = new Blob([
+                title ? `Title of meeting : ${title} \n` : "",
+                date ? `Date of meeting : ${date} \n` : "",
+                description ? `Description : ${description} \n` : "",
+                documents ? `Links to attached files : \n ${documents.map(document=>(`${document} \n`))} \n` : ""
+            ], { type: 'application/msword' });
+            fileBlob.name = `$meeting-${title}.txt`;
 
-                // Create a file from the blob
-                const file = new File([fileBlob], 'myfile.txt', { type: 'text/plain' });
+            // Create a file from the blob
+            const file = new File([fileBlob], `meeting-${title}.txt`, { type: 'application/msword' });
 
-                // Create FormData and append the file
-                const formData = new FormData();
-                formData.append('file', file);
+            // Create FormData and append the file
+            const formData = new FormData();
+            formData.append('file', file);
 
-                // Make the axios request
-                const response = await axios.post('/api/google/drive/upload', formData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data',
-                    },
-                });
+            // Make the axios request
+            const response = await axios.post('/api/google/drive/upload', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            return response;
+        } catch (error) {
+            console.error("Error uploading file:", error.message);
+        }
+    };
 
-                return response;
-            } catch (error) {
-                console.error("Error uploading file:", error.message);
-            }
-        };
-
-        // Call the function
-        createAndUploadFile().then(r =>
-        console.log(r));
-    }, []);
+    const saveToDrive = ()=>{
+        createAndUploadFile().then(res=>{
+            console.log(res)
+        })
+    }
     const closeForm = () =>{
         closeEvent(false);
     }
@@ -69,21 +74,42 @@ const DocumentForm = ({
             })
         }
         else {
-            axios.post("/api/admin/documents",data).then(res=>{
-                Swal.fire(
-                    'Good job!',
-                    `Document with title ${res.data.title} was added successfully`,
-                    'success'
-                ).then(() => {
-                    closeForm();
+            if(addToGoogle) {
+                createAndUploadFile().then(res => {
+                    const data = {title, description, date: new Date(date), documents: [`https://docs.google.com/document/d/${res.data}`]}
+                    axios.post("/api/admin/documents", data).then(res => {
+                        Swal.fire(
+                            'Good job!',
+                            `Document with title ${res.data.title} was added successfully`,
+                            'success'
+                        ).then(() => {
+                            closeForm();
+                        })
+                    }).catch((error) => {
+                        Swal.fire(
+                            'Error',
+                            "Hm... Something went wrong, please contact support with your case. " + error.message,
+                            'error'
+                        )
+                    })
                 })
-            }).catch((error) => {
-                Swal.fire(
-                    'Error',
-                    "Hm... Something went wrong, please contact support with your case. " + error.message,
-                    'error'
-                )
-            })
+            }else{
+                axios.post("/api/admin/documents",data).then(res=>{
+                    Swal.fire(
+                        'Good job!',
+                        `Document with title ${res.data.title} was added successfully`,
+                        'success'
+                    ).then(() => {
+                        closeForm();
+                    })
+                }).catch((error) => {
+                    Swal.fire(
+                        'Error',
+                        "Hm... Something went wrong, please contact support with your case. " + error.message,
+                        'error'
+                    )
+                })
+            }
         }
 
     }
@@ -100,16 +126,21 @@ const DocumentForm = ({
                 <Title text={"Create meeting document"}/>
                 <Input label={"Title of the meeting"} value={title} onChange={setTitle} className={'rounded-md w-1/2'}></Input>
                 <TextArea label={"Write in some extra details about the meeting"} value={description} onChange={setDescription} className={'rounded-md w-1/2'}></TextArea>
-                <div className={"flex gap-6 justify-center"}>
+                <div className={"flex gap-6 justify-center items-center"}>
                     <TimePicker label={"Select the date of the meeting"} value={date} setValue={setDate} />
+                    <div>
+                        <Switcher title={"Add to Google Drive"} value={addToGoogle} setValue={setAddToGoogle}/>
+                    </div>
+
                 </div>
+
                 <div className={"flex flex-col justify-center gap-4 items-center"}>
                     <Title text={"Select documents"}/>
                     <div className={"flex justify-center items-center"}>
                         <ImageUploadComponent images={documents} setImages={setDocuments} isDocuments={true} isTitle={false}/>
                         <h1 className={"mx-2 font-bold"}>OR </h1>
                         <div className={"mb-2"}>
-                            <button className={"p-2 rounded-md relative border h-24 w-24 bg-gray-200"}>
+                            <button className={"p-2 rounded-md relative border h-24 w-24 bg-gray-200"} onClick={saveToDrive}>
                                 <p className={"text-xs font-bold text-center absolute bottom-0"}>Upload using</p>
                                 <img src={"/Google_Drive.png"} alt={"Google Drive logo"}/>
                             </button>
