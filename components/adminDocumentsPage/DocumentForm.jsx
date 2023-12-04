@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {TextArea, Input, TimePicker, Title, RadioButton, ImageUploadComponent} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
@@ -16,7 +16,11 @@ const DocumentForm = ({
     const [date, setDate] = useState(existingDate ? new Date(existingDate) : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
 
-
+    useEffect( ()=>{
+        axios.get("/api/google/drive").then(response=>{
+            console.log(response.data)
+        })
+    },[])
     const closeForm = () =>{
         closeEvent(false);
     }
