@@ -16,21 +16,37 @@ const DocumentForm = ({
     const [date, setDate] = useState(existingDate ? new Date(existingDate) : new Date());
     const [documents,setDocuments] = useState(existingDocuments || []);
 
-    useEffect( ()=>{
-        const fileBlob = new Blob(["HELLO IT IS A TEST TEXT"], {type: 'text/plain'});
-        fileBlob.name = 'myfile.txt';
+    useEffect(() => {
+        const createAndUploadFile = async () => {
+            try {
+                // Create a blob with text content
+                const fileBlob = new Blob(["HELLO IT IS A TEST TEXT"], { type: 'text/plain' });
+                fileBlob.name = 'myfile.txt';
 
-        const file = new FormData();
-        file.append('file', fileBlob);
+                // Create a file from the blob
+                const file = new File([fileBlob], 'myfile.txt', { type: 'text/plain' });
 
-        axios.post('/api/google/drive/upload', file, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
+                // Create FormData and append the file
+                const formData = new FormData();
+                formData.append('file', file);
+
+                // Make the axios request
+                const response = await axios.post('/api/google/drive/upload', formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data',
+                    },
+                });
+
+                return response;
+            } catch (error) {
+                console.error("Error uploading file:", error.message);
             }
-        }).then(res=>{
-            console.log(res)
-        })
-    },[])
+        };
+
+        // Call the function
+        createAndUploadFile().then(r =>
+        console.log(r));
+    }, []);
     const closeForm = () =>{
         closeEvent(false);
     }
