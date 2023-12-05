@@ -47,4 +47,5 @@ jobs:
 
       - name: Push to GitLab
         run: |
-          git push gitlab HEAD:master
+          git push gitlab HEAD:refs/heads/master
+      
