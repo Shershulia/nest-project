@@ -34,6 +34,18 @@ const EventForm = ({
     const [numberOfPeople, setNumberOfPeople] = useState(existingNumberOfPeople || 0);
     const [images, setImages] = useState(existingImages || [])
     const [duration, setDuration] = useState(existingDuration || 0)
+
+    //fix that before animation it shows for few milliseconds
+    const [isShown,setIsShown] = useState(false)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsShown(true);
+            console.log("run")
+        }, 0.01);
+        return () => clearTimeout(timer);
+    }, [isShown]);
+
     useEffect(()=> {
         axios.get("/api/admin/users").then(res => {
             const arrayOfEmails = res.data.map(obj => obj.email);
@@ -95,7 +107,9 @@ const EventForm = ({
 
 
     return (
-        <div className={"flex flex-col justify-evenly w-full  h-full bg-white py-8 border border-x-black border-t-black"}>
+        <div className={"flex flex-col justify-evenly w-full  h-screen bg-white py-8"}>
+            {isShown && (
+                <>
             <div className={"mb-10"}>
                 <div className={"flex"}>
 
@@ -143,7 +157,8 @@ const EventForm = ({
                 <button className={"bg-red-600 hover:bg-red-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
                         onClick={closeForm}>Cancel</button>
             </div>
-
+                </>
+                )}
         </div>
     );
 };

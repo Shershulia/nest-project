@@ -14,17 +14,19 @@ const EventsAdminPage = ({isAdmin}) => {
                 <div>
                     <button
                         onClick={() => {
-                            setEventFormStart(prevState => !prevState);
+                            setEventFormStart((prevState) => !prevState);
                         }}
-                        className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-gray-200' : 'bg-white'
-                        } transition-all duration-300`}
+                        className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${
+                            eventFormStart ? 'bg-gray-200' : 'bg-white'
+                        } transition-all duration-1000`}
                     >
                         Create event
                     </button>
                     <div
-                        className={`overflow-hidden transition-max-height duration-300 ${
-                            eventFormStart ? 'max-h-full' : 'max-h-0'
+                        className={`overflow-hidden transition-all duration-1000 ${
+                            eventFormStart ? 'opacity-100 max-h-full' : 'opacity-0 max-h-0'
                         } `}
+                        style={{ transitionProperty: 'opacity, max-height' }}
                     >
                         {eventFormStart && <EventForm closeEvent={setEventFormStart} />}
                     </div>
@@ -32,21 +34,24 @@ const EventsAdminPage = ({isAdmin}) => {
                 <div>
                     <button
                         onClick={() => {
-                            setEventFormEdit(prevState => !prevState);
+                            setEventFormEdit((prevState) => !prevState);
                         }}
-                        className={`border border-black py-8 w-full text-xl ${eventFormEdit ? 'bg-gray-200' : 'bg-white'
+                        className={`border border-black py-8 w-full text-xl ${
+                            eventFormEdit ? 'bg-gray-200' : 'bg-white'
                         } transition-all duration-300`}
                     >
                         Edit event
                     </button>
                     <div
-                        className={`overflow-hidden transition-max-height duration-300 ${
-                            eventFormEdit ? 'max-h-full' : 'max-h-0'
+                        className={`overflow-hidden transition-all duration-300 ${
+                            eventFormEdit ? 'opacity-100 max-h-full' : 'opacity-0 max-h-0'
                         } `}
+                        style={{ transitionProperty: 'opacity, max-height' }}
                     >
-                        {eventFormEdit && <GetEventsForEditing/>}
+                        {eventFormEdit && <GetEventsForEditing />}
                     </div>
                 </div>
+
 
             </AdminLayout>
         </div>
