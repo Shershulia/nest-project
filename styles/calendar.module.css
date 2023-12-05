@@ -1,0 +1,60 @@
+@tailwind components;
+@tailwind utilities;
+
+.fc-day {
+  @apply m-8;
+}
+
+.fc-scrollgrid-sync-table {
+  @apply w-full;
+}
+
+.fc-view {
+  @apply w-full;
+  max-height: 89%;
+}
+
+.fc-event {
+  cursor: pointer;
+}
+
+.fc-daygrid-event-harness {
+  @apply bg-violet-500 border border-violet-600;
+}
+
+.fc .fc-daygrid-day.fc-day-today {
+  background-color: rgb(78, 25, 178);
+}
+
+.fc .fc-button {
+  @apply bg-violet-800 hover:bg-violet-900;
+}
+
+.fc .fc-button-primary:not(:disabled).fc-button-active {
+  @apply bg-violet-600;
+}
+
+.fc .fc-button-primary:disabled {
+  @apply bg-violet-600;
+}
+.fc-v-event {
+  @apply bg-violet-500 border border-violet-600;
+}
+.fc-daygrid-event-dot{
+  border-color: red;
+}
+
+.fc-scroller::-webkit-scrollbar {
+  width: 20px;
+}
+
+.fc-scroller::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  @apply bg-violet-500;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
+}
