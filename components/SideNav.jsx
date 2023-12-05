@@ -12,7 +12,7 @@ const SideNav = ({currentPage}) => {
                 <i class="bi bi-person text-3xl"></i>
                 <label className='opacity-0 group-hover:opacity-100'>Account</label>    
             </Link>
-             <Link href="/" className={`group text-white px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${currentPage === "Calendar" ? "text-customPurple" : ""}`}>
+             <Link href="/calendar" className={`group text-white px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${currentPage === "Calendar" ? "text-customPurple" : ""}`}>
                 <i class="bi bi-calendar4-week text-3xl"></i>
                 <label className='opacity-0 group-hover:opacity-100'>Calendar</label>
             </Link>
