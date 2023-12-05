@@ -1,29 +1,145 @@
-import { useSession, signIn, signOut } from "next-auth/react"
-import {useEffect} from "react";
+import { useSession, signIn, signOut } from "next-auth/react";
+import NavBar from "@/components/NavBar";
+import SideNav from "@/components/SideNav";
+import { Swiper, SwiperSlide } from "swiper/react";
+import {
+  Autoplay,
+  Pagination,
+  Navigation,
+  EffectCoverflow,
+  Mousewheel,
+} from "swiper/modules";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { format } from "date-fns";
 
-
+import "swiper/css/bundle";
+import { Spinner } from "@/components";
+import Link from "next/link";
 export default function Home() {
-    const { data: session } = useSession()
+  const { data: session } = useSession();
 
-    if (!session){
-        return (
-            <div className="bg-red-500 flex justify-center items-center p-2 h-screen">
-                <div className={"text-center w-full"}>
-                    <button className={"bg-white p-2 rounded-md"} onClick={()=>signIn("google")}>Login with Google</button>
-                    <button className={"bg-white p-2 rounded-md"} onClick={()=>signOut()}>Log out</button>
+  const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
-                </div>
-            </div>)
-    }
-    return (
-            <div className="bg-red-500 flex justify-center items-center p-2 h-screen">
-                <div className={"text-center w-full"}>
-                    <div>Logged in {session.user.email}</div>
-                    <button className={"bg-white p-2 rounded-md"} onClick={()=>signOut()}>Log out</button>
-                </div>
+  const getEvents = () => {
+    setIsLoading(true);
+    axios.get(`/api/events`).then((res) => {
+      setEvents(res.data);
+      setIsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
+
+  return (
+    <div className="flex flex-col h-screen overflow-hidden">
+      {session && <NavBar />}
+
+      <div className="flex flex-1 justify-center items-center">
+        {!session ? (
+          <div className="bg-red-500 flex justify-center items-center p-2 flex-1">
+            <div className="text-center w-full">
+              <button
+                className="bg-white p-2 rounded-md"
+                onClick={() => signIn("google")}
+              >
+                Login with Google
+              </button>
+              <button
+                className="bg-white p-2 rounded-md"
+                onClick={() => signOut()}
+              >
+                Log out
+              </button>
             </div>
-        )
-
-
+          </div>
+        ) : (
+          <div className="flex flex-row w-full">
+            <SideNav currentPage="Home" />
+            <div className="text-center w-5/12 flex flex-col py-16 px-5">
+              <h1 className="text-6xl py-2">Hi {session.user.name}</h1>
+              <h2 className="text-base py-3 leading-9">
+                Welcome to NEST! Established in 1998, we're a vibrant community
+                of Nepalese students and alumni in Trondheim. Join us and
+                experience the essence of Nepal in Norway!
+              </h2>
+            </div>
+            <div className="w-2/3 py-10">
+              <Swiper
+                modules={[
+                  Autoplay,
+                  Pagination,
+                  Navigation,
+                  EffectCoverflow,
+                  Mousewheel,
+                ]}
+                slidesPerView={1.5}
+                centeredSlides={true}
+                loop={true}
+                autoplay={{
+                  delay: 5000,
+                }}
+                pagination={{ clickable: true }}
+                navigation={true}
+                effect={"coverflow"}
+                coverflowEffect={{
+                  rotate: 10,
+                  stretch: 10,
+                  depth: 100,
+                  modifier: 2,
+                  slideShadows: true,
+                }}
+                mousewheel={true}
+                className="h-3/5 w-10/12"
+                style={{
+                  "--swiper-theme-color": "#7154e0",
+                  "--swiper-pagination-bullet-inactive-opacity": "0.8",
+                  "--swiper-pagination-bullet-size": "16px",
+                  "--swiper-pagination-bullet-horizontal-gap": "6px",
+                }}
+              >
+                {isLoading ? (
+                  <Spinner fullWidth={true} />
+                ) : (
+                  <div className="w-full">
+                    {events.length ? (
+                      events.map((event, index) => (
+                        <SwiperSlide
+                          key={index}
+                          style={{
+                            backgroundImage: "url(" + event.images[0] + ")",
+                          }}
+                          className="bg-cover bg-center relative w-full cursor-pointer"
+                        >
+                            <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
+                              <h1 className="text-3xl p-2 line-clamp-3">
+                                {event.name}
+                              </h1>
+                              <h3 className="text-xs p-2">
+                                {format(
+                                  new Date(event.date),
+                                  "MMMM do yyyy hh:mm a"
+                                )}
+                              </h3>
+                              <h3 className="text-base px-2 py-0 line-clamp-4 leading-8">
+                                {event.description}
+                              </h3>
+                            </div>
+                        </SwiperSlide>
+                      ))
+                    ) : (
+                      <p>No Events Found</p>
+                    )}
+                  </div>
+                )}
+              </Swiper>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  );
 }
