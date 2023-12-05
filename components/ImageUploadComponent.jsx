@@ -4,7 +4,7 @@ import {useDropzone} from "react-dropzone";
 import {DeleteButton, DocumentModal, Spinner, Title} from "@/components/index";
 import axios from "axios";
 
-const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
+const ImageUploadComponent = ({title,images,setImages,isDocuments = false, isTitle=true}) => {
     const onDrop = useCallback(acceptedFiles => {
         uploadImages(acceptedFiles).then(()=>setIsUploading(false))
     }, [])
@@ -43,14 +43,15 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false}) => {
     }
     return (
         <div className={"flex flex-col items-center"}>
-            <Title text={title}/>
+            {isTitle && (<Title text={title}/>)}
             <div className={"mb-2 flex flex-wrap gap-2 justify-center items-center"}>
                 <ReactSortable list={images} setList={updateImagesOrder} className={"flex flex-wrap gap-2"}>
                     {!!images?.length && images.map((link,index)=>(
                             <div key={link} className={"h-24 w-24 relative"}>
                                 <DeleteButton onClickFunction={()=>{deleteItems(index)}}/>
                                 {isDocuments ? (
-                                        <DocumentModal title={link.split(".com/")[1]} link={link}>
+                                        <DocumentModal title={link.split(".com/")[1].includes("edit?usp") ? "Google Drive":
+                                            link.split(".com/")[1]} link={link}>
                                         </DocumentModal>
                                 ) : (
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
