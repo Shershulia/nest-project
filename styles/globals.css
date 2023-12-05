@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 @import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500&display=swap");
+@import "./calendar.module.css";
 
 :root {
   font-family: Montserrat, Inter, Avenir, Helvetica, Arial, sans-serif;
@@ -60,13 +61,7 @@ body {
 .scrollbar::-webkit-scrollbar-track {
   background-color: transparent;
 }
-.scrollbar::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-}
-.scrollbar::-webkit-scrollbar-thumb {
-  background-color: #d6dee1;
-  border-radius: 20px;
-}
+
 .scrollbar::-webkit-scrollbar-thumb {
   background-color: #d6dee1;
   border-radius: 20px;
