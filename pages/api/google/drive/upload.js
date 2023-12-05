@@ -1,4 +1,4 @@
-import { drive } from "@/utils/googleDriveApi";
+import {drive, GoogleDrive} from "@/utils/googleDriveApi";
 import multiparty from "multiparty";
 import fs from "fs";
 
@@ -21,8 +21,40 @@ async function uploadFile(file) {
     }
 }
 
+export async function generatePublicUrl(fileId){
+    try{
+        await drive.permissions.create({
+            fileId:fileId,
+            requestBody:{
+                role:"reader",
+                type:"anyone"
+            }
+        })
+        const result = await drive.files.get({
+            fileId:fileId,
+            fields: "webViewLink"
+        })
+        return result.data.webViewLink
+    }catch (e){
+        console.log(e.message)
+    }
+}
+
 export default async function handler(req, res) {
     try {
+        if (req.method==="GET"){
+            try {
+                const response = await drive.files.list({
+                    'q' : 'trashed = false'
+                })
+                const files = response.data.files;
+                res.json(files)
+            } catch (error) {
+                console.error("Error fetching files:", error.message)
+                return null
+            }
+        }
+
         if (req.method === "POST") {
             const form = new multiparty.Form();
             const {fields,files} = await new Promise((resolve,reject)=>{
@@ -36,8 +68,8 @@ export default async function handler(req, res) {
                     const file = files.file[0]; // Assuming the file field is named 'file'
                     console.log("Received file:", file.originalFilename, file.path);
                     const response = await uploadFile(file)
-
-                    res.json(response.data.id);
+                    const publicUrl = await generatePublicUrl(response.data.id)
+                    res.json(publicUrl);
                 } catch (error) {
                     console.error("Error uploading file:", error);
                     res.status(500).json({ msg: "Error uploading file" });

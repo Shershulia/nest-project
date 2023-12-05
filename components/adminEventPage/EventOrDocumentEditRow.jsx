@@ -7,14 +7,17 @@ const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
     const [editMode, setEditMode] = useState(false);
     const arrayWithDocumentsOrImages = isDocument ? event.documents : event.images
     return (
-        <div className={"w-full flex"}>
-            {!editMode && (
+        <div className={`w-full flex ${editMode ? 'ease-in-out duration-300' : ''}`}>
+                {!editMode && (
                 <>
                     <div className={"flex w-2/3 items-center justify-start gap-10"}>
                         {arrayWithDocumentsOrImages.length>0 ? (
                                 <div className={"h-[100px] w-[100px] ml-2"}>
                                     {isDocument ? (
-                                        <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg truncate "}>{arrayWithDocumentsOrImages[0].split(".com/")[1]}</label>
+                                        <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg truncate "}>{
+                                            arrayWithDocumentsOrImages[0].split(".com/")[1].includes("edit?usp") ? "Google Drive":
+                                                arrayWithDocumentsOrImages[0].split(".com/")[1]
+                                        }</label>
                                     ) : (
                                         <img src={arrayWithDocumentsOrImages[0]} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
                                     )
@@ -39,9 +42,16 @@ const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
             {(editMode && !isDocument) && (<EventForm _id={event._id} description={event.description} title={event.name}
                                      date={event.date} contactPerson={event.contactPerson} place={event.place}
                                      price={event.price} numberOfPeople={event.numberOfPeople} images={event.images}
+                                                      closeEvent={()=>{
+                                                          setEditMode(false)
+                                                      }}
             />)}
             {(editMode && isDocument) && (<DocumentForm _id={event._id} description={event.description} title={event.title}
                                                       date={event.date} isDownloadable={event.isDownloadable} documents={event.documents}
+                                                        closeEvent={()=>{
+                                                            setEditMode(false)
+                                                        }}
+
             />)}
         </div>
     );

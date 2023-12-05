@@ -50,7 +50,8 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false, isTit
                             <div key={link} className={"h-24 w-24 relative"}>
                                 <DeleteButton onClickFunction={()=>{deleteItems(index)}}/>
                                 {isDocuments ? (
-                                        <DocumentModal title={link.split(".com/")[1]} link={link}>
+                                        <DocumentModal title={link.split(".com/")[1].includes("edit?usp") ? "Google Drive":
+                                            link.split(".com/")[1]} link={link}>
                                         </DocumentModal>
                                 ) : (
                                     <img src={link} alt={"Uploaded image"} className={"rounded-lg h-full w-full object-cover"}/>
