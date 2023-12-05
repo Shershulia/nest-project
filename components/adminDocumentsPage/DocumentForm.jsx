@@ -61,7 +61,6 @@ const DocumentForm = ({
         setTitle("");
         setDescription("");
         setDate(new Date);
-        setIsDownloadable("No");
         setDocuments([]);
     }
 

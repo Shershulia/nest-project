@@ -46,7 +46,6 @@ const DocumentsAdminPage = ({isAdmin}) => {
                                 {eventFormEdit && <GetEventsForEditing isMeetingForm={true}/>}
                             </div>
                         </div>
-                        <DocumentModal/>
                     </AdminLayout>
                 </div>
             ):
