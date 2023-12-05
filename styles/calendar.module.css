@@ -11,7 +11,7 @@
 
 .fc-view {
   @apply w-full;
-  max-height: 85%;
+  max-height: 89%;
 }
 
 .fc-event {
@@ -42,4 +42,19 @@
 }
 .fc-daygrid-event-dot{
   border-color: red;
+}
+
+.fc-scroller::-webkit-scrollbar {
+  width: 20px;
+}
+
+.fc-scroller::-webkit-scrollbar-track {
+  background-color: transparent;
+}
+
+.fc-scroller::-webkit-scrollbar-thumb {
+  @apply bg-violet-500;
+  border-radius: 20px;
+  border: 6px solid transparent;
+  background-clip: content-box;
 }
