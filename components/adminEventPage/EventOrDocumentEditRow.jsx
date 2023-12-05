@@ -2,13 +2,16 @@ import React, {useState} from 'react';
 import Image from "next/image";
 import {DocumentForm, EventForm} from "@/components";
 import {format} from "date-fns";
+import {RevealWrapper} from "next-reveal";
 
 const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
     const [editMode, setEditMode] = useState(false);
+    const [initiallyVisible, setInitiallyVisible] = useState(false);
+
     const arrayWithDocumentsOrImages = isDocument ? event.documents : event.images
     return (
-        <div className={`w-full flex ${editMode ? 'ease-in-out duration-300' : ''}`}>
-                {!editMode && (
+        <div className={`w-full flex`}>
+                {!editMode ? (
                 <>
                     <div className={"flex w-2/3 items-center justify-start gap-10"}>
                         {arrayWithDocumentsOrImages.length>0 ? (
@@ -33,26 +36,28 @@ const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
                         <button className={"bg-yellow-600 text-lg font-bold p-2 rounded-lg border-black w-full"}
                                 onClick={()=>{setEditMode(prevState => !prevState)}}>Edit</button>
                         <button className={"bg-red-600 text-lg font-bold p-2 rounded-lg border-black w-full"}
-                                onClick={()=>{deleteEvent(event._id,event.name)}}>Delete</button>
+                                onClick={()=>{deleteEvent(event._id,isDocument ? event.title : event.name)}}>Delete</button>
                     </div>
                 </>
 
-            )
-            }
-            {(editMode && !isDocument) && (<EventForm _id={event._id} description={event.description} title={event.name}
-                                     date={event.date} contactPerson={event.contactPerson} place={event.place}
-                                     price={event.price} numberOfPeople={event.numberOfPeople} images={event.images}
-                                                      closeEvent={()=>{
-                                                          setEditMode(false)
-                                                      }}
-            />)}
-            {(editMode && isDocument) && (<DocumentForm _id={event._id} description={event.description} title={event.title}
-                                                      date={event.date} isDownloadable={event.isDownloadable} documents={event.documents}
-                                                        closeEvent={()=>{
-                                                            setEditMode(false)
-                                                        }}
+            ) : (
+                    <RevealWrapper origin={'right'} delay={300} className={"w-full"}>
+                        {isDocument ? (<DocumentForm _id={event._id} description={event.description} title={event.title}
+                                                     date={event.date} isDownloadable={event.isDownloadable} documents={event.documents}
+                                                     closeEvent={()=>{
+                                                         setEditMode(false)
+                                                     }}
 
-            />)}
+                        />) : ( <EventForm _id={event._id} description={event.description} title={event.name}
+                                           date={event.date} contactPerson={event.contactPerson} place={event.place}
+                                           price={event.price} numberOfPeople={event.numberOfPeople} images={event.images}
+                                           closeEvent={()=>{
+                                               setEditMode(false)
+                                           }}
+                        />)}
+                    </RevealWrapper>
+                    )
+            }
         </div>
     );
 };

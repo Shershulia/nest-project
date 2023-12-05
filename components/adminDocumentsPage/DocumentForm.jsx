@@ -23,6 +23,15 @@ const DocumentForm = ({
     const [googleDriveFiles, setGoogleDriveFiles] = useState([]);
     const [choosenGoogleDriveFile,setChoosenGoogleDriveFile] = useState("");
 
+    //fix that before animation it shows for few milliseconds
+    const [isShown,setIsShown] = useState(false)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setIsShown(true);
+        }, 1);
+        return () => clearTimeout(timer);
+    }, []);
     const getGoogleDriveFiles = async ()=>{
         if (!fromGoogleDrive){
             setGoogleFilesLoading(true)
@@ -155,8 +164,9 @@ const DocumentForm = ({
     }
 
     return (
-        <div className={"flex flex-col justify-evenly w-full  h-full bg-white " +
-            "pb-4 border border-x-black border-t-black ease-in-out duration-300"}>
+        <div className={`flex flex-col justify-evenly w-full h-screen bg-white pb-4`}>
+            {isShown &&(
+                <>
             <div>
                 <Title text={"Create meeting document"}/>
                 <Input label={"Title of the meeting"} value={title} onChange={setTitle} className={'rounded-md w-1/2'}></Input>
@@ -222,6 +232,7 @@ const DocumentForm = ({
                 <button className={"bg-red-600 hover:bg-red-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
                         onClick={closeForm}>Cancel</button>
             </div>
+            </>)}
 
         </div>
     );

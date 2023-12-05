@@ -41,19 +41,31 @@ const GetEventsForEditing = ({isMeetingForm = false}) => {
     return (
         <div className={"w-full"}>
             <SearchBarEventOrDocument data={allEvents} setData={setAllEvents} originalData={fetchedData} title={`Search for ${isMeetingForm ? "document" :"event"}`} isDocuments={isMeetingForm}/>
-            {isLoading && <Spinner fullWidth={true}/>}
-            {( allEvents.length>0 && !isLoading ) && (
-                <>
-                    <div className={"w-full"}>{
-                        allEvents.map((event,index) => (
-                            <div key={index} className={"w-full flex justify-between border border-y-black border-r-black rounded-lg"}>
-                                <EventOrDocumentEditRow event={event} deleteEvent={deleteEvent} isDocument={isMeetingForm}/>
+            <div
+                className={`opacity-0 transition-opacity duration-300 ${
+                    isLoading ? '' : 'opacity-100'
+                }`}
+            >
+                {isLoading ? (
+                    <Spinner fullWidth={true} />
+                ) : (
+                    <>
+                        {allEvents.length > 0 && !isLoading && (
+                            <div className={'w-full '}>
+                                {allEvents.map((event, index) => (
+                                    <div
+                                        key={index}
+                                        className={'w-full flex justify-between border border-y-black border-r-black rounded-lg'}
+                                    >
+                                        <EventOrDocumentEditRow event={event} deleteEvent={deleteEvent} isDocument={isMeetingForm} />
+                                    </div>
+                                ))}
                             </div>
-                        ))}
-                    </div>
-                </>
+                        )}
+                    </>
+                )}
+            </div>
 
-            )}
             {( allEvents.length===0 && !isLoading ) && (
                 <div>No {isMeetingForm ? "documents" :"events"} found</div>
             )}
