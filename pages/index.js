@@ -9,13 +9,30 @@ import {
   EffectCoverflow,
   Mousewheel,
 } from "swiper/modules";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { format } from "date-fns";
 
 import "swiper/css/bundle";
-
+import { Spinner } from "@/components";
+import Link from "next/link";
 export default function Home() {
   const { data: session } = useSession();
+
+  const [events, setEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const getEvents = () => {
+    setIsLoading(true);
+    axios.get(`/api/events`).then((res) => {
+      setEvents(res.data);
+      setIsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    getEvents();
+  }, []);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
@@ -46,13 +63,19 @@ export default function Home() {
               <h1 className="text-6xl py-2">Hi {session.user.name}</h1>
               <h2 className="text-base py-3 leading-9">
                 Welcome to NEST! Established in 1998, we're a vibrant community
-                of Nepalese students and alumni in Trondheim. Join us and experience the essence
-                of Nepal in Norway!
+                of Nepalese students and alumni in Trondheim. Join us and
+                experience the essence of Nepal in Norway!
               </h2>
             </div>
             <div className="w-2/3 py-10">
               <Swiper
-                modules={[Autoplay, Pagination, Navigation, EffectCoverflow, Mousewheel]}
+                modules={[
+                  Autoplay,
+                  Pagination,
+                  Navigation,
+                  EffectCoverflow,
+                  Mousewheel,
+                ]}
                 slidesPerView={1.5}
                 centeredSlides={true}
                 loop={true}
@@ -78,50 +101,40 @@ export default function Home() {
                   "--swiper-pagination-bullet-horizontal-gap": "6px",
                 }}
               >
-                <SwiperSlide
-                  style={{
-                    backgroundImage: `url(https://wallpapercave.com/wp/iptrxid.jpg)`,
-                  }}
-                  className="bg-cover bg-center relative"
-                >
-                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
-                    <h1 className="text-3xl p-2">Avengers</h1>
-                    <h3 className="text-base p-2">They do be avenging</h3>
+                {isLoading ? (
+                  <Spinner fullWidth={true} />
+                ) : (
+                  <div className="w-full">
+                    {events.length ? (
+                      events.map((event, index) => (
+                        <SwiperSlide
+                          key={index}
+                          style={{
+                            backgroundImage: "url(" + event.images[0] + ")",
+                          }}
+                          className="bg-cover bg-center relative w-full cursor-pointer"
+                        >
+                            <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
+                              <h1 className="text-3xl p-2 line-clamp-3">
+                                {event.name}
+                              </h1>
+                              <h3 className="text-xs p-2">
+                                {format(
+                                  new Date(event.date),
+                                  "MMMM do yyyy hh:mm a"
+                                )}
+                              </h3>
+                              <h3 className="text-base px-2 py-0 line-clamp-4 leading-8">
+                                {event.description}
+                              </h3>
+                            </div>
+                        </SwiperSlide>
+                      ))
+                    ) : (
+                      <p>No Events Found</p>
+                    )}
                   </div>
-                </SwiperSlide>
-                <SwiperSlide
-                  style={{
-                    backgroundImage: `url(https://www.teahub.io/photos/full/99-997464_thor-ragnarok-thor-ragnarok-poster-hd.jpg)`,
-                  }}
-                  className="bg-cover bg-center relative"
-                >
-                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
-                    <h1 className="text-3xl p-2">Thor Ragnarock</h1>
-                    <h3 className="text-base p-2">Death Sis goes on a killing spree</h3>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide
-                  style={{
-                    backgroundImage: `url(https://wallpapers.com/images/hd4/dragon-ball-super-broly-movie-poster-97a8oe0mgan1o2t7.jpg)`,
-                  }}
-                  className="bg-cover bg-center relative"
-                >
-                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
-                    <h1 className="text-3xl p-2">Dragon Ball Super: Broly</h1>
-                    <h3 className="text-base p-2">Autistic Hulk goes on a rampage</h3>
-                  </div>
-                </SwiperSlide>
-                <SwiperSlide
-                  style={{
-                    backgroundImage: `url(https://getwallpapers.com/wallpaper/full/c/d/8/126215.jpg)`,
-                  }}
-                  className="bg-cover bg-center relative"
-                >
-                  <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
-                    <h1 className="text-3xl p-2">Star Wars: The Force Awakens</h1>
-                    <h3 className="text-base p-2">Something did indeed awaken</h3>
-                  </div>
-                </SwiperSlide>
+                )}
               </Swiper>
             </div>
           </div>
