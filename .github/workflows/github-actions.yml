@@ -31,7 +31,8 @@ jobs:
         run: npm run lint
 
       - name: Add GitLab remote
-        run: git remote add gitlab https://gitlab.stud.idi.ntnu.no/idatt2501-fordypningsprosjekt-nest/nest-sync.git
+        run: git remote add gitlab https://ivansh:${{ secrets.GITLAB_ACCESS_TOKEN }}gitlab.stud.idi.ntnu.no/idatt2501-fordypningsprosjekt-nest/nest-sync.git
+
 
       - name: Push to GitLab
         run: |
