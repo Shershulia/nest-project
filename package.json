@@ -12,6 +12,7 @@
     "@auth/mongodb-adapter": "^2.0.2",
     "@aws-sdk/client-s3": "^3.438.0",
     "axios": "^1.5.1",
+    "bootstrap-icons": "^1.11.2",
     "date-fns": "^2.30.0",
     "file-saver": "^2.0.5",
     "ics": "^3.5.0",
@@ -31,7 +32,8 @@
     "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8",
     "sortablejs": "^1.15.0",
-    "sweetalert2": "^11.7.32"
+    "sweetalert2": "^11.7.32",
+    "swiper": "^11.0.5"
   },
   "devDependencies": {
     "autoprefixer": "^10",
