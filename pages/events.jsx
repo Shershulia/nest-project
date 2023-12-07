@@ -30,7 +30,6 @@ const Events = () => {
 
     return (
         <FrontendLayout>
-
             <RevealWrapper className={"sm:w-3/12 w-2/3 h-full mb-4 sm:mb-0"}>
                 <WhiteBox>
                     <div className={"p-4"}>
