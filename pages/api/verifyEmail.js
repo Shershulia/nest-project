@@ -12,7 +12,7 @@ export default async function handler(req, res) {
             if (session) {
                     return res.json(await User.findOneAndUpdate(
                         { email: session.user.email },
-                        { $set: { subscription: new Date() } },
+                        { $set: { emailVerified: "waiting" } },
                         { returnDocument: "after" }
                 ));
             } else {

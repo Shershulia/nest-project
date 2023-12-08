@@ -37,6 +37,7 @@ export const authOptions = {
                     email: profile.email,
                     image: profile.picture,
                     // Add a new one
+                    emailVerified:profile.emailVerified,
                     subscription:profile.subscription,
                 };
             },
@@ -48,6 +49,7 @@ export const authOptions = {
             session.user.email = user.email;
             session.user.image=user.image;
             session.user.subscription = user.subscription;
+            session.user.emailVerified=user.emailVerified;
             return session;
         },
     },

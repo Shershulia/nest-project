@@ -16,8 +16,9 @@ const UserSchema = new Schema({
         required:true,
         unique:true
     },
+    //Email verification options : waiting , declined:[reason], accepted, null
     emailVerified:{
-        type:Date,
+        type:String,
         required:true,
     },
     subscription:{
