@@ -36,7 +36,11 @@ import Switcher from "@/components/Switcher";
 import LittleEventPage from "@/components/eventPage/LittleEventPage";
 import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentMethodsModals";
 import CreditCardIcon from "@/components/icons/CreditCardIcon";
+import IsWaitingCase from "@/components/subscriptionStateFrontendCases/IsWaitingCase";
+import NewUserCase from "@/components/subscriptionStateFrontendCases/NewUserCase";
 export {
+    NewUserCase,
+    IsWaitingCase,
     CreditCardIcon,
     PaymentMethodsModals,
     LittleEventPage,
