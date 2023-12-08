@@ -16,6 +16,8 @@ import { format } from "date-fns";
 import "swiper/css/bundle";
 import { Spinner } from "@/components";
 import Link from "next/link";
+import ParticlesBackground from "@/components/ParticlesBackground";
+
 export default function Home() {
   const { data: session } = useSession();
 
@@ -36,6 +38,7 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden">
+      <ParticlesBackground />
       {session && <NavBar />}
 
       <div className="flex flex-1 justify-center items-center">
