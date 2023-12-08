@@ -61,9 +61,10 @@ export default function Home() {
           </div>
         ) : (
           <div className="flex flex-row w-full">
-            <SideNav currentPage="Home" />
+            <SideNav/>
             <div className="text-center w-5/12 flex flex-col py-16 px-5">
-              <h1 className="text-6xl py-2">Hi {session.user.name}</h1>
+              <h1 className="text-3xl py-2">Hi,</h1>
+              <h1 className="text-2xl ">{session.user.name}</h1>
               <h2 className="text-base py-3 leading-9">
                 Welcome to NEST! Established in 1998, we're a vibrant community
                 of Nepalese students and alumni in Trondheim. Join us and
