@@ -46,7 +46,7 @@ export default function Calendar() {
   }, []);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col h-screen overflow-hidden text-white">
       {session && <NavBar />}
 
       <div className="flex flex-1 justify-center items-center">
