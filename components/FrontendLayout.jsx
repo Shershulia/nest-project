@@ -2,12 +2,14 @@ import React from 'react';
 import {signIn, signOut, useSession} from "next-auth/react";
 import NavBar from "@/components/NavBar";
 import SideNav from "@/components/SideNav";
+import ParticlesBackground from "@/components/ParticlesBackground";
 
 const FrontendLayout = ({children}) => {
     const { data: session } = useSession();
 
     return (
     <div className="flex flex-col h-screen overflow-hidden">
+        <ParticlesBackground />
         {session && <NavBar />}
         <div className="flex flex-1 justify-center items-center">
             {!session ? (

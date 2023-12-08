@@ -11,9 +11,14 @@
   --background-end-rgb: 255, 255, 255;
 
   --background-top-left: #111021;
+  --background-top-right: #2a2550;
+  --background-bottom-left: #0c0c11;
+  --background-bottom-right: #1e1d3d;
+
+  /* --background-top-left: #111021;
   --background-top-right: #1a173e;
   --background-bottom-left: #0c0c11;
-  --background-bottom-right: #15132e;
+  --background-bottom-right: #15132e; */
 
   --color-purple: #7154e0;
 }
@@ -28,32 +33,28 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-        to right,
-        var(--background-top-left),
-        var(--background-top-right)
-      )
-      top left,
-    linear-gradient(
-        to right,
-        var(--background-top-right),
-        var(--background-top-left)
-      )
-      top right,
-    linear-gradient(
-        to left,
-        var(--background-bottom-left),
-        var(--background-bottom-right)
-      )
-      bottom left,
-    linear-gradient(
-        to left,
-        var(--background-bottom-right),
-        var(--background-bottom-left)
-      )
-      bottom right;
+  background: 
+      linear-gradient(to right, var(--background-top-left), var(--background-top-right)),
+      linear-gradient(to right, var(--background-top-right), var(--background-top-left)),
+      linear-gradient(to left, var(--background-bottom-left), var(--background-bottom-right)),
+      linear-gradient(to left, var(--background-bottom-right), var(--background-bottom-left));
   background-repeat: no-repeat;
+  background-size: 200% 200%;
+  animation: moveBackground 10s linear infinite;
 }
+
+@keyframes moveBackground {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
 
 .scrollbar::-webkit-scrollbar {
   width: 20px;
@@ -71,4 +72,13 @@ body {
 
 .swiper-pagination-bullet {
   border: 2px solid rgba(95, 95, 95, 0.441);
+}
+
+#tsparticles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Set to -1 to ensure it's behind other content */
 }
