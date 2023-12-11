@@ -38,7 +38,9 @@ import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentM
 import CreditCardIcon from "@/components/icons/CreditCardIcon";
 import IsWaitingCase from "@/components/subscriptionStateFrontendCases/IsWaitingCase";
 import NewUserCase from "@/components/subscriptionStateFrontendCases/NewUserCase";
+import TopMenu from "@/components/TopMenu";
 export {
+    TopMenu,
     NewUserCase,
     IsWaitingCase,
     CreditCardIcon,

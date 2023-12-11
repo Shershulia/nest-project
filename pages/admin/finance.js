@@ -1,4 +1,4 @@
-import {AdminLayout, ReceiptRow, Spinner, WrongPermission} from "@/components";
+import {AdminLayout, ReceiptRow, Spinner, TopMenu, WrongPermission} from "@/components";
 import React, {useEffect, useState} from "react";
 import {getAdminServerSideProps} from "@/utils/adminUtils";
 import axios from "axios";
@@ -36,20 +36,9 @@ const FinanceAdminPage = ({isAdmin}) => {
         isAdmin ? (
             <div className="h-full flex bg-blue-600">
                 <AdminLayout>
-                    <div className={"w-full flex bg-blue-600"}>
-                        <button onClick={()=>{setNavigationState("All")}}
-                                className={`w-1/2 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 ${navigationState==="All" ? "bg-gray-200" : "bg-white"}`}>
-                            <p>All receipts</p>
-                        </button>
-                        <button onClick={()=>{setNavigationState("Confirmed")}}
-                            className={`w-1/2 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 ${navigationState==="Confirmed" ? "bg-gray-200" : "bg-white"}`} >
-                            <p>List of confirmed</p>
-                        </button>
-                        <button onClick={()=>{setNavigationState("New")}}
-                            className={`w-1/2 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 ${navigationState==="New" ? "bg-gray-200" : "bg-white"}`}>
-                            <p>New receipts</p>
-                        </button>
-                    </div>
+                    <TopMenu options={["All","Confirmed","New"]}
+                             setNavigationState={setNavigationState}
+                             navigationState={navigationState} />
                     <div className={"w-full h-full"}>
                         {isLoading ?
                             (<Spinner fullWidth={true}/>)
