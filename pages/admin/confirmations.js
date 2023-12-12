@@ -51,11 +51,33 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                              ${navState==="New users" && "bg-yellow-400 " }
                                                              ${navState==="Confirmed users" && "bg-green-400 " }
                                                              ${navState==="Declined User" && "bg-red-400 " }
-
                                                              border-black flex `}>
-                                                                <button className={"w-full m-4 font-bold rounded-lg bg-green-400 hover:bg-green-600 duration-500"}>Confirm</button>
-                                                                <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>Decline</button>
+                                                               {navState==="New users"
+                                                                   &&
+                                                                   (
+                                                                       <div className={"w-full flex"}>
+                                                                           <button className={"w-full m-4 font-bold rounded-lg bg-green-400 hover:bg-green-600 duration-500"}>Confirm</button>
+                                                                           <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>Decline</button>
+                                                                       </div>
 
+                                                                   )}
+                                                                {navState==="Declined User"
+                                                                    &&
+                                                                    (
+                                                                        <div className={"w-full flex"}>
+                                                                            <button className={"w-full m-4 font-bold rounded-lg bg-green-400 hover:bg-green-600 duration-500"}>Change decision</button>
+                                                                            <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>See reason</button>
+                                                                        </div>
+
+                                                                    )}
+                                                                {navState==="Confirmed users"
+                                                                    &&
+                                                                    (
+                                                                        <div className={"w-full flex"}>
+                                                                            <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>Change decision</button>
+                                                                        </div>
+
+                                                                    )}
                                                             </div>
                                                     </div>
                                                 ))}
