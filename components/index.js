@@ -39,7 +39,9 @@ import CreditCardIcon from "@/components/icons/CreditCardIcon";
 import IsWaitingCase from "@/components/subscriptionStateFrontendCases/IsWaitingCase";
 import NewUserCase from "@/components/subscriptionStateFrontendCases/NewUserCase";
 import TopMenu from "@/components/TopMenu";
+import UserCardComponent from "@/components/userComponents/UserCardComponent";
 export {
+    UserCardComponent,
     TopMenu,
     NewUserCase,
     IsWaitingCase,
