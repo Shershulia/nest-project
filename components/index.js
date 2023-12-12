@@ -40,7 +40,11 @@ import IsWaitingCase from "@/components/subscriptionStateFrontendCases/IsWaiting
 import NewUserCase from "@/components/subscriptionStateFrontendCases/NewUserCase";
 import TopMenu from "@/components/TopMenu";
 import UserCardComponent from "@/components/userComponents/UserCardComponent";
+import UserWasConfirmed from "@/components/subscriptionStateFrontendCases/UserWasConfirmed";
+import PaymentSubscriptionModal from "@/components/subscriptionStateFrontendCases/PaymentSubscriptionModal";
 export {
+    PaymentSubscriptionModal,
+    UserWasConfirmed,
     UserCardComponent,
     TopMenu,
     NewUserCase,

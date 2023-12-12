@@ -2,15 +2,22 @@ import {getSession, useSession} from "next-auth/react";
 
 
 import "swiper/css/bundle";
-import {FrontendLayout, IsWaitingCase, NewUserCase} from "@/components";
-import {mongooseConnect} from "@/lib/mongoose";
-import {User} from "@/models/User";
+import {
+    FrontendLayout,
+    IsWaitingCase,
+    NewUserCase, PaymentMethodsModals,
+    PaymentSubscriptionModal,
+    UserWasConfirmed
+} from "@/components";
+
 import axios from "axios";
 import { useRouter } from 'next/router';
+import {useState} from "react";
 
-export default function AccountPage({userInfo}) {
+export default function AccountPage() {
   const { data: session } = useSession();
     const router = useRouter();
+    const [modal,setModal] = useState(false);
 
     const setInWaiting = ()=>{
       axios.get("/api/verifyEmail").then(res=>{
@@ -20,6 +27,7 @@ export default function AccountPage({userInfo}) {
       })
   }
   return (
+      <>
       <FrontendLayout>
           {session ? (
               <div className={"flex flex-col-reverse md:flex-row justify-around items-start w-full text-white "}>
@@ -29,6 +37,10 @@ export default function AccountPage({userInfo}) {
                           {session.user.emailVerified==="waiting" &&
                               (
                                   <IsWaitingCase/>
+                              )}
+                          {session.user.emailVerified==="confirmed" &&
+                              (
+                                  <UserWasConfirmed subscription={session.user.subscription} setModal={setModal}/>
                               )}
                           {session.user.emailVerified===null &&
                               (
@@ -50,15 +62,7 @@ export default function AccountPage({userInfo}) {
               )
           }
       </FrontendLayout>
+    {modal && <PaymentMethodsModals event={event} setModal={setModal}/>}
+</>
       );
-}
-export async function getServerSideProps(ctx){
-    await mongooseConnect();
-    const userInformation = await getSession(ctx);
-    const userInfo = await User.find({email:userInformation?.user?.email}, { emailVerified: 1 });
-    return {
-        props: {
-            userInfo: JSON.parse(JSON.stringify(userInfo)),
-        }
-    };
 }
