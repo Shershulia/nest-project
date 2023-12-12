@@ -11,6 +11,9 @@ const UserCardComponent = ({user}) => {
                 <img src={image} alt={"Users image"} className={"rounded-lg m-2 h-[50px] w-[50px] invisible md:visible"}/>
                 <p className={"w-1/5 text-center truncate"}>{name}</p>
                 <p className={"w-2/3 truncate text-center font-bold"}>{email}</p>
+                { emailVerified.includes("declined") && (
+                    <p className={"w-1/5 text-center truncate"}>{emailVerified.split("declined:")[1]}</p>
+                )}
             </div>
         </div>
     );

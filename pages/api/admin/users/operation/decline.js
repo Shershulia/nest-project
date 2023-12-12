@@ -8,8 +8,13 @@ export default async function handler(req, res) {
         await isAdminRequest(req,res);
 
 
-        if (req.method === "GET") {
-            res.json(await User.find({ emailVerified: "confirmed" }));
+        if (req.method === "POST") {
+            const{email,reason} = req.body;
+            return res.json(await User.findOneAndUpdate(
+                { email: email },
+                { $set: { emailVerified: `declined:${reason}` } },
+                { returnDocument: "after" }
+            ));
         }
 
     }

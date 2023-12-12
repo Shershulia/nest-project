@@ -1,12 +1,38 @@
 import React, {useEffect, useState} from 'react';
 import {getAdminServerSideProps} from "@/utils/adminUtils";
-import {AdminLayout, ReceiptRow, Spinner, TopMenu, UserCardComponent, WrongPermission} from "@/components";
+import {AdminLayout, Spinner, TopMenu, UserCardComponent, WrongPermission} from "@/components";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const ConfirmationsPage = ({isAdmin}) => {
     const [navState, setNavState] = useState("New users")
     const [isLoading,setIsLoading] = useState(true);
-    const [users,setUsers] = useState([])
+    const [users,setUsers] = useState([]);
+
+
+    const confirmUser = (user)=>{
+        axios.post("/api/admin/users/operation/confirm",{email:user.email}).then(res=>{
+            loadUsers();
+        })
+    }
+    const declineUser = async (user) => {
+        await Swal.fire({
+            title: "Enter reason",
+            input: "text",
+            showCancelButton: true,
+            inputValidator: (value) => {
+                if (!value) {
+                    return "You need to write something!";
+                }
+            }
+        }).then(res=>{
+            axios.post("/api/admin/users/operation/decline", {email: user.email, reason:res.value}).then(res => {
+                loadUsers();
+            })
+        });
+
+    }
+
     const loadUsers = () =>{
         setIsLoading(true)
         if (navState==="New users"){
@@ -26,6 +52,8 @@ const ConfirmationsPage = ({isAdmin}) => {
             })
         }
     }
+
+
     useEffect(()=>{
         loadUsers()
     },[navState])
@@ -47,7 +75,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                 {users.map((user, index)=>(
                                                     <div className={"flex"}>
                                                         <UserCardComponent key={index} user={user}/>
-                                                            <div className={`w-1/2 bg-opacity-30 border-r border-b 
+                                                            <div className={`bg-opacity-30 border-r border-b 
                                                              ${navState==="New users" && "bg-yellow-400 " }
                                                              ${navState==="Confirmed users" && "bg-green-400 " }
                                                              ${navState==="Declined User" && "bg-red-400 " }
@@ -55,9 +83,14 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                {navState==="New users"
                                                                    &&
                                                                    (
-                                                                       <div className={"w-full flex"}>
-                                                                           <button className={"w-full m-4 font-bold rounded-lg bg-green-400 hover:bg-green-600 duration-500"}>Confirm</button>
-                                                                           <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>Decline</button>
+                                                                       <div className={"w-full flex flex-col"}>
+                                                                           <div className={"w-full h-full flex"}>
+                                                                               <button className={"w-full m-4 font-bold whitespace-nowrap rounded-lg bg-green-400 hover:bg-green-600 duration-500 p-2"}
+                                                                                       onClick={()=>{confirmUser(user)}}>Confirm</button>
+                                                                               <button className={"w-full m-4 font-bold whitespace-nowrap rounded-lg bg-red-400 hover:bg-red-600 duration-500 p-2"}
+                                                                                       onClick={()=>{declineUser(user)}}
+                                                                               >Decline</button>
+                                                                           </div>
                                                                        </div>
 
                                                                    )}
@@ -65,8 +98,8 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                     &&
                                                                     (
                                                                         <div className={"w-full flex"}>
-                                                                            <button className={"w-full m-4 font-bold rounded-lg bg-green-400 hover:bg-green-600 duration-500"}>Change decision</button>
-                                                                            <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>See reason</button>
+                                                                                <button className={"w-full m-4 font-bold whitespace-nowrap rounded-lg bg-green-400 hover:bg-green-600 duration-500 p-2"}
+                                                                                        onClick={()=>{confirmUser(user)}}>Change decision</button>
                                                                         </div>
 
                                                                     )}
@@ -74,7 +107,9 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                     &&
                                                                     (
                                                                         <div className={"w-full flex"}>
-                                                                            <button className={"w-full m-4 font-bold rounded-lg bg-red-400 hover:bg-red-600 duration-500"}>Change decision</button>
+                                                                            <button className={"w-full m-4 font-bold p-2 whitespace-nowrap rounded-lg bg-red-400 hover:bg-red-600 duration-500"}
+                                                                                    onClick={()=>{declineUser(user)}}
+                                                                            >Change decision</button>
                                                                         </div>
 
                                                                     )}
