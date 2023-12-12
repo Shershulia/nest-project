@@ -8,7 +8,10 @@ const UserWasConfirmed = ({subscription,setModal}) => {
                 <i className="bi bi-check-circle-fill text-green-600"/>
             </div>
             {subscription ? (
-                <p>Subscription</p>
+                <div className={"flex flex-col items-center justify-center"}>
+                    <p className={"text-bold text-xl"}>Information about subscription</p>
+                    <p>{subscription}</p>
+                </div>
             ) : (
                 <button className={"bg-green-600 hover:bg-green-700 duration-300 rounded-md"}
                 onClick={()=>{setModal(true)}}>Pay for subscription</button>
