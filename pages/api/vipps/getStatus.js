@@ -2,15 +2,12 @@ import axios from "axios";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import createIdempotencyKey from "@/utils/createIdempotencyKey";
-import {Receipt} from "@/models/Receipt";
 
 export default async function handler(req, res) {
     try{
         const {user} = await getServerSession(req,res,authOptions);
 
-        if (req.method === 'POST') {
-            const {event} = req.body;
-            const {_id,numberOfPeople,price,name,participants} = event
+        if (req.method === 'GET') {
 
             const idempotencyKey = createIdempotencyKey(user.email,_id);
 
@@ -60,26 +57,6 @@ export default async function handler(req, res) {
             ).catch(err=>{
                 console.log(err.response.data)
             });
-            // Find unpaid receipt with a description containing the specified string
-            const searchString = `Vipps Event ${name}, Nickname ${user.email} `;
-            const receiptBefore = await Receipt.findOne({
-                description: { $regex: new RegExp(searchString), $options: 'i' }, // Case-insensitive search
-                paid: false
-            });
-            if (receiptBefore){
-                await Receipt.findByIdAndUpdate(receiptBefore._id,
-                    {description: `Vipps Event ${name}, Nickname ${user.email}. Ref:${originalString.substring(0,45)}`,
-                        date: new Date(),
-                        amount: price})
-            }else {
-                await Receipt.create({
-                    description: `Vipps Event ${name}, Nickname ${user.email}. Ref:${originalString.substring(0,45)}`,
-                    date: new Date(),
-                    amount: price,
-                    contactPerson:user.email,
-                    paid:false
-                })
-            }
 
             res.json(response.data.redirectUrl)
 
@@ -89,8 +66,8 @@ export default async function handler(req, res) {
         }
 
     }
-        catch (error) {
-            console.error(error);
-            res.status(500).json({ msg: "Internal server error" });
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
     }
 }

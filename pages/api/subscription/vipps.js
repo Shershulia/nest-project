@@ -3,6 +3,7 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import createIdempotencyKey from "@/utils/createIdempotencyKey";
 import {Settings} from "@/models/Settings";
+import {Receipt} from "@/models/Receipt";
 
 export default async function handler(req, res) {
     try{
@@ -60,6 +61,26 @@ export default async function handler(req, res) {
             ).catch(err=>{
                 console.log(err.response.data)
             });
+            // Find unpaid receipt with a description containing the specified string
+            const searchString = `Subscription of ${user.email} with Vipps`;
+            const receiptBefore = await Receipt.findOne({
+                description: { $regex: new RegExp(searchString), $options: 'i' }, // Case-insensitive search
+                paid: false
+            });
+            if (receiptBefore){
+                await Receipt.findByIdAndUpdate(receiptBefore._id,
+                    {description: `Subscription of ${user.email} with Vipps. Ref: ${originalString.substring(0,45)}`,
+                    date: new Date(),
+                    amount: subscriptionPrice})
+            }else {
+                await Receipt.create({
+                    description: `Subscription of ${user.email} with Vipps. Ref: ${originalString.substring(0,45)}`,
+                    date: new Date(),
+                    amount: subscriptionPrice,
+                    contactPerson:user.email,
+                    paid:false
+                })
+            }
 
             res.json(response.data.redirectUrl)
 

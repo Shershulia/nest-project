@@ -23,7 +23,7 @@ export default async function handler(req, res) {
                             unit_amount:subscriptionPrice*100,
                         }}]
                     const eventReceiptDoc = await Receipt.create({
-                        description: `Subscription of ${user.email} with Vipps`,
+                        description: `Subscription of ${user.email} with Stripe`,
                         date: new Date(),
                         amount: subscriptionPrice,
                         contactPerson:user.email,
@@ -33,8 +33,8 @@ export default async function handler(req, res) {
                         line_items,
                         mode:"payment",
                         customer_email:user.email,
-                        success_url: `${process.env.NEXT_PUBLIC_INTERNAL_URI}/account?success=true`,
-                        cancel_url: `${process.env.NEXT_PUBLIC_INTERNAL_URI}/account?success=false`,
+                        success_url: `${process.env.NEXT_PUBLIC_INTERNAL_URI}/account`,
+                        cancel_url: `${process.env.NEXT_PUBLIC_INTERNAL_URI}/account`,
                         metadata:{
                             receiptId: eventReceiptDoc._id.toString(),
                             type:"subscription",
