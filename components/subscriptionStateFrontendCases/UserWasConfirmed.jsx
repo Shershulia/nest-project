@@ -13,8 +13,9 @@ const UserWasConfirmed = ({subscription,setModal}) => {
                     <p>{subscription}</p>
                 </div>
             ) : (
-                <button className={"bg-green-600 hover:bg-green-700 duration-300 rounded-md"}
+                <button className={"bg-green-600 hover:bg-green-700 p-2 duration-300 rounded-md"}
                 onClick={()=>{setModal(true)}}>Pay for subscription</button>
+
             )
             }
 

@@ -12,13 +12,18 @@ import {
 
 import axios from "axios";
 import { useRouter } from 'next/router';
-import {useState} from "react";
+import React, {useEffect, useState} from "react";
 
 export default function AccountPage() {
   const { data: session } = useSession();
     const router = useRouter();
     const [modal,setModal] = useState(false);
-
+    const [paymentStatus, setPaymentStatus] = useState(null);
+    const checkSubscription = () =>{
+        axios.get("/api/subscription/checkSubscriptionStatus").then(res => {
+            setPaymentStatus(res.data)
+        })
+    }
     const setInWaiting = ()=>{
       axios.get("/api/verifyEmail").then(res=>{
           if(res.data.emailVerified==="waiting"){
@@ -48,6 +53,26 @@ export default function AccountPage() {
                               )
                           }
                       </div>
+                      {!session.user.subscription &&
+                      (<div class={"w-full flex items-center flex-col justify-center"}>
+                          <p>If you have paid - check status</p>
+                          <button onClick={checkSubscription} className={"p-2 m-2 bg-blue-600 text-white rounded-md"}
+                          >Check payment
+                          </button>
+                          <div>
+                              {paymentStatus !== null && (
+                                  <>
+                                      {paymentStatus ? (
+                                          <p>Subscription was paid</p>
+                                      ) : (
+                                          <p className={"text-center text-wrap"}>Subscription was not paid. If you paid
+                                              - wait til 5 minutes and check it again <br/> Or write to admin if error
+                                              continues</p>
+                                      )}
+                                  </>
+                              )}
+                          </div>
+                      </div>)}
                   </div>
                   <div className={"flex gap-4 justify-center items-center md:w-1/3 w-11/12"}>
                       <h1 className={"text-xl text-white"}>Hello, {session?.user?.name}</h1>
