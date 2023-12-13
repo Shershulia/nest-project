@@ -1,7 +1,5 @@
 "use client";
-import { useSession, signIn, signOut } from "next-auth/react";
-import NavBar from "@/components/NavBar";
-import SideNav from "@/components/SideNav";
+import { useSession} from "next-auth/react";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import FullCalendar from "@fullcalendar/react";

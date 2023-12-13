@@ -1,6 +1,4 @@
-import { useSession, signIn, signOut } from "next-auth/react";
-import NavBar from "@/components/NavBar";
-import SideNav from "@/components/SideNav";
+import { useSession } from "next-auth/react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
   Autoplay,

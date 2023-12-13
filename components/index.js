@@ -36,6 +36,10 @@ import Switcher from "@/components/Switcher";
 import LittleEventPage from "@/components/eventPage/LittleEventPage";
 import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentMethodsModals";
 import CreditCardIcon from "@/components/icons/CreditCardIcon";
+import LoginForm from '@/components/LoginFormPage/LoginForm';
+import NavBar from "@/components/NavBar";
+import SideNav from "@/components/SideNav";
+import ParticlesBackground from "@/components/ParticlesBackground";
 export {
     CreditCardIcon,
     PaymentMethodsModals,
@@ -74,5 +78,9 @@ export {
     AddToCalendarButton,
     SearchBar,
     EventDisplayRow,
-    LocationIcon
+    LocationIcon,
+    LoginForm,
+    NavBar,
+    SideNav,
+    ParticlesBackground,
 }
