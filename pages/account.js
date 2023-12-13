@@ -5,7 +5,7 @@ import "swiper/css/bundle";
 import {
     FrontendLayout,
     IsWaitingCase,
-    NewUserCase, PaymentMethodsModals,
+    NewUserCase,
     PaymentSubscriptionModal,
     UserWasConfirmed
 } from "@/components";
@@ -62,7 +62,7 @@ export default function AccountPage() {
               )
           }
       </FrontendLayout>
-    {modal && <PaymentMethodsModals event={event} setModal={setModal}/>}
+    {modal && <PaymentSubscriptionModal setModal={setModal}/>}
 </>
       );
 }

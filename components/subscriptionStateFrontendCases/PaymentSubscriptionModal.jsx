@@ -12,24 +12,11 @@ const PaymentSubscriptionModal = ({setModal}) => {
     }
 
     const payWithCard = () => {
-        // const dataToEdit = {
-        //     event,
-        //     flag: "a"
-        // }
-        // axios.post("/api/joinEvent", dataToEdit).then(res => {
-        //     if (res.data.url){
-        //         window.location=res.data.url
-        //     }else {
-        //         if (res.data) {
-        //             Swal.fire(
-        //                 'Good job!',
-        //                 `You was assign for this event`,
-        //                 'success'
-        //             ).then(result => {
-        //                 location.reload();
-        //             })
-        //         }
-        //     }
+        axios.get("/api/subscription/stripe").then(res => {
+            if (res.data.url){
+                window.location=res.data.url
+            }
+        })
 
     }
     return (

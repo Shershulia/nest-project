@@ -2,8 +2,8 @@ import {mongooseConnect} from "@/lib/mongoose";
 import {Event} from "@/models/Event"
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
+import {Receipt} from "@/models/Receipt";
 
-import {EventReceipt} from "@/models/EventReceipt";
 const stripe = require('stripe')(process.env.STRIPE_SK);
 
 export default async function handler(req, res) {
@@ -27,7 +27,7 @@ export default async function handler(req, res) {
                             product_data: {name:name},
                             unit_amount:price*100,
                         }}]
-                    const eventReceiptDoc = await EventReceipt.create({
+                    const eventReceiptDoc = await Receipt.create({
                         description: `Payment for event ${name}`,
                         date: new Date(),
                         amount: price,
