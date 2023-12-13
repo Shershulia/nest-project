@@ -31,11 +31,15 @@ import AddToCalendarButton from "@/components/AddToCalendarButton";
 import SearchBar from "@/components/SearchBar";
 import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
 import LocationIcon from "@/components/icons/LocationIcon";
-import FrontendLayout from "@/components/FrontendLayout";
+import FrontendLayout from "@/components/FrontendLayoutPages/FrontendLayout";
 import Switcher from "@/components/Switcher";
 import LittleEventPage from "@/components/eventPage/LittleEventPage";
 import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentMethodsModals";
 import CreditCardIcon from "@/components/icons/CreditCardIcon";
+import LoginForm from '@/components/LoginFormPage/LoginForm';
+import NavBar from "@/components/FrontendLayoutPages/NavBar";
+import SideNav from "@/components/FrontendLayoutPages/SideNav";
+import ParticlesBackground from "@/components/FrontendLayoutPages/ParticlesBackground";
 export {
     CreditCardIcon,
     PaymentMethodsModals,
@@ -74,5 +78,9 @@ export {
     AddToCalendarButton,
     SearchBar,
     EventDisplayRow,
-    LocationIcon
+    LocationIcon,
+    LoginForm,
+    NavBar,
+    SideNav,
+    ParticlesBackground,
 }
