@@ -1,6 +1,6 @@
 import {mongooseConnect} from "@/lib/mongoose";
 const stripe = require('stripe')(process.env.STRIPE_SK);
-import {buffer} from "micro";
+import  {buffer} from "micro";
 import {EventReceipt} from "@/models/EventReceipt";
 import {Event} from  "@/models/Event";
 const endpointSecret = "whsec_1b8e3daaa245372703c900a53881fceb7d89e2aa4506fac56c67abac57fce889";
@@ -25,8 +25,9 @@ export default async function handler(req,res){
             const data = event.data.object;
             const receiptId= data.metadata.receiptId;
             const eventId= data.metadata.eventId;
+            const type= data.metadata.type;
             const paid = data.payment_status === "paid";
-            if(receiptId && paid && eventId){
+            if(receiptId && paid && eventId && type === "event"){
                 await EventReceipt.findByIdAndUpdate(receiptId,{
                     paid:true
                 })

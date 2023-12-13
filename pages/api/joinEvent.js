@@ -43,8 +43,7 @@ export default async function handler(req, res) {
                         metadata:{
                             receiptId: eventReceiptDoc._id.toString(),
                             eventId: _id.toString(),
-
-
+                            type:"event",
                         }
                     })
                     res.json({
