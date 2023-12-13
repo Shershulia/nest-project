@@ -1,14 +1,14 @@
 import React from 'react';
-import {CreditCardIcon, Title} from "@/components";
+import {CreditCardIcon} from "@/components";
 import axios from "axios";
 import Swal from "sweetalert2";
 const overlayStyles = "w-screen h-screen top-0 left-0 right-0 left-0 fixed transition-all duration-300 ";
 const PaymentSubscriptionModal = ({setModal}) => {
 
     const payWithVipps = () => {
-        // axios.post("/api/vipps/getPaymentLink",{event}).then(res=>{
-        //     window.location=res.data;
-        // })
+        axios.get("/api/subscription/vipps").then(res=>{
+            window.location=res.data;
+        })
     }
 
     const payWithCard = () => {

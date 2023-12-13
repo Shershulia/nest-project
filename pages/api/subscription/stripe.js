@@ -23,7 +23,7 @@ export default async function handler(req, res) {
                             unit_amount:subscriptionPrice*100,
                         }}]
                     const eventReceiptDoc = await Receipt.create({
-                        description: `Payment for subscription ${user.email}`,
+                        description: `Subscription of ${user.email} with Vipps`,
                         date: new Date(),
                         amount: subscriptionPrice,
                         contactPerson:user.email,
@@ -45,7 +45,7 @@ export default async function handler(req, res) {
                     });
                 }
             }else {
-            res.json("Should be a POST request")
+            res.json("Should be a GET request")
         }
         }
     catch (error) {

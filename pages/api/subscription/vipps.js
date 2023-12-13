@@ -2,16 +2,17 @@ import axios from "axios";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import createIdempotencyKey from "@/utils/createIdempotencyKey";
+import {Settings} from "@/models/Settings";
 
 export default async function handler(req, res) {
     try{
         const {user} = await getServerSession(req,res,authOptions);
 
-        if (req.method === 'POST') {
-            const {event} = req.body;
-            const {_id,numberOfPeople,price,name,participants} = event
+        if (req.method === 'GET') {
 
             const idempotencyKey = createIdempotencyKey(user.email,"subscription");
+            const subscription = await Settings.findOne({name:'subscription'});
+            const {value : subscriptionPrice} = subscription;
 
             const token = await axios.post(
                 'https://apitest.vipps.no/accessToken/get',
@@ -37,15 +38,15 @@ export default async function handler(req, res) {
                 {
                     'amount': {
                         'currency': 'NOK',
-                        'value': price * 100
+                        'value': subscriptionPrice * 100
                     },
                     'paymentMethod': {
                         'type': 'WALLET'
                     },
                     'reference': `${originalString.substring(0,45)}`,
-                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events/${_id}`,
+                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/account?success=true`,
                     'userFlow': 'WEB_REDIRECT',
-                    'paymentDescription': `Event ${name}, Nickname ${user.email} `
+                    'paymentDescription': `Subscription of ${user.email} with Vipps`
                 },
                 {
                     headers: {
@@ -63,8 +64,7 @@ export default async function handler(req, res) {
             res.json(response.data.redirectUrl)
 
         }else {
-            res.json("Should be a POST request")
-
+            res.json("Should be a GET request")
         }
 
     }
