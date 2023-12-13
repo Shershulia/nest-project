@@ -1,6 +1,6 @@
 import { useSession, signIn, signOut } from "next-auth/react";
-import NavBar from "@/components/NavBar";
-import SideNav from "@/components/SideNav";
+import NavBar from "@/components/FrontendLayoutPages/NavBar";
+import SideNav from "@/components/FrontendLayoutPages/SideNav";
 
 import { useEffect, useState } from "react";
 import axios from "axios";
