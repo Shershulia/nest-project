@@ -44,7 +44,7 @@ export default async function handler(req, res) {
                         'type': 'WALLET'
                     },
                     'reference': `${originalString.substring(0,45)}`,
-                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events/${_id}`,
+                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events/${_id}?check=true`,
                     'userFlow': 'WEB_REDIRECT',
                     'paymentDescription': `Event ${name}, Nickname ${user.email} `
                 },

@@ -14,13 +14,26 @@ import {format} from "date-fns";
 import {useSession} from "next-auth/react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import {useState} from "react";
+import {useEffect, useState} from "react";
+import {useRouter} from "next/router";
+import {useSearchParams} from "next/navigation";
 
 
 const SingeProductPage = ({event}) => {
     const { data: session } = useSession()
     const [modal,setModal] = useState(false);
+    const searchParams = useSearchParams();
 
+    const checkStatus = ()=>{
+        axios.post("/api/vipps/status",{event}).then(res=>{
+            console.log(`Response from : ${res.data}`)
+        })
+    }
+    useEffect(()=>{
+        if (searchParams.get("check")){
+            checkStatus()
+        }
+    },[])
     const joinEvent = () => {
         if (event.participants.includes(session.user.email)) {
             Swal.fire({
