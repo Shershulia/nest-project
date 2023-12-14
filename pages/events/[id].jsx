@@ -30,8 +30,7 @@ const SingeProductPage = ({event}) => {
 
     const searchParams = useSearchParams();
     useEffect(()=>{
-        setSubscriptionValid(()=>(isLessThan30DaysAgo(session?.user?.subscription)))
-        console.log(isLessThan30DaysAgo(session?.user?.subscription));
+        setSubscriptionValid(()=>(isLessThan30DaysAgo(session?.user?.subscription) && !session?.user?.emailVerified.includes("declined")))
     },[session])
 
     function isLessThan30DaysAgo(targetDate) {
