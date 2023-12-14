@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useSession, signIn, signOut } from "next-auth/react";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import {LoginButton} from "@/components/index";
 
@@ -36,7 +36,7 @@ const NavBar = () => {
   };
 
   return (
-    <div className="w-full flex justify-between p-4">
+    <div className="w-full flex justify-between p-4 text-white">
       <Link href="/" className="px-5">
         <i class="bi bi-app text-3xl"></i>
       </Link>

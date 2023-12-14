@@ -31,7 +31,6 @@ import AddToCalendarButton from "@/components/AddToCalendarButton";
 import SearchBar from "@/components/SearchBar";
 import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
 import LocationIcon from "@/components/icons/LocationIcon";
-import FrontendLayout from "@/components/FrontendLayout";
 import Switcher from "@/components/Switcher";
 import LittleEventPage from "@/components/eventPage/LittleEventPage";
 import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentMethodsModals";
@@ -44,6 +43,11 @@ import UserWasConfirmed from "@/components/subscriptionStateFrontendCases/UserWa
 import PaymentSubscriptionModal from "@/components/subscriptionStateFrontendCases/PaymentSubscriptionModal";
 import UserWasDeclined from "@/components/subscriptionStateFrontendCases/UserWasDeclined";
 import LoginButton from "@/components/LoginButton";
+import LoginForm from '@/components/LoginFormPage/LoginForm';
+import NavBar from "@/components/FrontendLayoutPages/NavBar";
+import SideNav from "@/components/FrontendLayoutPages/SideNav";
+import ParticlesBackground from "@/components/FrontendLayoutPages/ParticlesBackground";
+import FrontendLayout from "@/components/FrontendLayout";
 export {
     LoginButton,
     PaymentSubscriptionModal,
@@ -90,5 +94,9 @@ export {
     AddToCalendarButton,
     SearchBar,
     EventDisplayRow,
-    LocationIcon
+    LocationIcon,
+    LoginForm,
+    NavBar,
+    SideNav,
+    ParticlesBackground,
 }

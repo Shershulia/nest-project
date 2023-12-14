@@ -14,6 +14,8 @@ module.exports = {
       },
       colors: {
         customPurple: '#7154e0',
+        customDarkPurple: '#2a2550',
+        customLightPurple: '#a390e8',
       }
     },
   },
