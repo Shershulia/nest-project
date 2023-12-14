@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Link from "next/link";
+import {LoginButton} from "@/components/index";
 
 const NavBar = () => {
   const { data: session } = useSession();
@@ -39,16 +40,18 @@ const NavBar = () => {
       <Link href="/" className="px-5">
         <i class="bi bi-app text-3xl"></i>
       </Link>
-      <div>
+      <div className={"flex gap-4 justify-center items-center"}>
         <Link href="/" className="hover:bg-gray-700 px-4 py-3 rounded-lg">
           <i class="bi bi-gear text-2xl text-white-800"></i>
         </Link>
-        <button
-          className="hover:bg-gray-700 rounded-lg px-4 py-2"
-          onClick={() => signOut()}
+        {session ? (<button
+            className="hover:bg-gray-700 rounded-lg px-4 py-2"
+            onClick={() => signOut()}
         >
           <i class="bi bi-box-arrow-right text-2xl text-white-800"></i>
-        </button>
+        </button>) : (
+            <LoginButton className={"hover:bg-gray-700 rounded-lg px-4 py-2"} nav={true}/>
+        )}
         <button
           className="hover:bg-gray-700 rounded-lg px-4 py-2"
           onClick={toggleFullscreen}
@@ -56,7 +59,7 @@ const NavBar = () => {
           <i
             className={`bi ${
               isFullscreen ? "bi-fullscreen-exit" : "bi-fullscreen"
-            } text-2xl`}
+            } text-xl`}
           ></i>
         </button>
       </div>

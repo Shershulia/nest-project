@@ -43,7 +43,9 @@ import UserCardComponent from "@/components/userComponents/UserCardComponent";
 import UserWasConfirmed from "@/components/subscriptionStateFrontendCases/UserWasConfirmed";
 import PaymentSubscriptionModal from "@/components/subscriptionStateFrontendCases/PaymentSubscriptionModal";
 import UserWasDeclined from "@/components/subscriptionStateFrontendCases/UserWasDeclined";
+import LoginButton from "@/components/LoginButton";
 export {
+    LoginButton,
     PaymentSubscriptionModal,
     UserWasDeclined,
     UserWasConfirmed,

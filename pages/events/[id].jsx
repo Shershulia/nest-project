@@ -2,7 +2,6 @@ import {mongooseConnect} from "@/lib/mongoose";
 import {RevealWrapper} from "next-reveal";
 import {
     AddToCalendarButton,
-    CalendarIcon,
     FrontendLayout,
     PaymentMethodsModals,
     PlusIcon,

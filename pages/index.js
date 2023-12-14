@@ -14,7 +14,7 @@ import axios from "axios";
 import { format } from "date-fns";
 
 import "swiper/css/bundle";
-import { Spinner } from "@/components";
+import {LoginButton, Spinner} from "@/components";
 import Link from "next/link";
 export default function Home() {
   const { data: session } = useSession();
@@ -36,37 +36,20 @@ export default function Home() {
 
   return (
     <div className="flex flex-col h-screen overflow-hidden text-white">
-      {session && <NavBar />}
+      <NavBar />
 
       <div className="flex flex-1 justify-center items-center">
-        {!session ? (
-          <div className="bg-red-500 flex justify-center items-center p-2 flex-1">
-            <div className="text-center w-full">
-              <button
-                className="bg-white p-2 rounded-md"
-                onClick={() => signIn("google")}
-              >
-                Login with Google
-              </button>
-              <button
-                className="bg-white p-2 rounded-md"
-                onClick={() => signOut()}
-              >
-                Log out
-              </button>
-            </div>
-          </div>
-        ) : (
           <div className="flex flex-row w-full">
             <SideNav/>
             <div className="text-center w-5/12 flex flex-col py-16 px-5">
               <h1 className="text-3xl py-2">Hi,</h1>
-              <h1 className="text-2xl ">{session.user.name}</h1>
+              <h1 className="text-2xl ">{session ? session?.user?.name : ""}</h1>
               <h2 className="text-base py-3 leading-9">
                 Welcome to NEST! Established in 1998, we're a vibrant community
                 of Nepalese students and alumni in Trondheim. Join us and
                 experience the essence of Nepal in Norway!
               </h2>
+              <LoginButton className={"px-4 py-2 border border-white"}/>
             </div>
             <div className="w-2/3 py-10">
               <Swiper
@@ -139,7 +122,6 @@ export default function Home() {
               </Swiper>
             </div>
           </div>
-        )}
       </div>
     </div>
   );

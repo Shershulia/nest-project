@@ -10,11 +10,14 @@ const SideNav = () => {
     const router = useRouter();
     const {pathname} = router;
     const [isAdmin, setIsAdmin] = useState(false)
+    const { data: session } = useSession();
 
     useEffect(()=>{
-        axios.get("/api/checkAdmin").then((res)=>{
-            setIsAdmin(res.data)
-        })
+        if (session){
+            axios.get("/api/checkAdmin").then((res)=>{
+                setIsAdmin(res.data)
+            })
+        }
     },[])
 
   return (
@@ -29,15 +32,16 @@ const SideNav = () => {
         <label className="opacity-0 group-hover:opacity-100">Home</label>
       </Link>
 
-        <Link
-          href={`${isAdmin ? ("/admin") : ("/account")}`}
-          className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
-              (pathname==="/account" || pathname==="/admin") ? "text-customPurple" : "text-white"
-          }`}
+        {session &&
+            (<Link
+            href={`${isAdmin ? ("/admin") : ("/account")}`}
+            className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+                (pathname === "/account" || pathname === "/admin") ? "text-customPurple" : "text-white"
+            }`}
         >
-          <i class="bi bi-person text-3xl"></i>
-          <label className="opacity-0 group-hover:opacity-100">{isAdmin ? ("Admin") : ("Account")}</label>
-        </Link>
+            <i class="bi bi-person text-3xl"></i>
+            <label className="opacity-0 group-hover:opacity-100">{isAdmin ? ("Admin") : ("Account")}</label>
+        </Link>)}
 
 
       <Link
@@ -58,15 +62,16 @@ const SideNav = () => {
         <i class="bi bi-balloon text-3xl"></i>
         <label className="opacity-0 group-hover:opacity-100">Events</label>
       </Link>
-      <Link
-        href="/documents"
-        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
-            pathname==="/documents" ? "text-customPurple" : "text-white"
-        }`}
-      >
-        <i class="bi bi-file-earmark-pdf text-3xl"></i>
-        <label className="opacity-0 group-hover:opacity-100">Docs</label>
-      </Link>
+
+        {session && (<Link
+            href="/documents"
+            className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+                pathname === "/documents" ? "text-customPurple" : "text-white"
+            }`}
+        >
+            <i class="bi bi-file-earmark-pdf text-3xl"></i>
+            <label className="opacity-0 group-hover:opacity-100">Docs</label>
+        </Link>)}
 
     </div>
   );
