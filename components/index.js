@@ -42,8 +42,10 @@ import TopMenu from "@/components/TopMenu";
 import UserCardComponent from "@/components/userComponents/UserCardComponent";
 import UserWasConfirmed from "@/components/subscriptionStateFrontendCases/UserWasConfirmed";
 import PaymentSubscriptionModal from "@/components/subscriptionStateFrontendCases/PaymentSubscriptionModal";
+import UserWasDeclined from "@/components/subscriptionStateFrontendCases/UserWasDeclined";
 export {
     PaymentSubscriptionModal,
+    UserWasDeclined,
     UserWasConfirmed,
     UserCardComponent,
     TopMenu,

@@ -7,7 +7,8 @@ import {
     IsWaitingCase,
     NewUserCase,
     PaymentSubscriptionModal,
-    UserWasConfirmed
+    UserWasConfirmed,
+    UserWasDeclined
 } from "@/components";
 
 import axios from "axios";
@@ -46,6 +47,10 @@ export default function AccountPage() {
                           {session.user.emailVerified==="confirmed" &&
                               (
                                   <UserWasConfirmed subscription={session.user.subscription} setModal={setModal}/>
+                              )}
+                          {session.user.emailVerified.includes("declined:") &&
+                              (
+                                  <UserWasDeclined message={session.user.emailVerified}/>
                               )}
                           {session.user.emailVerified===null &&
                               (
