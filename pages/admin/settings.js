@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {AdminLayout, Input, Title, WrongPermission} from "@/components";
+import {AdminLayout, Input, TextArea, Title, WrongPermission} from "@/components";
 import {checkIfUserIsAdmin, getAdminServerSideProps} from "@/utils/adminUtils";
 import ImageUploadComponent from "@/components/ImageUploadComponent";
 import {mongooseConnect} from "@/lib/mongoose";
@@ -12,10 +12,13 @@ import axios from "axios";
 const SettingsAdminPage = ({isAdmin,
                                mainPictures : loaded,
                                subscriptionObject : existingSubscription,
-                               greeting: existingGreeting}) => {
+                               greeting: existingGreeting,
+                               description:existingDescription}) => {
     const [mainPictures, setMainPictures] = useState(loaded.images);
     const [subscriptionPrice, setSubscriptionPrice] = useState(existingSubscription?.value || 0);
     const [greeting, setGreeting] = useState(existingGreeting?.value || "");
+    const [description, setDescription] = useState(existingDescription?.value || "");
+
 
     const changeMainPictures = (ev) => {
         ev.preventDefault();
@@ -65,12 +68,48 @@ const SettingsAdminPage = ({isAdmin,
                 confirmButtonText: 'Change',
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    await axios.put('/api/admin/settings/subscription', {
+                    await axios.put('/api/admin/settings/change', {
                         _id: existingSubscription._id,
-                        subscription: subscriptionPrice
+                        value: subscriptionPrice
                     }).then(res => {
                         Swal.fire({
                             title: 'Subscription price was changed',
+                            icon: "success",
+                        })
+                    }).catch(err => {
+                        console.log(err);
+                        Swal.fire({
+                            title: 'Error!',
+                            text: err.message,
+                            icon: "error",
+                        })
+                    });
+                }
+
+            })
+        }
+    }
+    const saveDescription = (ev) => {
+        ev.preventDefault();
+        if (existingDescription.value === description) {
+            Swal.fire(
+                'Alert!',
+                `You made no changes in images`,
+                'question'
+            )
+        } else {
+            Swal.fire({
+                title: `Are you sure that you want to change description for ${description}?`,
+                showCancelButton: true,
+                confirmButtonText: 'Change',
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    await axios.put('/api/admin/settings/change', {
+                        _id: existingDescription._id,
+                        value: description
+                    }).then(res => {
+                        Swal.fire({
+                            title: 'Description was changed',
                             icon: "success",
                         })
                     }).catch(err => {
@@ -101,9 +140,9 @@ const SettingsAdminPage = ({isAdmin,
                 confirmButtonText: 'Change',
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    await axios.put('/api/admin/settings/greeting', {
+                    await axios.put('/api/admin/settings/change', {
                         _id: existingGreeting._id,
-                        subscription: greeting
+                        value: greeting
                     }).then(res => {
                         Swal.fire({
                             title: 'Greeting message was changed',
@@ -136,17 +175,17 @@ const SettingsAdminPage = ({isAdmin,
                                 onClick={(event) => changeMainPictures(event)}>Save changes
                             </button>
                         </div>
-                        <div className={"flex justify-center items-center gap-2 flex-wrap"}>
-                            <div className={"flex flex-col items-center"}>
-                                <Input label={"Price of subscription"} className={"text-center"} isDigits={true}
+                        <div className={"flex justify-center items-center  flex-wrap w-2/3 m-auto"}>
+                            <div className={"flex flex-col items-center w-1/2"}>
+                                <Input label={"Price of subscription"} className={"text-center w-11/12"} isDigits={true}
                                        value={subscriptionPrice} onChange={setSubscriptionPrice}/>
                                 <button
                                     className={"mt-2 bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
                                     onClick={(event) => saveNewSubscriptionPrice(event)}>Save changes
                                 </button>
                             </div>
-                            <div className={"flex flex-col items-center"}>
-                                <Input label={"Greeting message"} className={"text-center"} value={greeting}
+                            <div className={"flex flex-col items-center w-1/2"}>
+                                <Input label={"Greeting message"} className={"text-center w-11/12"} value={greeting}
                                        onChange={setGreeting}/>
                                 <button
                                     className={"mt-2 bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
@@ -154,6 +193,16 @@ const SettingsAdminPage = ({isAdmin,
                                 </button>
                             </div>
                         </div>
+                        <div className={"flex flex-col items-center w-full"}>
+                            <TextArea label={"Description"} className={"text-center w-2/3"}
+                                   value={description} onChange={setDescription}/>
+                            <button
+                                className={"mt-2 bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
+                                onClick={(event) => saveDescription(event)}>Save changes
+                            </button>
+                        </div>
+
+
                     </AdminLayout>
                 </div>
             ) :
@@ -170,6 +219,8 @@ export async function getServerSideProps(ctx){
     const mainPictures = await Settings.findOne({name:'mainImages'});
     const subscription = await Settings.findOne({name:'subscription'});
     const greeting = await Settings.findOne({name:'greeting'});
+    const description = await Settings.findOne({name:'description'});
+
 
     const admins = await Admin.find({}, { email: 1 });
     const userInformation = await getSession(ctx);
@@ -184,6 +235,8 @@ export async function getServerSideProps(ctx){
             mainPictures:JSON.parse(JSON.stringify(mainPictures)),
             subscriptionObject:JSON.parse(JSON.stringify(subscription)),
             greeting:JSON.parse(JSON.stringify(greeting)),
+            description:JSON.parse(JSON.stringify(description)),
+
         }
     };
 }
