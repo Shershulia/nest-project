@@ -14,7 +14,7 @@ const SettingsAdminPage = ({isAdmin,
                                subscriptionObject : existingSubscription,
                                greeting: existingGreeting,
                                description:existingDescription}) => {
-    const [mainPictures, setMainPictures] = useState(loaded.images);
+    const [mainPictures, setMainPictures] = useState(loaded?.value || []);
     const [subscriptionPrice, setSubscriptionPrice] = useState(existingSubscription?.value || 0);
     const [greeting, setGreeting] = useState(existingGreeting?.value || "");
     const [description, setDescription] = useState(existingDescription?.value || "");
@@ -22,7 +22,7 @@ const SettingsAdminPage = ({isAdmin,
 
     const changeMainPictures = (ev) => {
         ev.preventDefault();
-        if (JSON.stringify(loaded.images) === JSON.stringify(mainPictures)) {
+        if (loaded.value === mainPictures) {
             Swal.fire(
                 'Alert!',
                 `You made no changes in images`,
@@ -35,7 +35,7 @@ const SettingsAdminPage = ({isAdmin,
                 confirmButtonText: 'Change',
             }).then(async (result) => {
                 if (result.isConfirmed) {
-                    await axios.put('/api/admin/settings/images', {...loaded, images: mainPictures}).then(res => {
+                    await axios.put('/api/admin/settings/change', {_id:loaded._id, value: mainPictures}).then(res => {
                         Swal.fire({
                             title: 'Images is changed',
                             icon: "success",

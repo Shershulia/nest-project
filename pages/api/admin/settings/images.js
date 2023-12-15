@@ -8,9 +8,9 @@ export default async function handler(req, res) {
         await isAdminRequest(req,res);
 
         if (req.method==='PUT'){
-            const {_id,name, value ,images} = req.body;
-            await Settings.updateOne({_id},{name, value ,images})
-            res.json({_id,name, value ,images});
+            const {_id ,images} = req.body;
+            await Settings.updateOne({_id},{images: images})
+            res.json({_id ,images});
         }
     }
     catch (error) {

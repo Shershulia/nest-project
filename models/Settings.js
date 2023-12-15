@@ -8,10 +8,6 @@ const SettingsSchema = new Schema({
     },
     value:{
         type:Object,
-    },
-    images:[{
-        type: String
-    }],
-
+    }
 });
 export const Settings = models?.Settings || model('Settings',SettingsSchema)

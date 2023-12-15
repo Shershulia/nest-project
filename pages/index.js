@@ -75,8 +75,8 @@ export default function Home({events,description,greeting,mainPictures}) {
                   }}
               >
                     <div className="w-full">
-                        {mainPictures.images ? (
-                            mainPictures.images.map((picture, index) => (
+                        {mainPictures.value ? (
+                            mainPictures.value.map((picture, index) => (
                                 <SwiperSlide
                                     key={index}
                                     style={{
