@@ -42,19 +42,19 @@ export default function AccountPage() {
                   <div className={"flex gap-4 justify-center items-center flex-col md:w-1/2 w-11/12 border border-white p-2 rounded-lg"}>
                       <h1 className={"text-xl text-white"}>Information about subscription</h1>
                       <div>
-                          {session.user.emailVerified==="waiting" &&
+                          {session?.user.emailVerified==="waiting" &&
                               (
                                   <IsWaitingCase/>
                               )}
-                          {session.user.emailVerified==="confirmed" &&
+                          {session?.user.emailVerified==="confirmed" &&
                               (
                                   <UserWasConfirmed subscription={session.user.subscription} setModal={setModal}/>
                               )}
-                          {session.user.emailVerified.includes("declined:") &&
+                          {session?.user.emailVerified?.includes("declined:") &&
                               (
                                   <UserWasDeclined message={session.user.emailVerified}/>
                               )}
-                          {session.user.emailVerified===null &&
+                          {session?.user.emailVerified===null &&
                               (
                                   <NewUserCase sendVerification={setInWaiting}/>
                               )

@@ -13,18 +13,18 @@ const SideNav = () => {
     const { data: session } = useSession();
 
     useEffect(()=>{
-        if (session){
-            axios.get("/api/checkAdmin").then((res)=>{
-                setIsAdmin(res.data)
-            })
-        }
+
+        axios.get("/api/checkAdmin").then((res)=>{
+            setIsAdmin(res.data)
+        })
+
     },[])
 
   return (
     <div className="flex flex-col h-screen p-4 w-max items-center">
       <Link
         href="/"
-        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg duration-300 ${
           pathname==="/" ? "text-customPurple" : "text-white"
         }`}
       >
@@ -35,7 +35,7 @@ const SideNav = () => {
         {session &&
             (<Link
             href={`${isAdmin ? ("/admin") : ("/account")}`}
-            className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+            className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg duration-300 ${
                 (pathname === "/account" || pathname === "/admin") ? "text-customPurple" : "text-white"
             }`}
         >
@@ -46,7 +46,7 @@ const SideNav = () => {
 
       <Link
         href="/calendar"
-        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg duration-300 ${
             pathname==="/calendar" ? "text-customPurple" : "text-white"
         }`}
       >
@@ -55,7 +55,7 @@ const SideNav = () => {
       </Link>
       <Link
         href="/events"
-        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+        className={`group px-1 py-2 hover:bg-gray-800 flex flex-col duration-300 items-center w-full rounded-lg ${
             pathname==="/events" ? "text-customPurple" : "text-white"
         }`}
       >
@@ -65,7 +65,7 @@ const SideNav = () => {
 
         {session && (<Link
             href="/documents"
-            className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center w-full rounded-lg ${
+            className={`group px-1 py-2 hover:bg-gray-800 flex flex-col items-center duration-300 w-full rounded-lg ${
                 pathname === "/documents" ? "text-customPurple" : "text-white"
             }`}
         >

@@ -15,7 +15,11 @@ export default async function handler(req, res) {
 
         if (req.method === "GET") {
             const admins = await Admin.find({}, { email: 1 });
-            res.json(await checkIfUserIsAdmin(session.user.email, admins))
+            if (session){
+                res.json(await checkIfUserIsAdmin(session.user.email, admins))
+            }else{
+                res.json(false)
+            }
         }
     }
     catch (error) {

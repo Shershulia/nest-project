@@ -38,28 +38,28 @@ const NavBar = () => {
   return (
     <div className="w-full flex justify-between p-4 text-white">
       <Link href="/" className="px-5">
-        <i class="bi bi-app text-3xl"></i>
+        <i className="bi bi-app text-3xl"></i>
       </Link>
       <div className={"flex gap-4 justify-center items-center"}>
-        <Link href="/" className="hover:bg-gray-700 px-4 py-3 rounded-lg">
-          <i class="bi bi-gear text-2xl text-white-800"></i>
+        <Link href="/" className="hover:bg-gray-700 px-4 py-2 rounded-lg duration-300">
+          <i className="bi bi-gear text-2xl text-white-800"></i>
         </Link>
         {session ? (<button
-            className="hover:bg-gray-700 rounded-lg px-4 py-2"
+            className="hover:bg-gray-700 rounded-lg px-4 py-2 duration-300"
             onClick={() => signOut()}
         >
-          <i class="bi bi-box-arrow-right text-2xl text-white-800"></i>
+          <i className="bi bi-box-arrow-right text-2xl text-white-800 "></i>
         </button>) : (
             <LoginButton className={"hover:bg-gray-700 rounded-lg px-4 py-2"} nav={true}/>
         )}
         <button
-          className="hover:bg-gray-700 rounded-lg px-4 py-2"
+          className="hover:bg-gray-700 rounded-lg px-4 py-2 duration-300"
           onClick={toggleFullscreen}
         >
           <i
             className={`bi ${
               isFullscreen ? "bi-fullscreen-exit" : "bi-fullscreen"
-            } text-xl`}
+            } text-xl `}
           ></i>
         </button>
       </div>
