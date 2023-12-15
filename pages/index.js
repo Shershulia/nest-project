@@ -1,4 +1,4 @@
-import { useSession } from "next-auth/react";
+import {getSession, useSession} from "next-auth/react";
 import {Swiper, SwiperSlide} from "swiper/react";
 import {
   Autoplay,
@@ -13,25 +13,16 @@ import axios from "axios";
 import "swiper/css/bundle";
 import {LoginButton, NavBar, ParticlesBackground, SideNav, Spinner} from "@/components";
 import {format} from "date-fns";
+import {mongooseConnect} from "@/lib/mongoose";
+import {Settings} from "@/models/Settings";
+import {Event} from "@/models/Event";
 
 
-export default function Home() {
+export default function Home({events,description,greeting,mainPictures}) {
   const { data: session } = useSession();
 
-  const [events, setEvents] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
 
-  const getEvents = () => {
-    setIsLoading(true);
-    axios.get(`/api/events`).then((res) => {
-      setEvents(res.data);
-      setIsLoading(false);
-    });
-  };
 
-  useEffect(() => {
-    getEvents();
-  }, []);
 
   return (
     <div className="flex flex-col h-screen overflow-hidden text-white">
@@ -41,13 +32,11 @@ export default function Home() {
           <div className="flex flex-row w-full">
             <SideNav/>
             <div className="text-center w-5/12 flex flex-col py-16 px-5">
-              <h1 className="text-3xl py-2">Hi,</h1>
+              <h1 className="text-3xl py-2">{greeting}</h1>
                 {session && (<h1 className="text-2xl ">{session?.user?.name}</h1>)}
 
               <h2 className="text-base py-3 leading-9">
-                Welcome to NEST! Established in 1998, we're a vibrant community
-                of Nepalese students and alumni in Trondheim. Join us and
-                experience the essence of Nepal in Norway!
+                  {description}
               </h2>
                 {!session && (<LoginButton className={"px-4 py-2 border border-white"}/>)}
             </div>
@@ -85,10 +74,21 @@ export default function Home() {
                     "--swiper-pagination-bullet-horizontal-gap": "6px",
                   }}
               >
-                {isLoading ? (
-                    <Spinner fullWidth={true} />
-                ) : (
                     <div className="w-full">
+                        {mainPictures.images ? (
+                            mainPictures.images.map((picture, index) => (
+                                <SwiperSlide
+                                    key={index}
+                                    style={{
+                                        backgroundImage: "url(" + picture + ")",
+                                    }}
+                                    className="bg-cover bg-center relative w-full cursor-pointer"
+                                >
+                                </SwiperSlide>
+                            ))
+                        ) : (
+                            <p>Images not found</p>
+                        )}
                       {events.length ? (
                           events.map((event, index) => (
                               <SwiperSlide
@@ -99,7 +99,10 @@ export default function Home() {
                                   className="bg-cover bg-center relative w-full cursor-pointer"
                               >
                                 <div className="bg-slate-900 opacity-90 w-1/2 absolute right-0 top-0 bottom-0">
-                                  <h1 className="text-3xl p-2 line-clamp-3">
+                                    <h1 className="text-3xl p-2 line-clamp-3 font-bold">
+                                        Upcoming event :
+                                    </h1>
+                                  <h1 className="text-2xl p-2 line-clamp-3">
                                     {event.name}
                                   </h1>
                                   <h3 className="text-xs p-2">
@@ -115,11 +118,29 @@ export default function Home() {
                           <p>No Events Found</p>
                       )}
                     </div>
-                )}
               </Swiper>
             </div>
           </div>
       </div>
     </div>
   );
+}
+
+
+export async function getServerSideProps(ctx){
+    await mongooseConnect();
+    const mainPictures = await Settings.findOne({name:'mainImages'});
+    const greeting = await Settings.findOne({name:'greeting'});
+    const description = await Settings.findOne({name:'description'});
+    const events = await Event.find({date:{$gte: new Date()}}).sort({date: 'desc'}).limit(4);
+
+    return {
+        props: {
+            events:JSON.parse(JSON.stringify(events)),
+            mainPictures:JSON.parse(JSON.stringify(mainPictures)),
+            greeting:JSON.parse(JSON.stringify(greeting.value)),
+            description:JSON.parse(JSON.stringify(description.value)),
+
+        }
+    };
 }
