@@ -17,10 +17,29 @@ import {mongooseConnect} from "@/lib/mongoose";
 import {Settings} from "@/models/Settings";
 import {Event} from "@/models/Event";
 import {useRouter} from "next/router";
+import io from 'socket.io-client';
 
+let socket
 
 export default function Home({events,description,greeting,mainPictures}) {
-  const { data: session } = useSession();
+    const [socket, setSocket] = useState(null);
+
+    useEffect(() => {
+        // Create a socket connection
+        const newSocket = io();
+        setSocket(newSocket);
+
+        newSocket.on('message', (message) => {
+            alert(message);
+        });
+
+        // Clean up the socket connection on unmount
+        return () => {
+            newSocket.disconnect();
+        };
+    }, []);
+
+    const { data: session } = useSession();
   const router = useRouter()
 
     const goToAccountPage = ()=>{

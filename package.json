@@ -42,6 +42,8 @@
     "react-sortablejs": "^6.1.4",
     "react-spinners": "^0.13.8",
     "react-tsparticles": "^2.12.2",
+    "socket.io": "^4.7.2",
+    "socket.io-client": "^4.7.2",
     "sortablejs": "^1.15.0",
     "stripe": "^14.5.0",
     "sweetalert2": "^11.7.32",
