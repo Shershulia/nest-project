@@ -16,13 +16,16 @@ import {format} from "date-fns";
 import {mongooseConnect} from "@/lib/mongoose";
 import {Settings} from "@/models/Settings";
 import {Event} from "@/models/Event";
+import {useRouter} from "next/router";
 
 
 export default function Home({events,description,greeting,mainPictures}) {
   const { data: session } = useSession();
+  const router = useRouter()
 
-
-
+    const goToAccountPage = ()=>{
+        router.push("/account")
+    }
 
   return (
     <div className="flex flex-col h-screen overflow-hidden text-white">
@@ -39,6 +42,12 @@ export default function Home({events,description,greeting,mainPictures}) {
                   {description}
               </h2>
                 {!session && (<LoginButton className={"px-4 py-2 border border-white"}/>)}
+                {session?.user.emailVerified===null &&
+                    (<button type="button" onClick={goToAccountPage}
+                                            className={`text-white duration-500 hover:bg-gray-700 px-4 py-2 border border-white`}>
+                    Become member of our community right now
+                </button>)}
+
             </div>
             <div className="w-2/3 py-10">
               <Swiper

@@ -32,6 +32,9 @@ export default async function handler(req, res) {
                 description: { $regex: new RegExp(searchString), $options: 'i' }, // Case-insensitive search
                 paid: false
             });
+            if (!receiptBefore){
+                res.json(false)
+            }
             const reference = receiptBefore.description.split("Ref: ")[1];
             const response = await axios.get(
                 `https://apitest.vipps.no/epayment/v1/payments/${reference}/events`,
