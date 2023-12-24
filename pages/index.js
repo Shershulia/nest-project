@@ -17,31 +17,10 @@ import {mongooseConnect} from "@/lib/mongoose";
 import {Settings} from "@/models/Settings";
 import {Event} from "@/models/Event";
 import {useRouter} from "next/router";
-import io from 'socket.io-client';
 
 let socket
 export default function Home({events,description,greeting,mainPictures}) {
-
-    useEffect(() => socketInitializer(), [])
-    const socketInitializer = () => {
-        fetch('/api/socket')
-            .then(() => {
-                socket = io();
-
-                socket.on('connect', () => {
-                    console.log('connected');
-                });
-                socket.on('update-input', msg => {
-                    alert(msg)
-                })
-            })
-            .catch((error) => {
-                console.error('Error initializing socket:', error);
-            });
-    };
-
-
-    const { data: session } = useSession();
+  const { data: session } = useSession();
   const router = useRouter()
 
     const goToAccountPage = ()=>{
