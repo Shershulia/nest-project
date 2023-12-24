@@ -12,6 +12,10 @@ const NavBar = () => {
   const [showNotifications, setShowNotifications]  = useState(false);
 
     useEffect(() => socketInitializer(), [])
+
+    const clear = () =>{
+        setNotifications([]);
+    }
     const socketInitializer = () => {
         fetch('/api/socket')
             .then(() => {
@@ -69,18 +73,28 @@ const NavBar = () => {
                 <>
                     <i className="bi bi-bell-fill text-2xl text-white-800">
                     </i>
-                    <div className="m-3 top-0 right-0 h-1/4 w-1/4 flex items-center absolute justify-center rounded-full bg-red-600"></div>
+                    <div className="m-3 top-0 right-0 h-1/4 w-1/4 flex items-center absolute justify-center rounded-full bg-red-600">
+                        <p className={"text-xs text-bold text-white"}>{notifications.length}</p>
+                    </div>
                 </>
 
                 ): (<i className="bi bi-bell text-2xl text-white-800 "></i>)}
             {showNotifications && (
                 <div className={"absolute w-[200px] rounded-xl h-[200px] right-[0px] bg-white z-50 duration-300"}>
-                  {notifications.map((notification,key)=>(
-                          <p key={key} className={"text-black"}>{notification}</p>
-                      )
-                  )}
-                  <button className={"bg-gray-400 absolute " +
-                      "bottom-0 w-full rounded-b-lg hover:bg-gray-700 duration-300 py-2"}>Clear all</button>
+                    <button className={"bg-gray-400 absolute  " +
+                        "bottom-0 w-full rounded-b-sm text-white h-[25px] hover:bg-gray-700 duration-300 text-black z-50"}
+                            onClick={clear}>Clear all</button>
+                    <div className={"overflow-scroll mt-[10px] max-h-[190px] scrollbar mb-[25px]"}>
+                        {notifications.map((notification,key)=>(
+                                <div className={"flex"}>
+                                    <p key={key} className={"text-black flex items-center"}>
+                                        <span className={"font-bold text-black pl-2"}>New:</span> {notification}
+                                    </p>
+
+                                </div>
+                            )
+                        )}
+                    </div>
                 </div>
             )}
           </div>

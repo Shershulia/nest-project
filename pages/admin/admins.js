@@ -19,7 +19,9 @@ const AdminsAdminPage = ({isAdmin}) => {
         };
     }, []);
 
-    const sendMessage = () => {
+    const sendMessage = (event) => {
+        event.stopPropagation();
+        event.preventDefault();
         // Send the message to the server
         if (socket) {
             socket.emit('message', notification);
@@ -34,12 +36,13 @@ const AdminsAdminPage = ({isAdmin}) => {
             <AdminLayout>
                 <AddAdminComponent></AddAdminComponent>
                 <DeleteAdmin></DeleteAdmin>
-                <div className={"flex flex-col justify-center items-center"}>
+                <div className={"flex flex-col justify-center w-full items-center"}>
                     <Input label={"Send notification"}
                            value={notification}
                            onChange={setNotification}
-                           className={"rounded-lg"} />
-                    <button className={"bg-green-600"} onClick={sendMessage}>Send notification</button>
+                           className={"w-1/3 p-2 rounded-t-lg"} />
+                    <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+                            onClick={(event)=>sendMessage(event)}>Send notification</button>
                 </div>
             </AdminLayout>
         </div>):
