@@ -20,24 +20,26 @@ import {useRouter} from "next/router";
 import io from 'socket.io-client';
 
 let socket
-
 export default function Home({events,description,greeting,mainPictures}) {
-    const [socket, setSocket] = useState(null);
 
-    useEffect(() => {
-        // Create a socket connection
-        const newSocket = io();
-        setSocket(newSocket);
+    useEffect(() => socketInitializer(), [])
+    const socketInitializer = () => {
+        fetch('/api/socket')
+            .then(() => {
+                socket = io();
 
-        newSocket.on('message', (message) => {
-            alert(message);
-        });
+                socket.on('connect', () => {
+                    console.log('connected');
+                });
+                socket.on('update-input', msg => {
+                    alert(msg)
+                })
+            })
+            .catch((error) => {
+                console.error('Error initializing socket:', error);
+            });
+    };
 
-        // Clean up the socket connection on unmount
-        return () => {
-            newSocket.disconnect();
-        };
-    }, []);
 
     const { data: session } = useSession();
   const router = useRouter()
