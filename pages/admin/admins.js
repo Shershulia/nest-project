@@ -6,8 +6,8 @@ const AdminsAdminPage = ({isAdmin}) => {
 
     return (
         isAdmin ? (
-        <div className="h-full flex bg-blue-600">
-            <AdminLayout>
+        <div className="h-full flex">
+            <AdminLayout backgroundColor={"customPurple"} backgroundOpacity={"0.4"}>
                 <AddAdminComponent></AddAdminComponent>
                 <DeleteAdmin></DeleteAdmin>
             </AdminLayout>

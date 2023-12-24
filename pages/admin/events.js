@@ -9,22 +9,22 @@ const EventsAdminPage = ({isAdmin}) => {
 
     return (
         isAdmin ? (
-        <div className="h-full flex bg-blue-600">
-            <AdminLayout>
+        <div className="h-full flex">
+            <AdminLayout backgroundColor={""}>
                 <div>
                     <button
                         onClick={() => {
                             setEventFormStart((prevState) => !prevState);
                         }}
                         className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${
-                            eventFormStart ? 'bg-gray-200' : 'bg-white'
+                            eventFormStart ? 'bg-customPurple' : 'bg-customDarkPurple'
                         } transition-all duration-1000`}
                     >
                         Create event
                     </button>
                     <div
                         className={`overflow-hidden transition-all duration-1000 ${
-                            eventFormStart ? 'opacity-100 max-h-full' : 'opacity-0 max-h-0'
+                            eventFormStart ? 'opacity-100 max-h-fit py-10' : 'opacity-0 max-h-0 py-0'
                         } `}
                         style={{ transitionProperty: 'opacity, max-height' }}
                     >
@@ -37,7 +37,7 @@ const EventsAdminPage = ({isAdmin}) => {
                             setEventFormEdit((prevState) => !prevState);
                         }}
                         className={`border border-black py-8 w-full text-xl ${
-                            eventFormEdit ? 'bg-gray-200' : 'bg-white'
+                            eventFormEdit ? 'bg-customPurple' : 'bg-customDarkPurple'
                         } transition-all duration-300`}
                     >
                         Edit event
@@ -51,7 +51,8 @@ const EventsAdminPage = ({isAdmin}) => {
                         {eventFormEdit && <GetEventsForEditing />}
                     </div>
                 </div>
-
+                <div className='bg-customDarkPurple flex-1'>
+                </div>
 
             </AdminLayout>
         </div>
