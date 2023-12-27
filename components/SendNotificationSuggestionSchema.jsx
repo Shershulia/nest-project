@@ -7,7 +7,7 @@ const SendNotificationSuggestionSchema = () => {
     const [suggestion,setSuggestion] = useState("");
     const sendSuggestion = () =>{
         if(suggestion!==""){
-         axios.post("/api/notify",{text:suggestion}).then(res=>{
+         axios.post("/api/notifications",{text:suggestion}).then(res=>{
 
              Swal.fire(
                  'Good job!',

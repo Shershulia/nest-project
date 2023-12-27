@@ -1,5 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {AddAdminComponent, AdminLayout, DeleteAdmin, Input, Title, WrongPermission} from "@/components";
+import {
+    AddAdminComponent,
+    AdminLayout,
+    DeleteAdmin,
+    Input,
+    Title,
+    UsersNotificationComponents,
+    WrongPermission
+} from "@/components";
 import { getAdminServerSideProps} from "@/utils/adminUtils";
 import io from 'socket.io-client';
 let socket
@@ -44,6 +52,7 @@ const AdminsAdminPage = ({isAdmin}) => {
                     <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
                             onClick={(event)=>sendMessage(event)}>Send notification</button>
                 </div>
+                <UsersNotificationComponents socket={socket} />
             </AdminLayout>
         </div>):
             (
