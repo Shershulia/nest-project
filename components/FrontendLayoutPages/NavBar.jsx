@@ -11,7 +11,10 @@ const NavBar = () => {
   const [notifications, setNotifications] = useState([]);
   const [showNotifications, setShowNotifications]  = useState(false);
 
-    useEffect(() => socketInitializer(), [])
+    useEffect(() => {
+        if(session){
+            socketInitializer()
+        }}, [])
 
     const clear = () =>{
         setNotifications([]);
@@ -67,7 +70,7 @@ const NavBar = () => {
           <i className="bi bi-app text-3xl"></i>
         </Link>
         <div className={"flex gap-4 justify-center items-center"}>
-          <div className={`hover:bg-gray-700 px-4 py-2 rounded-lg duration-300 relative ${showNotifications && "bg-gray-700"}`}
+            {session && (<div className={`hover:bg-gray-700 px-4 py-2 rounded-lg duration-300 relative ${showNotifications && "bg-gray-700"}`}
                onClick={()=>{setShowNotifications(prevState => !prevState)}}>
             {notifications.length ? (
                 <>
@@ -97,7 +100,7 @@ const NavBar = () => {
                     </div>
                 </div>
             )}
-          </div>
+          </div>)}
           <Link href="/" className="hover:bg-gray-700 px-4 py-2 rounded-lg duration-300">
             <i className="bi bi-gear text-2xl text-white-800"></i>
           </Link>
