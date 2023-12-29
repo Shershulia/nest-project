@@ -19,7 +19,8 @@ export default async function handler(req, res) {
             res.json(await NotificationSuggestion.find());
         }
         if (req.method === "DELETE") {
-            res.json(await Admin.deleteOne({_id:req.query?.id}));
+            console.log(req.query?.id)
+            res.json(await NotificationSuggestion.deleteOne({_id:req.query?.id}));
         }
     }
     catch (error) {

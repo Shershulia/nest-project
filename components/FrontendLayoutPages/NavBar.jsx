@@ -83,7 +83,7 @@ const NavBar = () => {
 
                 ): (<i className="bi bi-bell text-2xl text-white-800 "></i>)}
             {showNotifications && (
-                <div className={"absolute w-[200px] rounded-xl h-[200px] right-[0px] bg-white z-50 duration-300"}>
+                <div className={"absolute w-[200px] rounded-sm h-[200px] right-[0px] bg-white z-50 duration-300"}>
                     <button className={"bg-gray-400 absolute  " +
                         "bottom-0 w-full rounded-b-sm text-white h-[25px] hover:bg-gray-700 duration-300 text-black z-50"}
                             onClick={clear}>Clear all</button>

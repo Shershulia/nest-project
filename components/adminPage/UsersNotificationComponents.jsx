@@ -1,24 +1,53 @@
 import React, {useEffect, useState} from 'react';
 import {Input, Spinner, Title} from "@/components";
 import axios from "axios";
+import Swal from "sweetalert2";
 
 const UsersNotificationComponents = ({socket}) => {
     const [notificationToSend, setNotificationToSend]= useState("")
     const [suggestionIndex,setSuggestionIndex] = useState(0);
     const [suggestions,setSuggestions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    useEffect(()=> {
+    const loadNotifications = () =>{
         setIsLoading(true);
         axios.get("/api/notifications").then(res => {
             setSuggestions(res.data)
             setNotificationToSend(res?.data[0].text)
-            setIsLoading(false);
         }).catch((error) => {
             console.log(error);
         })
+        setIsLoading(false);
+
+    }
+    useEffect(()=> {
+        loadNotifications()
     },[]);
-    const sendNotification = (event)=>{
+    const sendNotification = async (event)=> {
+        event.stopPropagation();
         event.preventDefault();
+        // Send the message to the server
+        const stringToSend = `${suggestions[suggestionIndex].email},\n${notificationToSend}`
+        if (socket) {
+            socket.emit('message', stringToSend);
+        }
+        axios.delete(`/api/notifications?id=${suggestions[suggestionIndex]._id}`).then(
+            res => {
+                setNotificationToSend('');
+                Swal.fire(
+                    'Good job!',
+                    `Notification ${stringToSend} was send`,
+                    'success'
+                ).then(async res => {
+                    await loadNotifications();
+                })
+            }
+        ).catch((error) => {
+            Swal.fire(
+                'Error',
+                "Hm... Something went wrong, please contact support with your case. " + error.message,
+                'error'
+            )
+        })
     }
     const nextNotification = () =>{
         if (suggestionIndex===suggestions.length-1){
@@ -56,13 +85,16 @@ const UsersNotificationComponents = ({socket}) => {
                             </button>
                         </div>
                     </div>
-                    <p>By user : {suggestions[suggestionIndex].email}</p>
+                    {suggestions.length ? (<>
+                        <p>By user : {suggestions[suggestionIndex].email}</p>
 
-                    <Input value={notificationToSend}
-                           onChange={setNotificationToSend}
-                           className={"w-1/3 p-2 rounded-t-lg"} />
-                    <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
-                            onClick={(event)=>sendNotification(event)}>Send notification</button>
+                        <Input value={notificationToSend}
+                               onChange={setNotificationToSend}
+                               className={"w-1/3 p-2 rounded-t-lg"} />
+                        <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+                                onClick={(event)=>sendNotification(event)}>Send notification</button>
+                    </>) : (<p>No suggestions found</p>)}
+
                 </>
             )}
         </div>
