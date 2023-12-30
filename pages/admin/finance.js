@@ -34,11 +34,22 @@ const FinanceAdminPage = ({isAdmin}) => {
     },[navigationState])
     return (
         isAdmin ? (
-            <div className="h-full flex bg-blue-600">
-                <AdminLayout>
-                    <TopMenu options={["All","Confirmed","New"]}
-                             setNavigationState={setNavigationState}
-                             navigationState={navigationState} />
+            <div className="h-full flex">
+                <AdminLayout backgroundColor={"transparent"}>
+                    <div className={"w-full flex text-white"}>
+                        <button onClick={()=>{setNavigationState("All")}}
+                                className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="All" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
+                            <p>All receipts</p>
+                        </button>
+                        <button onClick={()=>{setNavigationState("Confirmed")}}
+                            className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="Confirmed" ? "bg-customPurple" : "bg-customDarkPurple"}`} >
+                            <p>List of confirmed</p>
+                        </button>
+                        <button onClick={()=>{setNavigationState("New")}}
+                            className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="New" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
+                            <p>New receipts</p>
+                        </button>
+                    </div>
                     <div className={"w-full h-full"}>
                         {isLoading ?
                             (<Spinner fullWidth={true}/>)

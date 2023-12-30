@@ -32,7 +32,7 @@ const DeleteAdmin = () => {
 
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
-            <Title text={"Delete admin by mail"}/>
+            <Title text={"Delete admin by mail"} color={"white"}/>
             <div className={"flex flex-col justify-center items-center w-1/3"}>
                 {allAdmins.length ?
                     (<>

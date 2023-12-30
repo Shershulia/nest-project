@@ -35,9 +35,9 @@ const AddAdminComponent = () => {
 
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
-            <Title text={"Add admin"}></Title>
+            <Title text={"Add admin"} color={"white"}></Title>
             <Input value={addUser} onChange={setAddUser} className={"w-1/3 p-2 rounded-t-lg"}></Input>
-            <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+            <button className={"bg-customLightPurple text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
                     onClick={addUserFun}>+</button>
             <h1 className={"py-4 font-semibold"}>OR</h1>
             <div className={"flex flex-col justify-center items-center w-1/3"}>
@@ -52,7 +52,7 @@ const AddAdminComponent = () => {
                                 )
                             )}
                         </select>
-                        <button className={"bg-green-600 text-lg font-bold p-2 w-full rounded-b-lg border-black"}
+                        <button className={"bg-customLightPurple text-lg font-bold p-2 w-full rounded-b-lg border-black"}
                                 onClick={addUserFun}>+</button>
                     </>) :
                     (<Spinner fullWidth={true}/>)

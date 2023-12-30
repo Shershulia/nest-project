@@ -4,7 +4,7 @@ import {useDropzone} from "react-dropzone";
 import {DeleteButton, DocumentModal, Spinner, Title} from "@/components/index";
 import axios from "axios";
 
-const ImageUploadComponent = ({title,images,setImages,isDocuments = false, isTitle=true}) => {
+const ImageUploadComponent = ({title,images,setImages,isDocuments = false, isTitle=true, color}) => {
     const onDrop = useCallback(acceptedFiles => {
         uploadImages(acceptedFiles).then(()=>setIsUploading(false))
     }, [])
@@ -41,9 +41,11 @@ const ImageUploadComponent = ({title,images,setImages,isDocuments = false, isTit
     const deleteItems = (key)=> {
         setImages(images.filter((_, index) => index !== key))
     }
+
+    const titlecolor = color ? "text-" + color : "text-black";
     return (
         <div className={"flex flex-col items-center"}>
-            {isTitle && (<Title text={title}/>)}
+            {isTitle && (<Title text={title} color={titlecolor}/>)}
             <div className={"mb-2 flex flex-wrap gap-2 justify-center items-center"}>
                 <ReactSortable list={images} setList={updateImagesOrder} className={"flex flex-wrap gap-2"}>
                     {!!images?.length && images.map((link,index)=>(
