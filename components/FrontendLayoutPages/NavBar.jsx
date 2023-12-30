@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import {LoginButton} from "@/components/index";
@@ -12,31 +12,41 @@ const NavBar = () => {
   const [showNotifications, setShowNotifications]  = useState(false);
 
     useEffect(() => {
-        if(session){
-            socketInitializer()
-        }}, [])
+        if (session) {
+            socketInitializer();
+
+            return () => {
+                // Clean up the socket connection when the component is unmounted
+                if (socket) {
+                    socket.disconnect();
+                }
+            };
+        }
+    }, [session]);
+
 
     const clear = () =>{
         setNotifications([]);
     }
-    const socketInitializer = () => {
-        fetch('/api/socket')
+    const socketInitializer = useCallback(() => {
+        fetch("/api/socket")
             .then(() => {
                 socket = io();
 
-                socket.on('connect', () => {
-                    console.log('connected');
+                socket.on("connect", () => {
+                    console.log("connected");
                 });
-                socket.on('update-input', msg => {
-                    setNotifications(prevState => [...prevState,msg])
-                })
+                socket.on("update-input", (msg) => {
+                    console.log(msg);
+                    setNotifications((prevState) => [...prevState, msg]);
+                });
             })
             .catch((error) => {
-                console.error('Error initializing socket:', error);
+                console.error("Error initializing socket:", error);
             });
-    };
+    }, []);
 
-  const toggleFullscreen = () => {
+    const toggleFullscreen = () => {
     if (!document.fullscreenElement) {
       document.documentElement
           .requestFullscreen()
