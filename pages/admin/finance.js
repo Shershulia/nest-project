@@ -34,19 +34,19 @@ const FinanceAdminPage = ({isAdmin}) => {
     },[navigationState])
     return (
         isAdmin ? (
-            <div className="h-full flex bg-blue-600">
-                <AdminLayout>
-                    <div className={"w-full flex bg-blue-600"}>
+            <div className="h-full flex">
+                <AdminLayout backgroundColor={"transparent"}>
+                    <div className={"w-full flex"}>
                         <button onClick={()=>{setNavigationState("All")}}
-                                className={`w-1/2 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 ${navigationState==="All" ? "bg-gray-200" : "bg-white"}`}>
+                                className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="All" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
                             <p>All receipts</p>
                         </button>
                         <button onClick={()=>{setNavigationState("Confirmed")}}
-                            className={`w-1/2 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 ${navigationState==="Confirmed" ? "bg-gray-200" : "bg-white"}`} >
+                            className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="Confirmed" ? "bg-customPurple" : "bg-customDarkPurple"}`} >
                             <p>List of confirmed</p>
                         </button>
                         <button onClick={()=>{setNavigationState("New")}}
-                            className={`w-1/2 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 ${navigationState==="New" ? "bg-gray-200" : "bg-white"}`}>
+                            className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="New" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
                             <p>New receipts</p>
                         </button>
                     </div>
