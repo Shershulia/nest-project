@@ -10,7 +10,8 @@ import {
 } from "@/components";
 import { getAdminServerSideProps} from "@/utils/adminUtils";
 import io from 'socket.io-client';
-let socket
+
+
 const AdminsAdminPage = ({isAdmin}) => {
     const [notification, setNotification] = useState("");
     // State to store the socket connection
@@ -48,8 +49,9 @@ const AdminsAdminPage = ({isAdmin}) => {
                     <Input label={"Send notification"}
                            value={notification}
                            onChange={setNotification}
-                           className={"w-1/3 p-2 rounded-t-lg"} />
-                    <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+                           className={"w-1/3 p-2 rounded-t-lg text-white text-center"} />
+                    <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
+                        " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
                             onClick={(event)=>sendMessage(event)}>Send notification</button>
                 </div>
                 <UsersNotificationComponents socket={socket} />

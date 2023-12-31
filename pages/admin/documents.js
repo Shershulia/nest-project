@@ -15,8 +15,8 @@ const DocumentsAdminPage = ({isAdmin}) => {
                                 onClick={() => {
                                     setEventFormStart(prevState => !prevState);
                                 }}
-                                className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-customPurple' : 'bg-customDarkPurple'
-                                } transition-all duration-300`}
+                                className={`border-x border-t border-white py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-customPurple' : 'bg-customDarkPurple'
+                                } transition-all duration-300 text-white`}
                             >
                                 Create Meeting Document
                             </button>
@@ -33,8 +33,8 @@ const DocumentsAdminPage = ({isAdmin}) => {
                                 onClick={() => {
                                     setEventFormEdit(prevState => !prevState);
                                 }}
-                                className={`border border-black py-8 w-full text-xl ${eventFormEdit ? 'bg-customPurple' : 'bg-customDarkPurple'
-                                } transition-all duration-300`}
+                                className={`border border-white py-8 w-full text-xl ${eventFormEdit ? 'bg-customPurple' : 'bg-customDarkPurple'
+                                } transition-all duration-300 text-white`}
                             >
                                 Edit Meeting Document
                             </button>

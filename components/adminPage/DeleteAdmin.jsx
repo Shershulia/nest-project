@@ -45,7 +45,8 @@ const DeleteAdmin = () => {
                                     )
                                 )}
                             </select>
-                            <button className={"bg-red-600 text-lg font-bold p-2 w-full rounded-b-lg border-black"}
+                            <button className={"bg-rose-700 hover:bg-rose-800 duration-500" +
+                                " transition-all text-lg font-bold p-2 w-full rounded-b-lg border-black"}
                                     onClick={deleteAdminFun}>-</button>
                     </>
                         ) :

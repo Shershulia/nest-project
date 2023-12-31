@@ -7,7 +7,7 @@ const TextArea = ({ label = "", value, onChange, className= "" }) => {
 
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
-            {label !=="" && <Title text={label} ></Title>}
+            {label !=="" && <Title text={label} color={"text-white"} ></Title>}
             <textarea
                 value={value}
                 onChange={event => {

@@ -18,7 +18,7 @@ const Input = ({ label = "", value, onChange, className = "", isDigits = false }
                         onChange(event.target.value)
                     }
                 }}
-                className={"flex border-2 justify-center items-center border-black p-2 " + className}
+                className={"flex border-2 justify-center items-center border-black p-2 text-black text-center" }
                 type={isDigits ? 'number' : 'text'}
                 min={isDigits ? "0" : null}
             />

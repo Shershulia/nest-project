@@ -141,7 +141,7 @@ const EventForm = ({
                     </div>
                     <Input label={"Place"} value={place} onChange={setPlace} className={styles}/>
                 </div>
-                <div className={"flex w-2/3 m-auto justify-center items-center"}>
+                <div className={"flex w-2/3 m-auto justify-center items-end"}>
                     <Input label={"Duration, mins"} value={duration} onChange={setDuration} className={styles} isDigits={true}></Input>
                     <Input label={"Price"} value={price} onChange={setPrice}  className={styles} isDigits={true}></Input>
                     <Input label={"Number of people"} value={numberOfPeople} onChange={setNumberOfPeople}  className={styles} isDigits={true}></Input>
@@ -150,11 +150,11 @@ const EventForm = ({
 
             </div>
             <div className={"flex items-center justify-center"}>
-                <button className={"bg-green-600 hover:bg-green-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
+                <button className={"bg-green-600 hover:bg-green-700 text-lg font-bold p-2 transition-all duration-500 rounded-md border-black mx-4"}
                 onClick={addEvent}>Save</button>
-                <button className={"bg-yellow-600 hover:bg-yellow-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
+                <button className={"bg-yellow-600 hover:bg-yellow-700 text-lg font-bold p-2 transition-all duration-500 rounded-md border-black mx-4"}
                         onClick={clearAll}>Clear</button>
-                <button className={"bg-red-600 hover:bg-red-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
+                <button className={"bg-red-600 hover:bg-red-700 text-lg font-bold p-2 transition-all duration-500 rounded-md border-black mx-4"}
                         onClick={closeForm}>Cancel</button>
             </div>
                 </>

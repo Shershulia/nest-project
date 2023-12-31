@@ -4,7 +4,7 @@ const TopMenu = ({options, navigationState,  setNavigationState}) => {
 
     return (
         <div>
-            <div className={"w-full flex bg-blue-600"}>
+            <div className={"w-full flex bg-transparent"}>
                 {options.map((option,index)=>(
                     <button key={index} onClick={()=>{
                         setNavigationState(option)}}

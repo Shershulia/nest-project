@@ -75,23 +75,24 @@ const UsersNotificationComponents = ({socket}) => {
             {isLoading ? (<Spinner/>) : (
                 <>
                     <div className={"flex justify-center items-center gap-4"}>
-                        <Title text={"Users notification"}></Title>
+                        <Title text={"Users notification"} className={"text-white"}></Title>
                         <div className={"flex justify-center items-center gap-4"}>
                             <button onClick={previousNotification}>
-                                <i class="bi bi-arrow-left-square text-xl"></i>
+                                <i class="bi bi-arrow-left-square text-xl text-white"></i>
                             </button>
                             <button onClick={nextNotification}>
-                                <i class="bi bi-arrow-right-square text-xl"></i>
+                                <i class="bi bi-arrow-right-square text-xl text-white"></i>
                             </button>
                         </div>
                     </div>
                     {suggestions.length ? (<>
-                        <p>By user : {suggestions[suggestionIndex].email}</p>
+                        <p className={"text-white"}>By user : {suggestions[suggestionIndex].email}</p>
 
                         <Input value={notificationToSend}
                                onChange={setNotificationToSend}
                                className={"w-1/3 p-2 rounded-t-lg"} />
-                        <button className={"bg-green-600 text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+                        <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
+                            " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
                                 onClick={(event)=>sendNotification(event)}>Send notification</button>
                     </>) : (<p>No suggestions found</p>)}
 

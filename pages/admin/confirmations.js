@@ -45,7 +45,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                 setUsers(res.data)
                 setIsLoading(false)
             })
-        }else if (navState==="Declined User"){
+        }else if (navState==="Declined users"){
             axios.get("/api/admin/users/declined").then(res=>{
                 setUsers(res.data)
                 setIsLoading(false)
@@ -59,12 +59,26 @@ const ConfirmationsPage = ({isAdmin}) => {
     },[navState])
     return (
         isAdmin ? (
-                <div className="h-full flex bg-blue-600">
-                    <AdminLayout>
-                        <TopMenu options={["New users","Confirmed users","Declined User"]}
-                                 setNavigationState={setNavState}
-                                 navigationState={navState}
-                        />
+                <div className="h-full flex">
+                    <AdminLayout backgroundColor={"transparent"}>
+                        {/*<TopMenu options={["New users","Confirmed users","Declined User"]}*/}
+                        {/*         setNavigationState={setNavState}*/}
+                        {/*         navigationState={navState}*/}
+                        {/*/>*/}
+                        <div className={"w-full flex text-white"}>
+                            <button onClick={()=>{setNavState("New users")}}
+                                    className={`w-1/3 border pointer border-white py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navState==="New users" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
+                                <p>All receipts</p>
+                            </button>
+                            <button onClick={()=>{setNavState("Confirmed users")}}
+                                    className={`w-1/3 border pointer border-white py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navState==="Confirmed users" ? "bg-customPurple" : "bg-customDarkPurple"}`} >
+                                <p>List of confirmed</p>
+                            </button>
+                            <button onClick={()=>{setNavState("Declined users")}}
+                                    className={`w-1/3 border pointer border-white py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navState==="Declined users" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
+                                <p>New receipts</p>
+                            </button>
+                        </div>
                         <div className={"w-full h-full"}>
                             {isLoading ?
                                 (<Spinner fullWidth={true}/>)
@@ -78,7 +92,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                             <div className={`bg-opacity-30 border-r border-b 
                                                              ${navState==="New users" && "bg-yellow-400 " }
                                                              ${navState==="Confirmed users" && "bg-green-400 " }
-                                                             ${navState==="Declined User" && "bg-red-400 " }
+                                                             ${navState==="Declined users" && "bg-red-400 " }
                                                              border-black flex `}>
                                                                {navState==="New users"
                                                                    &&
@@ -94,7 +108,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                        </div>
 
                                                                    )}
-                                                                {navState==="Declined User"
+                                                                {navState==="Declined users"
                                                                     &&
                                                                     (
                                                                         <div className={"w-full flex"}>
@@ -117,7 +131,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                     </div>
                                                 ))}
                                             </div>)
-                                            : (<p>No users found</p>)}
+                                            : (<p className={"text-white"}>No users found</p>)}
                                     </div>
 
                                 )}
