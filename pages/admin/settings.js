@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import {AdminLayout, Input, TextArea, Title, WrongPermission} from "@/components";
 import {checkIfUserIsAdmin, getAdminServerSideProps} from "@/utils/adminUtils";
+
 import ImageUploadComponent from "@/components/ImageUploadComponent";
-import {mongooseConnect} from "@/lib/mongoose";
-import {Admin} from "@/models/Admin";
-import {getSession} from "next-auth/react";
-import {Settings} from "@/models/Settings";
+import { mongooseConnect } from "@/lib/mongoose";
+import { Admin } from "@/models/Admin";
+import { getSession } from "next-auth/react";
+import { Settings } from "@/models/Settings";
 import Swal from "sweetalert2";
 import axios from "axios";
 
+const buttonStyle = "bg-customLightPurple  mt-2 hover:bg-violet-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"
 const SettingsAdminPage = ({isAdmin,
                                mainPictures : loaded,
                                subscriptionObject : existingSubscription,
@@ -164,14 +166,14 @@ const SettingsAdminPage = ({isAdmin,
 
     return (
         isAdmin ? (
-                <div className="h-full flex bg-blue-600">
-                    <AdminLayout>
+                <div className="h-full flex">
+                    <AdminLayout backgroundColor={"customPurple"} backgroundOpacity={"0.4"}>
                         <div className={"flex flex-col items-center"}>
                             <ImageUploadComponent title={"Main pictures"}
                                                   setImages={setMainPictures}
                                                   images={mainPictures}/>
                             <button
-                                className={"bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
+                                className={buttonStyle}
                                 onClick={(event) => changeMainPictures(event)}>Save changes
                             </button>
                         </div>
@@ -180,7 +182,7 @@ const SettingsAdminPage = ({isAdmin,
                                 <Input label={"Price of subscription"} className={"text-center w-11/12"} isDigits={true}
                                        value={subscriptionPrice} onChange={setSubscriptionPrice}/>
                                 <button
-                                    className={"mt-2 bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
+                                    className={buttonStyle}
                                     onClick={(event) => saveNewSubscriptionPrice(event)}>Save changes
                                 </button>
                             </div>
@@ -188,7 +190,7 @@ const SettingsAdminPage = ({isAdmin,
                                 <Input label={"Greeting message"} className={"text-center w-11/12"} value={greeting}
                                        onChange={setGreeting}/>
                                 <button
-                                    className={"mt-2 bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
+                                    className={buttonStyle}
                                     onClick={(event) => saveGreetings(event)}>Save changes
                                 </button>
                             </div>
@@ -197,7 +199,7 @@ const SettingsAdminPage = ({isAdmin,
                             <TextArea label={"Description"} className={"text-center w-2/3"}
                                    value={description} onChange={setDescription}/>
                             <button
-                                className={"mt-2 bg-green-600 hover:bg-green-700 transition-all w-fit text-lg font-bold p-2 rounded-md border-black mx-4"}
+                                className={buttonStyle}
                                 onClick={(event) => saveDescription(event)}>Save changes
                             </button>
                         </div>
@@ -240,3 +242,5 @@ export async function getServerSideProps(ctx){
         }
     };
 }
+
+

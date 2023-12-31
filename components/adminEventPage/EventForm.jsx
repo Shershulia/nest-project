@@ -107,7 +107,7 @@ const EventForm = ({
 
 
     return (
-        <div className={"flex flex-col justify-evenly w-full  h-screen bg-white py-8"}>
+        <div className={"flex flex-col justify-evenly w-full h-fit bg-white py-8"}>
             {isShown && (
                 <>
             <div className={"mb-10"}>

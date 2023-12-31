@@ -8,14 +8,14 @@ const DocumentsAdminPage = ({isAdmin}) => {
 
     return (
         isAdmin ? (
-                <div className="h-full flex bg-blue-600">
+                <div className="h-full flex">
                     <AdminLayout>
                         <div>
                             <button
                                 onClick={() => {
                                     setEventFormStart(prevState => !prevState);
                                 }}
-                                className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-gray-200' : 'bg-white'
+                                className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${eventFormStart ? 'bg-customPurple' : 'bg-customDarkPurple'
                                 } transition-all duration-300`}
                             >
                                 Create Meeting Document
@@ -33,7 +33,7 @@ const DocumentsAdminPage = ({isAdmin}) => {
                                 onClick={() => {
                                     setEventFormEdit(prevState => !prevState);
                                 }}
-                                className={`border border-black py-8 w-full text-xl ${eventFormEdit ? 'bg-gray-200' : 'bg-white'
+                                className={`border border-black py-8 w-full text-xl ${eventFormEdit ? 'bg-customPurple' : 'bg-customDarkPurple'
                                 } transition-all duration-300`}
                             >
                                 Edit Meeting Document
@@ -46,6 +46,7 @@ const DocumentsAdminPage = ({isAdmin}) => {
                                 {eventFormEdit && <GetEventsForEditing isMeetingForm={true}/>}
                             </div>
                         </div>
+                        <div className='bg-customDarkPurple flex-1'></div>
                     </AdminLayout>
                 </div>
             ):

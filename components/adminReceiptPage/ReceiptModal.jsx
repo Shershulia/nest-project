@@ -14,13 +14,16 @@ const ReceiptModal = ({receipt}) => {
     const [documents, setDocuments] = useState([]);
 
     const [confirmation, setConfirmation] = useState(null);
-    if (paid){
-        useEffect(()=>{
+    useEffect(()=>{
+        if (paid){
             axios.get("/api/admin/confirmPayment/?id="+_id).then(
-                res=>setConfirmation(res.data)
+                res=>{
+                    console.log(res.data)
+                    setConfirmation(res.data)
+                }
             )
-        },[modal])
-    }
+        }
+    },[modal])
 
     const confirmAsPaid = async () => {
         const dataToEdit = { orderId: _id, files };
@@ -73,6 +76,11 @@ const ReceiptModal = ({receipt}) => {
                                     paid ?
                                         (<>
                                                 <p className={"mb-4"}>Was paid : {format(new Date(confirmation?.createdAt), 'MMMM do yyyy hh:mm a')}</p>
+                                                <p className={"mb-4 text-center truncate leading-6"}>{confirmation.description}</p>
+                                                <p className={"mb-4 truncate text-center font-bold"}>{confirmation.amount},-</p>
+                                                <p className={"mb-4 text-center truncate leading-6"} >Contact person : {confirmation.contactPerson}</p>
+                                                <p className={"mb-4 text-center truncate "} >Unique id: {confirmation._id}</p>
+
                                                 <div className={"mb-2 flex flex-wrap gap-2 justify-center items-center"}>
                                                     {!!confirmation?.files?.length && confirmation?.files.map((link,index)=>(
                                                         <div key={link} className={"h-24 w-24 relative"}>
