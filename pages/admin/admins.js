@@ -49,7 +49,7 @@ const AdminsAdminPage = ({isAdmin}) => {
                     <Input label={"Send notification"}
                            value={notification}
                            onChange={setNotification}
-                           className={"w-1/3 p-2 rounded-t-lg text-white text-center"} />
+                           className={"w-1/3 p-2 rounded-t-lg text-center"} />
                     <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
                         " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
                             onClick={(event)=>sendMessage(event)}>Send notification</button>

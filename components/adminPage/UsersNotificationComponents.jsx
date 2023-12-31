@@ -91,6 +91,7 @@ const UsersNotificationComponents = ({socket}) => {
                         <Input value={notificationToSend}
                                onChange={setNotificationToSend}
                                className={"w-1/3 p-2 rounded-t-lg"} />
+
                         <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
                             " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
                                 onClick={(event)=>sendNotification(event)}>Send notification</button>

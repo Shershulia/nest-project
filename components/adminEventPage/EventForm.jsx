@@ -120,7 +120,7 @@ const EventForm = ({
                         </div>
                     </div>
                 </div>
-                <TextArea label={"Description"} value={description} onChange={setDescription} className={"w-3/4 rounded-md"}></TextArea>
+                <TextArea value={description} onChange={setDescription} className={"w-3/4 rounded-md text-black"}></TextArea>
                 <div className={"flex justify-center items-center"}>
                     <div className={"w-full"}>
                         <Title text={"Contact person"}/>

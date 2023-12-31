@@ -22,7 +22,7 @@ const SearchBarEventOrDocument = ({data, setData, originalData, title, isDocumen
     return (
         <div className={"flex flex-col justify-center items-center mb-4"}>
             <Title text={title}/>
-            <SearchBar searchValue={searchValue} setSearchValue={setSearchValue}/>
+            <SearchBar searchValue={searchValue} setSearchValue={setSearchValue} className={"w-3/4"}/>
         </div>
     );
 };

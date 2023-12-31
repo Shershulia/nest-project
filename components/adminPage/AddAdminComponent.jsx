@@ -35,7 +35,7 @@ const AddAdminComponent = () => {
 
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
-            <Title text={"Add admin"} color={"white"}></Title>
+            <Title text={"Add admin"} color={"text-white"}></Title>
             <Input value={addUser} onChange={setAddUser} className={"w-1/3 p-2 rounded-t-lg"}></Input>
             <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
                 " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
