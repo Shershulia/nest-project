@@ -28,9 +28,31 @@ export const authOptions = {
     providers: [
         GoogleProvider({
             clientId: process.env.GOOGLE_ID,
-            clientSecret: process.env.GOOGLE_SECRET
+            clientSecret: process.env.GOOGLE_SECRET,
+            profile(profile) {
+                return {
+                    // Return the default fields
+                    id: profile.sub,
+                    name: profile.name,
+                    email: profile.email,
+                    image: profile.picture,
+                    // Add a new one
+                    emailVerified:profile.emailVerified,
+                    subscription:profile.subscription,
+                };
+            },
         }),
     ],
+    callbacks: {
+        async session({session, user}) {
+            session.user.id = user.id;
+            session.user.email = user.email;
+            session.user.image=user.image;
+            session.user.subscription = user.subscription;
+            session.user.emailVerified=user.emailVerified;
+            return session;
+        },
+    },
     adapter: MongoDBAdapter(clientPromise), //reuse an active connection to the database
 }
 export default NextAuth(authOptions);

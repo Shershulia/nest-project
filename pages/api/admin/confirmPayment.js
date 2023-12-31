@@ -19,7 +19,7 @@ export default async function handler(req, res) {
         if (req.method === 'GET') {
             const id = req.query?.id;
 
-            res.json(await PaymentConfirmation.findOne({orderId:id}));
+            res.json(await Receipt.findOne({_id:id}));
         }
     }
     catch (error) {

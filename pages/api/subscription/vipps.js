@@ -2,17 +2,18 @@ import axios from "axios";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/pages/api/auth/[...nextauth]";
 import createIdempotencyKey from "@/utils/createIdempotencyKey";
+import {Settings} from "@/models/Settings";
 import {Receipt} from "@/models/Receipt";
 
 export default async function handler(req, res) {
     try{
         const {user} = await getServerSession(req,res,authOptions);
 
-        if (req.method === 'POST') {
-            const {event} = req.body;
-            const {_id,numberOfPeople,price,name,participants} = event
+        if (req.method === 'GET') {
 
-            const idempotencyKey = createIdempotencyKey(user.email,_id);
+            const idempotencyKey = createIdempotencyKey(user.email,"subscription");
+            const subscription = await Settings.findOne({name:'subscription'});
+            const {value : subscriptionPrice} = subscription;
 
             const token = await axios.post(
                 'https://apitest.vipps.no/accessToken/get',
@@ -38,15 +39,15 @@ export default async function handler(req, res) {
                 {
                     'amount': {
                         'currency': 'NOK',
-                        'value': price * 100
+                        'value': subscriptionPrice * 100
                     },
                     'paymentMethod': {
                         'type': 'WALLET'
                     },
                     'reference': `${originalString.substring(0,45)}`,
-                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/events/${_id}?check=true`,
+                    'returnUrl': `${process.env.NEXT_PUBLIC_INTERNAL_URI}/account?success=true`,
                     'userFlow': 'WEB_REDIRECT',
-                    'paymentDescription': `Event ${name}, Nickname ${user.email} `
+                    'paymentDescription': `Subscription of ${user.email} with Vipps`
                 },
                 {
                     headers: {
@@ -61,21 +62,21 @@ export default async function handler(req, res) {
                 console.log(err.response.data)
             });
             // Find unpaid receipt with a description containing the specified string
-            const searchString = `Vipps Event ${name}, Nickname ${user.email} `;
+            const searchString = `Subscription of ${user.email} with Vipps`;
             const receiptBefore = await Receipt.findOne({
                 description: { $regex: new RegExp(searchString), $options: 'i' }, // Case-insensitive search
                 paid: false
             });
             if (receiptBefore){
                 await Receipt.findByIdAndUpdate(receiptBefore._id,
-                    {description: `Vipps Event ${name}, Nickname ${user.email}. Ref:${originalString.substring(0,45)}`,
-                        date: new Date(),
-                        amount: price})
+                    {description: `Subscription of ${user.email} with Vipps. Ref: ${originalString.substring(0,45)}`,
+                    date: new Date(),
+                    amount: subscriptionPrice})
             }else {
                 await Receipt.create({
-                    description: `Vipps Event ${name}, Nickname ${user.email}. Ref:${originalString.substring(0,45)}`,
+                    description: `Subscription of ${user.email} with Vipps. Ref: ${originalString.substring(0,45)}`,
                     date: new Date(),
-                    amount: price,
+                    amount: subscriptionPrice,
                     contactPerson:user.email,
                     paid:false
                 })
@@ -84,13 +85,12 @@ export default async function handler(req, res) {
             res.json(response.data.redirectUrl)
 
         }else {
-            res.json("Should be a POST request")
-
+            res.json("Should be a GET request")
         }
 
     }
-        catch (error) {
-            console.error(error);
-            res.status(500).json({ msg: "Internal server error" });
+    catch (error) {
+        console.error(error);
+        res.status(500).json({ msg: "Internal server error" });
     }
 }

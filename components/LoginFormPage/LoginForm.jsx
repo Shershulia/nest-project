@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { signIn } from "next-auth/react";
+import {signIn, useSession} from "next-auth/react";
 import { gsap } from 'gsap';
 import Lottie from "lottie-react";
 import PhoneAnimation from "@/components/LoginFormPage/PhoneAnimation.json";
+import {useRouter} from "next/navigation";
+
 
 const LoginForm = () => {
   const frameRate = 25;
@@ -11,7 +13,8 @@ const LoginForm = () => {
   const frameOfScrollStart = 28;
   const frameOfScrollEnd = 123;
   const durationOfDisappearAnimation = ((138 - frameOfScrollStart) / frameRate) * 1000;
-
+  const router = useRouter();
+  const { data: session } = useSession();
   const [animationControl, setAnimationControl] = useState({
     autoplay: true,
     loop: false,
@@ -32,11 +35,15 @@ const LoginForm = () => {
     gsap.to('.lottie', { duration: 1, width: '30%', delay: 0 });
 
     setTimeout(() => {
-      signIn("google");
+      signIn("google")
     }, durationOfDisappearAnimation);
   };
 
   useEffect(() => {
+    if (session){
+      router.push("/");
+    }
+
     const timer = setTimeout(() => {
       setAnimationControl({
         autoplay: true,

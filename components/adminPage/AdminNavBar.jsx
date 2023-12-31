@@ -18,7 +18,7 @@ const AdminNavBar = () => {
   return (
     <div
       className={
-        "flex flex-col w-1/4 text-center items-center justify-between gap-4 h-screen"
+        "flex flex-col w-1/4 text-center items-center justify-between gap-4 h-screen text-white"
       }
     >
       <div className={"flex items-center py-2 "}>

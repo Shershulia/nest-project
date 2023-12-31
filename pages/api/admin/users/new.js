@@ -3,24 +3,17 @@ import {mongooseConnect} from "@/lib/mongoose";
 import {getServerSession} from "next-auth";
 import {authOptions, isAdminRequest} from "@/pages/api/auth/[...nextauth]";
 import {User} from "@/models/User";
-import {checkIfUserIsAdmin} from "@/utils/adminUtils";
 
 export default async function handler(req, res) {
     try {
-
-
         await mongooseConnect();
-        const session = await getServerSession(req, res, authOptions);
+        await isAdminRequest(req,res);
 
 
         if (req.method === "GET") {
-            const admins = await Admin.find({}, { email: 1 });
-            if (session){
-                res.json(await checkIfUserIsAdmin(session?.user?.email, admins))
-            }else{
-                res.json(false)
-            }
+            res.json(await User.find({ emailVerified: "waiting" }));
         }
+
     }
     catch (error) {
         console.error(error);

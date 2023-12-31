@@ -1,4 +1,4 @@
-import {AdminLayout, ReceiptRow, Spinner, WrongPermission} from "@/components";
+import {AdminLayout, ReceiptRow, Spinner, TopMenu, WrongPermission} from "@/components";
 import React, {useEffect, useState} from "react";
 import {getAdminServerSideProps} from "@/utils/adminUtils";
 import axios from "axios";
@@ -36,7 +36,7 @@ const FinanceAdminPage = ({isAdmin}) => {
         isAdmin ? (
             <div className="h-full flex">
                 <AdminLayout backgroundColor={"transparent"}>
-                    <div className={"w-full flex"}>
+                    <div className={"w-full flex text-white"}>
                         <button onClick={()=>{setNavigationState("All")}}
                                 className={`w-1/3 border pointer border-black py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navigationState==="All" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
                             <p>All receipts</p>

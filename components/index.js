@@ -31,16 +31,32 @@ import AddToCalendarButton from "@/components/AddToCalendarButton";
 import SearchBar from "@/components/SearchBar";
 import EventDisplayRow from "@/components/eventPage/EventDisplayRow";
 import LocationIcon from "@/components/icons/LocationIcon";
-import FrontendLayout from "@/components/FrontendLayoutPages/FrontendLayout";
 import Switcher from "@/components/Switcher";
 import LittleEventPage from "@/components/eventPage/LittleEventPage";
 import PaymentMethodsModals from "@/components/paymentMethodsComponents/PaymentMethodsModals";
 import CreditCardIcon from "@/components/icons/CreditCardIcon";
+import IsWaitingCase from "@/components/subscriptionStateFrontendCases/IsWaitingCase";
+import NewUserCase from "@/components/subscriptionStateFrontendCases/NewUserCase";
+import TopMenu from "@/components/TopMenu";
+import UserCardComponent from "@/components/userComponents/UserCardComponent";
+import UserWasConfirmed from "@/components/subscriptionStateFrontendCases/UserWasConfirmed";
+import PaymentSubscriptionModal from "@/components/subscriptionStateFrontendCases/PaymentSubscriptionModal";
+import UserWasDeclined from "@/components/subscriptionStateFrontendCases/UserWasDeclined";
+import LoginButton from "@/components/LoginButton";
 import LoginForm from '@/components/LoginFormPage/LoginForm';
 import NavBar from "@/components/FrontendLayoutPages/NavBar";
 import SideNav from "@/components/FrontendLayoutPages/SideNav";
 import ParticlesBackground from "@/components/FrontendLayoutPages/ParticlesBackground";
+import FrontendLayout from "@/components/FrontendLayout";
 export {
+    LoginButton,
+    PaymentSubscriptionModal,
+    UserWasDeclined,
+    UserWasConfirmed,
+    UserCardComponent,
+    TopMenu,
+    NewUserCase,
+    IsWaitingCase,
     CreditCardIcon,
     PaymentMethodsModals,
     LittleEventPage,

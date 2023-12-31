@@ -4,7 +4,7 @@ import { Title } from "@/components/index";
 const Input = ({ label = "", value, onChange, className = "", isDigits = false }) => {
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
-            {label !== "" && <Title text={label}></Title>}
+            {label !== "" && <Title text={label} className={className}></Title>}
             <input
                 value={value}
                 onChange={(event) => {

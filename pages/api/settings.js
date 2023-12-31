@@ -1,11 +1,14 @@
+import {mongooseConnect} from "@/lib/mongoose";
 import {Settings} from "@/models/Settings";
 
 export default async function handler(req, res) {
     try {
-        if (req.method==='PUT'){
-            const {_id,name, value ,images} = req.body;
-            await Settings.updateOne({_id},{name, value ,images})
-            res.json({_id,name, value ,images});
+
+        await mongooseConnect();
+
+        if (req.method==="GET"){
+            res.json(await Settings.find())
+
         }
     }
     catch (error) {
