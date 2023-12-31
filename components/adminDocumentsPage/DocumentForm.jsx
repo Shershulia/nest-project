@@ -189,7 +189,6 @@ const DocumentForm = ({
                             <div className={"mb-2 flex flex-col items-center"}>
                                 <h1 className={"mx-2 font-bold"}>OR </h1>
                                 <button className={"p-2 rounded-md border h-24 w-24 bg-gray-200"} onClick={getGoogleDriveFiles}>
-                                    <p className={"text-xs font-bold text-center bottom-0"}>Upload using</p>
                                     <img src={"/Google_Drive.png"} alt={"Google Drive logo"}/>
                                 </button>
                             </div>

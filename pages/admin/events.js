@@ -16,7 +16,7 @@ const EventsAdminPage = ({isAdmin}) => {
                         onClick={() => {
                             setEventFormStart((prevState) => !prevState);
                         }}
-                        className={`border-x border-t border-black py-8 w-full rounded-t-lg text-xl ${
+                        className={`border-x border-t border-white py-8 w-full text-white rounded-t-lg text-xl ${
                             eventFormStart ? 'bg-customPurple' : 'bg-customDarkPurple'
                         } transition-all duration-1000`}
                     >
@@ -36,7 +36,7 @@ const EventsAdminPage = ({isAdmin}) => {
                         onClick={() => {
                             setEventFormEdit((prevState) => !prevState);
                         }}
-                        className={`border border-black py-8 w-full text-xl ${
+                        className={`border border-white text-white py-8 w-full text-xl ${
                             eventFormEdit ? 'bg-customPurple' : 'bg-customDarkPurple'
                         } transition-all duration-300`}
                     >

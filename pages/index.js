@@ -18,7 +18,7 @@ import {Settings} from "@/models/Settings";
 import {Event} from "@/models/Event";
 import {useRouter} from "next/router";
 
-
+let socket
 export default function Home({events,description,greeting,mainPictures}) {
   const { data: session } = useSession();
   const router = useRouter()

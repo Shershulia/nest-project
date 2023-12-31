@@ -32,7 +32,7 @@ const DeleteAdmin = () => {
 
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
-            <Title text={"Delete admin by mail"} color={"white"}/>
+            <Title text={"Delete admin by mail"} color={"text-white"}/>
             <div className={"flex flex-col justify-center items-center w-1/3"}>
                 {allAdmins.length ?
                     (<>
@@ -45,7 +45,8 @@ const DeleteAdmin = () => {
                                     )
                                 )}
                             </select>
-                            <button className={"bg-red-600 text-lg font-bold p-2 w-full rounded-b-lg border-black"}
+                            <button className={"bg-rose-700 hover:bg-rose-800 duration-500" +
+                                " transition-all text-lg font-bold p-2 w-full rounded-b-lg border-black"}
                                     onClick={deleteAdminFun}>-</button>
                     </>
                         ) :

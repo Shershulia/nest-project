@@ -48,6 +48,8 @@ import NavBar from "@/components/FrontendLayoutPages/NavBar";
 import SideNav from "@/components/FrontendLayoutPages/SideNav";
 import ParticlesBackground from "@/components/FrontendLayoutPages/ParticlesBackground";
 import FrontendLayout from "@/components/FrontendLayout";
+import SendNotificationSuggestionSchema from "@/components/SendNotificationSuggestionSchema";
+import UsersNotificationComponents from "@/components/adminPage/UsersNotificationComponents";
 export {
     LoginButton,
     PaymentSubscriptionModal,
@@ -99,4 +101,6 @@ export {
     NavBar,
     SideNav,
     ParticlesBackground,
+    SendNotificationSuggestionSchema,
+    UsersNotificationComponents
 }

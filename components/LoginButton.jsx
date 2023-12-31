@@ -11,7 +11,7 @@ const LoginButton = ({nav = false,className = ""}) => {
                 className={`text-white duration-500
                 hover:bg-gray-700 ${className}`}>
            <div className={"flex gap-2 justify-center items-center"}>
-               <i class="bi bi-google text-xl text-white-800"></i>
+               <i className="bi bi-google text-xl text-white-800"></i>
                {!nav && (<p>Sign With Google</p>)}
            </div>
         </button>

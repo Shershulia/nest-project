@@ -41,7 +41,7 @@ const AdminNavBar = () => {
         >
           <div className={"flex w-1/3 justify-start gap-4"}>
             <i className="bi bi-mortarboard text-xl"></i>
-            <span>Admins</span>
+            <span>Admin</span>
           </div>
         </Link>
         <Link
@@ -62,6 +62,15 @@ const AdminNavBar = () => {
           <div className={"flex w-1/3 justify-start gap-4"}>
             <i className="bi bi-file-earmark-bar-graph text-xl"></i>
             <span>Documents</span>
+          </div>
+        </Link>
+        <Link
+            href={"/admin/confirmations"}
+            className={pathname === "/admin/confirmations" ? activeLink : inactiveLink}
+        >
+          <div className={"flex w-1/3 justify-start gap-4"}>
+            <i className="bi bi-people text-xl"></i>
+            <span>Users</span>
           </div>
         </Link>
         <Link

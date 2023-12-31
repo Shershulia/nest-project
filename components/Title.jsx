@@ -1,7 +1,7 @@
 import React from 'react';
 
 const Title = ({text, className = "", color}) => {
-    const textColor = color ? "text-" + color : "text-black";
+    const textColor = color ?  color : "text-black";
 
     return (
         <div className={"flex justify-center items-center py-2 w-full"}>

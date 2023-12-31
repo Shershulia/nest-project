@@ -170,6 +170,7 @@ const SettingsAdminPage = ({isAdmin,
                     <AdminLayout backgroundColor={"customPurple"} backgroundOpacity={"0.4"}>
                         <div className={"flex flex-col items-center"}>
                             <ImageUploadComponent title={"Main pictures"}
+                                                  color={"white"}
                                                   setImages={setMainPictures}
                                                   images={mainPictures}/>
                             <button
@@ -179,7 +180,7 @@ const SettingsAdminPage = ({isAdmin,
                         </div>
                         <div className={"flex justify-center items-center  flex-wrap w-2/3 m-auto"}>
                             <div className={"flex flex-col items-center w-1/2"}>
-                                <Input label={"Price of subscription"} className={"text-center w-11/12"} isDigits={true}
+                                <Input label={"Price of subscription"} className={"text-center w-11/12 text-white"} isDigits={true}
                                        value={subscriptionPrice} onChange={setSubscriptionPrice}/>
                                 <button
                                     className={buttonStyle}
@@ -187,7 +188,7 @@ const SettingsAdminPage = ({isAdmin,
                                 </button>
                             </div>
                             <div className={"flex flex-col items-center w-1/2"}>
-                                <Input label={"Greeting message"} className={"text-center w-11/12"} value={greeting}
+                                <Input label={"Greeting message"} className={"text-center w-11/12 text-white"} value={greeting}
                                        onChange={setGreeting}/>
                                 <button
                                     className={buttonStyle}
