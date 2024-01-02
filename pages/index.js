@@ -8,10 +8,9 @@ import {
   Mousewheel,
 } from "swiper/modules";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import "swiper/css/bundle";
-import {LoginButton, NavBar, ParticlesBackground, SideNav, Spinner} from "@/components";
+import {LoginButton, NavBar, ParticlesBackground, SideNav} from "@/components";
 import {format} from "date-fns";
 import {mongooseConnect} from "@/lib/mongoose";
 import {Settings} from "@/models/Settings";
@@ -23,6 +22,11 @@ export default function Home({events,description,greeting,mainPictures}) {
   const { data: session } = useSession();
   const router = useRouter()
 
+
+    useEffect(()=>
+    {
+        console.log(events)
+    },[])
     const goToAccountPage = ()=>{
         router.push("/account")
     }

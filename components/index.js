@@ -51,6 +51,7 @@ import FrontendLayout from "@/components/FrontendLayout";
 import SendNotificationSuggestionSchema from "@/components/SendNotificationSuggestionSchema";
 import UsersNotificationComponents from "@/components/adminPage/UsersNotificationComponents";
 import DocumentsDisplayRow from "@/components/documentsPage/DocumentsDisplayRow";
+import SendReceiptToAdmin from "@/components/subscriptionStateFrontendCases/SendReceiptToAdmin";
 export {
     LoginButton,
     DocumentsDisplayRow,
@@ -70,6 +71,7 @@ export {
     AdminNavBar,
     AdminLayout,
     Input,
+    SendReceiptToAdmin,
     AddAdminComponent,
     Spinner,
     DeleteAdmin,

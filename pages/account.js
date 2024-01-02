@@ -8,7 +8,7 @@ import {
     FrontendLayout,
     IsWaitingCase,
     NewUserCase,
-    PaymentSubscriptionModal, SendNotificationSuggestionSchema,
+    PaymentSubscriptionModal, SendNotificationSuggestionSchema, SendReceiptToAdmin,
     UserWasConfirmed,
     UserWasDeclined
 } from "@/components";
@@ -39,7 +39,26 @@ export default function AccountPage() {
       <FrontendLayout>
           {session ? (
               <div className={"flex flex-col-reverse md:flex-row justify-around items-start w-full text-white "}>
-                  <div className={"flex flex-col gap-4 w-full"}>
+
+                  {session?.user.emailVerified==="confirmed" &&
+
+                      (<div className={"flex flex-col gap-4 w-full"}>
+                          <div
+                              className={"flex gap-4 justify-center items-center flex-col w-11/12 border border-white p-2 rounded-lg"}>
+                              <SendNotificationSuggestionSchema/>
+                          </div>
+                          <div
+                              className={"flex gap-4 justify-center items-center flex-col w-11/12 border border-white p-2 rounded-lg"}>
+                              <SendReceiptToAdmin/>
+                          </div>
+                  </div>)}
+                  <div className={`flex flex-col text-center gap-4 justify-center items-center 
+                  ${session?.user.emailVerified==="confirmed" ? "md:w-1/3" : "w-full"} 
+                  w-11/12`}>
+                      <h1 className={"text-xl text-white"}>Hello, {session?.user?.name}</h1>
+                      <div className={"rounded-lg"}>
+                          <img src={session?.user?.image} alt={"Users avatar"} className={"object-fit"}/>
+                      </div>
                       <div className={"flex gap-4 justify-center items-center flex-col w-11/12 border border-white p-2 rounded-lg"}>
                           <h1 className={"text-xl text-white"}>Information about subscription</h1>
                           <div>
@@ -62,38 +81,25 @@ export default function AccountPage() {
                               }
                           </div>
                           {!session.user.subscription &&
-                          (<div class={"w-full flex items-center flex-col justify-center"}>
-                              <p>If you have paid - check status</p>
-                              <button onClick={checkSubscription} className={"p-2 m-2 bg-blue-600 text-white rounded-md"}
-                              >Check payment
-                              </button>
-                              <div>
-                                  {paymentStatus !== null && (
-                                      <>
-                                          {paymentStatus ? (
-                                              <p>Subscription was paid</p>
-                                          ) : (
-                                              <p className={"text-center text-wrap"}>Subscription was not paid. If you paid
-                                                  - wait til 5 minutes and check it again <br/> Or write to admin if error
-                                                  continues</p>
-                                          )}
-                                      </>
-                                  )}
-                              </div>
-                          </div>)}
-                      </div>
-                      {session?.user.emailVerified==="confirmed" &&
-                          (
-                              <div className={"flex gap-4 justify-center items-center flex-col w-11/12 border border-white p-2 rounded-lg"}>
-                                  <SendNotificationSuggestionSchema />
-                              </div>
-                          )
-                      }
-              </div>
-                  <div className={"flex gap-4 justify-center items-center md:w-1/3 w-11/12"}>
-                      <h1 className={"text-xl text-white"}>Hello, {session?.user?.name}</h1>
-                      <div className={"rounded-lg"}>
-                          <img src={session?.user?.image} alt={"Users avatar"} className={"object-fit"}/>
+                              (<div class={"w-full flex items-center flex-col justify-center"}>
+                                  <p>If you have paid - check status</p>
+                                  <button onClick={checkSubscription} className={"p-2 m-2 bg-blue-600 text-white rounded-md"}
+                                  >Check payment
+                                  </button>
+                                  <div>
+                                      {paymentStatus !== null && (
+                                          <>
+                                              {paymentStatus ? (
+                                                  <p>Subscription was paid</p>
+                                              ) : (
+                                                  <p className={"text-center text-wrap"}>Subscription was not paid. If you paid
+                                                      - wait til 5 minutes and check it again <br/> Or write to admin if error
+                                                      continues</p>
+                                              )}
+                                          </>
+                                      )}
+                                  </div>
+                              </div>)}
                       </div>
                   </div>
               </div>) : (

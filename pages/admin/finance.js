@@ -58,7 +58,7 @@ const FinanceAdminPage = ({isAdmin}) => {
                                     {receipts?.length>0 ?
                                         (<div className={"w-full"}>
                                             {receipts.map((receipt, index)=>(
-                                                <ReceiptRow receipt={receipt} index={index} key={index}/>
+                                                <ReceiptRow receipt={receipt} index={index} key={index} loadReceipts={loadReceipts}/>
                                             ))}
                                         </div>)
                                         : (<p>No receipts found</p>)}
