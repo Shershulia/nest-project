@@ -28,7 +28,7 @@ const SideNav = () => {
           pathname==="/" ? "text-customPurple" : "text-white"
         }`}
       >
-        <i class="bi bi-house text-3xl"></i>
+        <i className="bi bi-house text-3xl"></i>
         <label className="opacity-0 group-hover:opacity-100">Home</label>
       </Link>
 

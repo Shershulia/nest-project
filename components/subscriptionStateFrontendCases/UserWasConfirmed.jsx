@@ -1,4 +1,5 @@
 import React from 'react';
+import {format} from "date-fns";
 
 const UserWasConfirmed = ({subscription,setModal}) => {
     return (
@@ -9,8 +10,8 @@ const UserWasConfirmed = ({subscription,setModal}) => {
             </div>
             {subscription ? (
                 <div className={"flex flex-col items-center justify-center"}>
-                    <p className={"text-bold text-xl"}>Information about subscription</p>
-                    <p>{subscription}</p>
+                    <p className={"text-bold text-xl"}>Information about subscription:</p>
+                    <p>{format(new Date(subscription), 'do MMMM')}</p>
                 </div>
             ) : (
                 <button className={"bg-green-600 hover:bg-green-700 p-2 duration-300 rounded-md"}
