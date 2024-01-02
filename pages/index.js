@@ -30,7 +30,7 @@ export default function Home({events,description,greeting,mainPictures}) {
   return (
     <div className="flex flex-col h-screen overflow-hidden text-white">
       <FrontendLayout>
-              <div className={"flex md:flex-row flex-col w-full"}>
+              <div className={"flex md:flex-row flex-col w-full my-20"}>
                   <div className={"flex flex-wrap block md:hidden gap-2 justify-center items-center"}>
                       {mainPictures && mainPictures.value && (
                           mainPictures.value.map((picture, index) => (

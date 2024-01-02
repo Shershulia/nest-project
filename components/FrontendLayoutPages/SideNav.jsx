@@ -78,7 +78,7 @@ const SideNav = ({showNav,setShowNav}) => {
 
           </RevealWrapper>
 
-              <button className={`md:hidden ${!showNav? "left-[30px] top-[30px]" : "left-1/2 top-3/4"} absolute`}
+              <button className={`md:hidden left-4 top-6 absolute`}
               onClick={()=>{
                   setShowNav(prev=>!prev)
               }}>
