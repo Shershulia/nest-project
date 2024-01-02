@@ -3,7 +3,6 @@ import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import {LoginButton} from "@/components/index";
 import io from "socket.io-client";
-import {RevealWrapper} from "next-reveal";
 let socket
 const NavBar = ({showNav,setShowNav}) => {
   const { data: session } = useSession();
@@ -76,7 +75,7 @@ const NavBar = ({showNav,setShowNav}) => {
   };
 
   return (
-              <RevealWrapper origin={'top'} delay={300} className={`w-screen flex justify-end p-4 text-white 
+              <div className={`w-screen flex justify-end p-4 text-white 
               ${showNav? "block" : "hidden"} md:block`}>
                   <div className={`flex gap-4 justify-center items-center`}>
                       {session && (<div className={`hover:bg-gray-700 px-4 py-2 rounded-lg duration-300 relative ${showNotifications && "bg-gray-700"}`}
@@ -132,7 +131,7 @@ const NavBar = ({showNav,setShowNav}) => {
                           ></i>
                       </button>
                   </div>
-              </RevealWrapper>
+              </div>
   );
 };
 

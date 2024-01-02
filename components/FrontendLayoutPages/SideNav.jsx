@@ -23,7 +23,7 @@ const SideNav = ({showNav,setShowNav}) => {
 
   return (
       <>
-          <RevealWrapper origin={'right'} delay={300} className={`flex flex-col 
+          <div origin={'right'} delay={300} className={`flex flex-col 
           h-screen p-4 w-screen md:w-max items-center ${showNav? "block" : "hidden"} md:block`}>
               <Link
                   href="/"
@@ -76,13 +76,13 @@ const SideNav = ({showNav,setShowNav}) => {
                   <label className="opacity-0 group-hover:opacity-100">Docs</label>
               </Link>)}
 
-          </RevealWrapper>
+          </div>
 
               <button className={`md:hidden left-4 top-6 absolute`}
               onClick={()=>{
                   setShowNav(prev=>!prev)
               }}>
-                  <i className="bi bi-list text-2xl"></i>
+                  <i className="bi bi-list text-2xl text-white"></i>
               </button>
       </>
   );
