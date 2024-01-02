@@ -8,7 +8,6 @@ export const config = {
 
 const ioHandler = (req, res) => {
     if (!res.socket.server.io) {
-        console.log('First use, initializing socket.io');
 
         const io = new Server(res.socket.server);
         res.socket.server.io = io;
@@ -20,7 +19,7 @@ const ioHandler = (req, res) => {
             })
         });
     } else {
-        console.log('Socket.io already initialized');
+
     }
 
     res.end();
