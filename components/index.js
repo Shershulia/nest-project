@@ -50,8 +50,10 @@ import ParticlesBackground from "@/components/FrontendLayoutPages/ParticlesBackg
 import FrontendLayout from "@/components/FrontendLayout";
 import SendNotificationSuggestionSchema from "@/components/SendNotificationSuggestionSchema";
 import UsersNotificationComponents from "@/components/adminPage/UsersNotificationComponents";
+import DocumentsDisplayRow from "@/components/documentsPage/DocumentsDisplayRow";
 export {
     LoginButton,
+    DocumentsDisplayRow,
     PaymentSubscriptionModal,
     UserWasDeclined,
     UserWasConfirmed,

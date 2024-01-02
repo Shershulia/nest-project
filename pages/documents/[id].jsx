@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {mongooseConnect} from "@/lib/mongoose";
 import {MeetingDocument} from "@/models/MeetingDocument";
 import {RevealWrapper} from "next-reveal";
-import {PlusIcon, ShareLinks, WhiteBox} from "@/components";
+import {FrontendLayout, PlusIcon, ShareLinks, WhiteBox} from "@/components";
 import {format} from "date-fns";
 import {useSession} from "next-auth/react";
 import { saveAs } from "file-saver";
@@ -35,9 +35,8 @@ const SingleDocumentPage = ({meetingDocument}) => {
 
 
     return (
-        <div className={"bg-white min-h-screen w-full flex sm:flex-row flex-col-reverse items-center justify-center sm:items-start w-full md:gap-10"}>
-            <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12"}>
-                <div className={"md:py-12 py-6 md:pl-60 w-full "}>
+        <FrontendLayout>
+            <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12 my-4 sm:my-0"}>
                     <WhiteBox>
                         <div className={"p-4"}>
                             <p className={"font-bold text-4xl mb-4 text-black"}>Details</p>
@@ -67,12 +66,9 @@ const SingleDocumentPage = ({meetingDocument}) => {
                     </div>
 
 
-
-                </div>
             </RevealWrapper>
 
             <RevealWrapper origin={'right'} delay={300} className={"sm:w-2/3 w-11/12"}>
-                <div className={"md:py-12 py-6f md:pr-60 w-full"}>
                     <WhiteBox>
                         <div className={"p-4 w-full"}>
                             {meetingDocument.documents.length && (
@@ -94,11 +90,10 @@ const SingleDocumentPage = ({meetingDocument}) => {
                                 Next</button>
                         </div>}
                     </WhiteBox>
-                </div>
             </RevealWrapper>
 
 
-        </div>
+        </FrontendLayout>
     );
 };
 
