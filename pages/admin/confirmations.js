@@ -61,10 +61,6 @@ const ConfirmationsPage = ({isAdmin}) => {
         isAdmin ? (
                 <div className="h-full flex">
                     <AdminLayout backgroundColor={"transparent"}>
-                        {/*<TopMenu options={["New users","Confirmed users","Declined User"]}*/}
-                        {/*         setNavigationState={setNavState}*/}
-                        {/*         navigationState={navState}*/}
-                        {/*/>*/}
                         <div className={"w-full flex text-white"}>
                             <button onClick={()=>{setNavState("New users")}}
                                     className={`w-1/3 border pointer border-white py-4 rounded-t-full text-center transition-all duration-500 bg-opacity-70 ${navState==="New users" ? "bg-customPurple" : "bg-customDarkPurple"}`}>
