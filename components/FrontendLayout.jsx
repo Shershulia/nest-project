@@ -13,7 +13,7 @@ const FrontendLayout = ({children}) => {
             <div className="flex flex-row w-full h-full">
                 <SideNav showNav={showNav} setShowNav={setShowNav}/>
                 <div className={`w-full md:w-11/12 flex flex-col gap-10 justify-center items-start h-full 
-                ${showNav? "hidden" : "block"} md:block`}>
+                ${showNav? "hidden" : "block"} md:block mt-8`}>
                     {children}
                 </div>
             </div>
