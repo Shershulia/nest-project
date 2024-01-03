@@ -164,14 +164,17 @@ const DocumentForm = ({
     }
 
     return (
-        <div className={`flex flex-col justify-evenly w-full h-screen bg-white pb-4`}>
+        <div className={`flex flex-col justify-evenly w-full h-screen bg-white pt-8`}>
             {isShown &&(
                 <>
-            <div>
-                <Title text={"Create meeting document"}/>
-                <Input label={"Title of the meeting"} value={title} onChange={setTitle} className={'rounded-md w-1/2'}></Input>
-                <TextArea label={"Write in some extra details about the meeting"} value={description} onChange={setDescription} className={'rounded-md w-1/2'}></TextArea>
-                <div className={"flex gap-6 flex-col justify-center items-center"}>
+            <div className={"bg-white"}>
+                <Input label={"Title of the meeting"} value={title} onChange={setTitle} className={'rounded-md w-11/12 md:w-1/2 text-center'}></Input>
+                <div>
+                    <Title text={"Write in some extra details about the meeting"} className={"text-center"}/>
+                    <TextArea value={description} onChange={setDescription} className={'rounded-md w-11/12 md:w-1/2'}></TextArea>
+
+                </div>
+                <div className={"flex gap-6 flex-col justify-center items-center w-11/12 md:w-full m-auto"}>
                     <TimePicker label={"Select the date of the meeting"} value={date} setValue={setDate} />
                     {!fromGoogleDrive && !existingTitle && <div>
                         <Switcher title={"Add to Google Drive"} value={addToGoogle} setValue={setAddToGoogle}/>
@@ -223,7 +226,7 @@ const DocumentForm = ({
 
                 </div>
             </div>
-            <div className={"flex items-center justify-center mt-6"}>
+            <div className={"flex items-center justify-center mb-6 bg-white pb-12"}>
                 <button className={"bg-green-600 hover:bg-green-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
                         onClick={addRefer}>Save</button>
                 <button className={"bg-yellow-600 hover:bg-yellow-700 text-lg font-bold p-2 rounded-md border-black mx-4"}
