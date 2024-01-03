@@ -4,12 +4,16 @@ import { ParticlesBackground } from '@/components';
 
 const AdminLayout = ({children, backgroundColor, backgroundOpacity}) => {
     const [bg] = useState([backgroundColor ? "bg-" + backgroundColor : "bg-white"]);
+    const [showNav, setShowNav] = useState(false);
 
     return (
         <div className={'flex h-full w-full my-4 min-h-screen '}>
             <ParticlesBackground />
-            <AdminNavBar />
-            <div className={`${bg} flex flex-col w-[75%] h-full md:mr-2 mr-2 rounded-lg min-h-screen`} style={{backgroundColor: `rgba(113, 84, 224, ${backgroundOpacity})`}}>{children}</div> <br/>
+            <AdminNavBar  showNav={showNav} setShowNav={setShowNav}/>
+            <div className={`${bg} flex flex-col md:w-[75%] h-full md:mr-2 m-auto rounded-lg min-h-screen
+                ${showNav? "hidden" : "block"} md:block mt-10 w-11/12 `}
+                 style={{backgroundColor: `rgba(113, 84, 224, ${backgroundOpacity})`}}>
+                {children}</div> <br/>
         </div>
     );
 };
