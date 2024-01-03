@@ -36,15 +36,15 @@ const AddAdminComponent = () => {
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
             <Title text={"Add admin"} color={"text-white"}></Title>
-            <Input value={addUser} onChange={setAddUser} className={"w-1/3 p-2 rounded-t-lg"}></Input>
+            <Input value={addUser} onChange={setAddUser} className={"md:w-1/3 w-3/4 p-2 rounded-t-lg border-white"}></Input>
             <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
-                " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+                " text-lg font-bold p-2 md:w-1/3 w-3/4 rounded-b-lg"}
                     onClick={addUserFun}>+</button>
             <h1 className={"py-4 font-semibold text-white"}>OR</h1>
-            <div className={"flex flex-col justify-center items-center w-1/3"}>
+            <div className={"flex flex-col justify-center items-center md:w-1/3 w-3/4"}>
                 {allUsers.length ?
                     (<>
-                        <select className={"border-2 border-black text-center rounded-t-lg p-2 w-full"}
+                        <select className={"border-2 border-black text-center rounded-t-lg p-2 w-full border-white"}
                                 value={addUser} onChange={event => setAddUser(event.target.value)}
                         >
                             <option value={""} className={"p-4"}>Choose email</option>
@@ -54,7 +54,7 @@ const AddAdminComponent = () => {
                             )}
                         </select>
                         <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
-                            " text-lg font-bold p-2 w-full rounded-b-lg border-black"}
+                            " text-lg font-bold p-2 w-full rounded-b-lg md:w-1/3 w-3/4"}
                                 onClick={addUserFun}>+</button>
                     </>) :
                     (<Spinner fullWidth={true}/>)

@@ -28,7 +28,7 @@ const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
                                 </div>
                             ) :
                             (<div className={"h-[100px] w-[100px] hidden md:block ml-2"}></div>)}
-                        <h1 className={"text-lg font-bold w-full md:w-[10%] truncate"}>{!isDocument ? event.name: event.title}</h1>
+                        <h1 className={"text-lg font-bold w-full md:w-[10%] truncate ml-2 md:m-0"}>{!isDocument ? event.name: event.title}</h1>
                         <p className={"w-[50px] truncate hidden md:block"}>{event.description}</p>
                         {event.date !==null && (<p className={"max-w-1/3 hidden md:block"}>{format(new Date(event.date), 'MMMM do yyyy hh:mm a')}</p>)}
                     </div>
