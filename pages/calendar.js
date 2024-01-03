@@ -18,7 +18,7 @@ export default function Calendar() {
 
   const getEvents = () => {
     setIsLoading(true);
-    axios.get(`/api/events`).then((res) => {
+    axios.get(`/api/all-events`).then((res) => {
       const modifiedEvents = res.data.map((event) => ({
         ...event,
         id: event._id,
@@ -47,7 +47,8 @@ export default function Calendar() {
   return (
     <div className="flex flex-col h-screen overflow-hidden text-white">
       <FrontendLayout>
-        <div className="w-3/5 h-auto">
+        <div className={"flex md:flex-row flex-col justify-center items-center"}>
+          <div className="md:w-11/12 w-full h-auto">
           {!isLoading && (
             <FullCalendar
               plugins={[dayGridPlugin, interactionPlugin, timeGridPlugin]}
@@ -67,7 +68,7 @@ export default function Calendar() {
             />
           )}
         </div>
-        <div className="w-2/6 px-10 py-10 m-5 flex flex-col justify-starttime">
+        <div className="md:w-2/6 w-3/4 md:px-10 md:py-10 m-5 flex flex-col justify-start">
           {selectedEvent.images && (
             <img
               src={selectedEvent.images[0]}
@@ -92,6 +93,8 @@ export default function Calendar() {
             </Link>
           </div>
         </div>
+        </div>
+
       </FrontendLayout>
     </div>
   );
