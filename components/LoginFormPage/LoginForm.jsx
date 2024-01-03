@@ -53,7 +53,7 @@ const LoginForm = () => {
     }, durationOfAppearAnimation);
 
     return () => clearTimeout(timer); // Clean up the timeout
-  }, []);
+  }, [session]);
 
   return (
     <div className="flex justify-around items-center p-2 flex-1">

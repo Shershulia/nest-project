@@ -178,17 +178,19 @@ const SettingsAdminPage = ({isAdmin,
                                 onClick={(event) => changeMainPictures(event)}>Save changes
                             </button>
                         </div>
-                        <div className={"flex justify-center items-center  flex-wrap w-2/3 m-auto"}>
-                            <div className={"flex flex-col items-center w-1/2"}>
-                                <Input label={"Price of subscription"} className={"text-center w-11/12 text-white"} isDigits={true}
+                        <div className={"flex justify-center items-center flex-col md:flex-wrap w-2/3 m-auto"}>
+                            <div className={"flex flex-col items-center w-full"}>
+                                <Title text={"Price of subscription"} className={"text-center"} color={"text-white"}></Title>
+                                <Input className={"text-center w-full text-black border-white rounded-md"} isDigits={true}
                                        value={subscriptionPrice} onChange={setSubscriptionPrice}/>
                                 <button
                                     className={buttonStyle}
                                     onClick={(event) => saveNewSubscriptionPrice(event)}>Save changes
                                 </button>
                             </div>
-                            <div className={"flex flex-col items-center w-1/2"}>
-                                <Input label={"Greeting message"} className={"text-center w-11/12 text-white"} value={greeting}
+                            <div className={"flex flex-col items-center w-full"}>
+                                <Title text={"Greeting message"} color={"text-white"}></Title>
+                                <Input className={"text-center w-full text-black border-white rounded-md"} value={greeting}
                                        onChange={setGreeting}/>
                                 <button
                                     className={buttonStyle}
@@ -196,8 +198,8 @@ const SettingsAdminPage = ({isAdmin,
                                 </button>
                             </div>
                         </div>
-                        <div className={"flex flex-col items-center w-full"}>
-                            <TextArea label={"Description"} className={"text-center w-2/3"}
+                        <div className={"flex flex-col items-center w-full mb-4"}>
+                            <TextArea label={"Description"} className={"text-center w-2/3 border-white rounded-lg"}
                                    value={description} onChange={setDescription}/>
                             <button
                                 className={buttonStyle}

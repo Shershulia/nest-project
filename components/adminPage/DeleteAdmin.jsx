@@ -33,10 +33,10 @@ const DeleteAdmin = () => {
     return (
         <div className={"flex flex-col justify-center items-center w-full"}>
             <Title text={"Delete admin by mail"} color={"text-white"}/>
-            <div className={"flex flex-col justify-center items-center w-1/3"}>
+            <div className={"flex flex-col justify-center items-center md:w-1/3 w-3/4"}>
                 {allAdmins.length ?
                     (<>
-                            <select className={"border-2 border-black text-center rounded-t-lg p-2 w-full"}
+                            <select className={"border-2 border-black text-center rounded-t-lg p-2 w-full border-white"}
                                     value={deleteAdmin} onChange={event => setDeleteAdmin(event.target.value)}
                             >
                                 <option value={""} className={"p-4"}>Choose email</option>

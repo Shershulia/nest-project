@@ -46,12 +46,15 @@ const AdminsAdminPage = ({isAdmin}) => {
                 <AddAdminComponent></AddAdminComponent>
                 <DeleteAdmin></DeleteAdmin>
                 <div className={"flex flex-col justify-center w-full items-center"}>
-                    <Input label={"Send notification"}
-                           value={notification}
-                           onChange={setNotification}
-                           className={"w-1/3 p-2 rounded-t-lg text-center"} />
+                    <div className={"w-full"}>
+                        <Title text={"Send notification"} color={"text-white"}></Title>
+                        <Input
+                            value={notification}
+                            onChange={setNotification}
+                            className={"md:w-1/3 w-3/4 p-2 rounded-t-lg border-white text-center"} />
+                    </div>
                     <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
-                        " text-lg font-bold p-2 w-1/3 rounded-b-lg border-black"}
+                        " text-lg font-bold p-2 md:w-1/3 w-3/4 rounded-b-lg border-black"}
                             onClick={(event)=>sendMessage(event)}>Send notification</button>
                 </div>
                 <UsersNotificationComponents socket={socket} />

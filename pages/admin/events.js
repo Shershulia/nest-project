@@ -10,7 +10,7 @@ const EventsAdminPage = ({isAdmin}) => {
     return (
         isAdmin ? (
         <div className="h-full flex">
-            <AdminLayout backgroundColor={""}>
+            <AdminLayout backgroundColor={"transparent"}>
                 <div>
                     <button
                         onClick={() => {
