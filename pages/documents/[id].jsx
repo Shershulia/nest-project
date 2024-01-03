@@ -36,7 +36,9 @@ const SingleDocumentPage = ({meetingDocument}) => {
 
     return (
         <FrontendLayout>
-            <RevealWrapper origin={'left'} delay={0} className={"sm:w-1/2 w-11/12 my-4 sm:my-0"}>
+            <div className={"flex gap-2 md:flex-row flex-col m-auto md:m-0"}>
+
+                <RevealWrapper origin={'left'} delay={0} className={"md:w-1/3 w-11/12 my-4 m-auto md:m-0"}>
                     <WhiteBox>
                         <div className={"p-4"}>
                             <p className={"font-bold text-4xl mb-4 text-black"}>Details</p>
@@ -68,7 +70,7 @@ const SingleDocumentPage = ({meetingDocument}) => {
 
             </RevealWrapper>
 
-            <RevealWrapper origin={'right'} delay={300} className={"sm:w-2/3 w-11/12"}>
+                <RevealWrapper origin={'right'} delay={300} className={"md:w-2/3 w-11/12 my-4 m-auto md:m-0"}>
                     <WhiteBox>
                         <div className={"p-4 w-full"}>
                             {meetingDocument.documents.length && (
@@ -91,7 +93,7 @@ const SingleDocumentPage = ({meetingDocument}) => {
                         </div>}
                     </WhiteBox>
             </RevealWrapper>
-
+            </div>
 
         </FrontendLayout>
     );
