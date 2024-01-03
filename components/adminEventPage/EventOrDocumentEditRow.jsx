@@ -13,9 +13,9 @@ const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
         <div className={`w-full flex`}>
                 {!editMode ? (
                 <>
-                    <div className={"flex w-2/3 items-center justify-start gap-10"}>
+                    <div className={"flex w-1/3 md:w-2/3 items-center justify-start gap-10"}>
                         {arrayWithDocumentsOrImages.length>0 ? (
-                                <div className={"h-[100px] w-[100px] ml-2"}>
+                                <div className={"h-[100px] w-[100px] hidden md:block ml-2"}>
                                     {isDocument ? (
                                         <label className={"rounded-lg h-full w-full flex justify-center items-center border rounded-lg truncate "}>{
                                             arrayWithDocumentsOrImages[0].split(".com/")[1].includes("edit?usp") ? "Google Drive":
@@ -27,12 +27,12 @@ const EventOrDocumentEditRow = ({event,deleteEvent, isDocument}) => {
                                     }
                                 </div>
                             ) :
-                            (<div className={"h-[100px] w-[100px] ml-2"}></div>)}
-                        <h1 className={"text-lg font-bold w-[10%] truncate"}>{!isDocument ? event.name: event.title}</h1>
-                        <p className={"w-[50px] truncate"}>{event.description}</p>
-                        {event.date !==null && (<p className={"max-w-1/3"}>{format(new Date(event.date), 'MMMM do yyyy hh:mm a')}</p>)}
+                            (<div className={"h-[100px] w-[100px] hidden md:block ml-2"}></div>)}
+                        <h1 className={"text-lg font-bold w-full md:w-[10%] truncate"}>{!isDocument ? event.name: event.title}</h1>
+                        <p className={"w-[50px] truncate hidden md:block"}>{event.description}</p>
+                        {event.date !==null && (<p className={"max-w-1/3 hidden md:block"}>{format(new Date(event.date), 'MMMM do yyyy hh:mm a')}</p>)}
                     </div>
-                    <div className={"flex w-1/3 p-6 gap-6"}>
+                    <div className={"flex w-2/3 md:w-1/3 md:p-6 p-2 gap-6"}>
                         <button className={"bg-yellow-600 text-lg font-bold p-2 rounded-lg border-black w-full"}
                                 onClick={()=>{setEditMode(prevState => !prevState)}}>Edit</button>
                         <button className={"bg-red-600 text-lg font-bold p-2 rounded-lg border-black w-full"}
