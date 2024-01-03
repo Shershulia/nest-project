@@ -85,7 +85,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                 {users.map((user, index)=>(
                                                     <div className={"flex"}>
                                                         <UserCardComponent key={index} user={user}/>
-                                                            <div className={`bg-opacity-30 border-r border-b 
+                                                            <div className={`bg-opacity-30 w-1/3 border-r border-b 
                                                              ${navState==="New users" && "bg-yellow-400 " }
                                                              ${navState==="Confirmed users" && "bg-green-400 " }
                                                              ${navState==="Declined users" && "bg-red-400 " }
@@ -95,9 +95,9 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                    (
                                                                        <div className={"w-full flex flex-col"}>
                                                                            <div className={"w-full h-full flex"}>
-                                                                               <button className={"w-full m-4 font-bold whitespace-nowrap rounded-lg bg-green-400 hover:bg-green-600 duration-500 p-2"}
+                                                                               <button className={"w-11/12 m-4 font-bold truncate rounded-lg bg-green-400 hover:bg-green-600 duration-500 p-2"}
                                                                                        onClick={()=>{confirmUser(user)}}>Confirm</button>
-                                                                               <button className={"w-full m-4 font-bold whitespace-nowrap rounded-lg bg-red-400 hover:bg-red-600 duration-500 p-2"}
+                                                                               <button className={"w-11/12 m-4 font-bold truncate rounded-lg bg-red-400 hover:bg-red-600 duration-500 p-2"}
                                                                                        onClick={()=>{declineUser(user)}}
                                                                                >Decline</button>
                                                                            </div>
@@ -108,7 +108,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                     &&
                                                                     (
                                                                         <div className={"w-full flex"}>
-                                                                                <button className={"w-full m-4 font-bold whitespace-nowrap rounded-lg bg-green-400 hover:bg-green-600 duration-500 p-2"}
+                                                                                <button className={"w-11/12 m-4 font-bold truncate rounded-lg bg-green-400 hover:bg-green-600 duration-500 p-2"}
                                                                                         onClick={()=>{confirmUser(user)}}>Change decision</button>
                                                                         </div>
 
@@ -117,7 +117,7 @@ const ConfirmationsPage = ({isAdmin}) => {
                                                                     &&
                                                                     (
                                                                         <div className={"w-full flex"}>
-                                                                            <button className={"w-full m-4 font-bold p-2 whitespace-nowrap rounded-lg bg-red-400 hover:bg-red-600 duration-500"}
+                                                                            <button className={"w-11/12 m-4 font-bold p-2 truncate rounded-lg bg-red-400 hover:bg-red-600 duration-500"}
                                                                                     onClick={()=>{declineUser(user)}}
                                                                             >Change decision</button>
                                                                         </div>
