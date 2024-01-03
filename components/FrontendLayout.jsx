@@ -6,7 +6,7 @@ const FrontendLayout = ({children}) => {
     const { data: session } = useSession();
     const [showNav, setShowNav] = useState(false);
     return (
-    <div className="flex flex-col h-screen overflow-hidden">
+    <div className="flex flex-col min-h-screen md:h-screen md:overflow-hidden overflow-y-auto overflow-x-hidden">
         <ParticlesBackground />
         <NavBar showNav={showNav} setShowNav={setShowNav}/>
         <div className="flex flex-1 justify-center items-center">

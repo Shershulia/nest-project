@@ -69,7 +69,7 @@ const Events = () => {
                             </div>
                         ) : (
                             <div
-                                className={"w-full flex flex-col overflow-y-scroll h-screen gap-y-2 p-4 scrollbar" }>
+                                className={"w-full flex flex-col overflow-y-scroll max-h-[300px] md:max-h-screen gap-y-2 p-4 scrollbar" }>
                                 {events.length ?
                                     events.map((event,index)=>(
                                         <>
