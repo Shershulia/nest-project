@@ -54,7 +54,7 @@ const AddAdminComponent = () => {
                             )}
                         </select>
                         <button className={"bg-customLightPurple hover:bg-violet-700 transition-all duration-500" +
-                            " text-lg font-bold p-2 w-full rounded-b-lg md:w-1/3 w-3/4"}
+                            " text-lg font-bold p-2 w-full rounded-b-lg md:w-full w-3/4"}
                                 onClick={addUserFun}>+</button>
                     </>) :
                     (<Spinner fullWidth={true}/>)

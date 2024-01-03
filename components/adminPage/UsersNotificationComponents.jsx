@@ -76,14 +76,14 @@ const UsersNotificationComponents = ({socket}) => {
                 <>
                     <div className={"flex justify-center items-center gap-4"}>
                         <Title text={"Users notification"} className={"text-white"}></Title>
-                        <div className={"flex justify-center items-center gap-4"}>
+                        {suggestions.length>1 && (<div className={"flex justify-center items-center gap-4"}>
                             <button onClick={previousNotification}>
                                 <i class="bi bi-arrow-left-square text-xl text-white"></i>
                             </button>
                             <button onClick={nextNotification}>
                                 <i class="bi bi-arrow-right-square text-xl text-white"></i>
                             </button>
-                        </div>
+                        </div>)}
                     </div>
                     {suggestions.length ? (<>
                         <p className={"text-white"}>By user : {suggestions[suggestionIndex].email}</p>
