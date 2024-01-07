@@ -33,6 +33,7 @@ const UsersNotificationComponents = ({socket}) => {
         axios.delete(`/api/notifications?id=${suggestions[suggestionIndex]._id}`).then(
             res => {
                 setNotificationToSend('');
+                setSuggestionIndex(0)
                 Swal.fire(
                     'Good job!',
                     `Notification ${stringToSend} was send`,
@@ -86,7 +87,7 @@ const UsersNotificationComponents = ({socket}) => {
                         </div>)}
                     </div>
                     {suggestions.length ? (<>
-                        <p className={"text-white"}>By user : {suggestions[suggestionIndex].email}</p>
+                        <p className={"text-white"}>By user : {suggestions[suggestionIndex]?.email}</p>
 
                         <Input value={notificationToSend}
                                onChange={setNotificationToSend}
