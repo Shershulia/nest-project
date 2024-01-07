@@ -33,9 +33,8 @@ const SendReceiptToAdmin = () => {
     }
 
     return (
-        <div className={"text-white w-full text-center text-xl flex flex-col gap-2 justify-center items-center cursor-pointer"}
-            onClick={()=>{setShowReceipt(prevState => !prevState)}}>
-            <h1>Send finance report to admin</h1>
+        <div className={"text-white w-full text-center text-xl flex flex-col gap-2 justify-center items-center"}>
+            <h1 className={"cursor-pointer"} onClick={()=>{setShowReceipt(prevState => !prevState)}}>Send finance report to admin</h1>
             <div className={`${showReceipt ? "block" : "hidden"}`}>
                 <div className={`w-full flex items-center justify-center`}>
                     <div className={"w-full"}>

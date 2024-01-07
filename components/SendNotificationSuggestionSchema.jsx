@@ -34,13 +34,15 @@ const SendNotificationSuggestionSchema = () => {
         }
     }
     return (
-        <div className={"text-white w-full text-center text-xl flex flex-col gap-2 justify-center items-center cursor-pointer"}
+        <div className={"text-white w-full text-center text-xl flex flex-col gap-2 justify-center items-center"}
+        >
+            <h1
+                className={"cursor-pointer"}
                 onClick={()=>{
                     setShowNotification(prevState => !prevState)
-                }}>
-            <h1>Send notification to all user</h1>
+                }}>Send notification to all user</h1>
             <div className={`${showNotification ? "block" : "hidden"}`}>
-                <Input onChange={setSuggestion} value={suggestion} className={"w-1/2 rounded-lg bg-transparent border-white"}/>
+                <Input onChange={setSuggestion} value={suggestion} className={"w-full text-white rounded-lg bg-transparent border-white"}/>
                 <button onClick={sendSuggestion}
                         className={"bg-transparent border-white border mt-2 p-2 rounded-md hover:bg-purple-500 active:bg-purple-700 duration-700 w-full md:w-1/4"}>
                     Send</button>

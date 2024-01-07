@@ -60,9 +60,9 @@ export default function AccountPage() {
                             <div className={"rounded-lg md:block hidden"}>
                                 <img src={session?.user?.image} alt={"Users avatar"} className={"object-fit"}/>
                             </div>
-                            <div className={"flex gap-4 justify-center items-center flex-col w-11/12 border border-white p-2 rounded-lg cursor-pointer duration-300 transition-all"}
-                                onClick={()=>{setShowSubscription(prev=>!prev)}}>
-                                <h1 className={"text-xl text-white"}>Information about subscription</h1>
+                            <div className={"flex gap-4 justify-center items-center flex-col w-11/12 border border-white p-2 rounded-lg duration-300 transition-all"}
+                            >
+                                <h1 className={"text-xl text-white cursor-pointer"} onClick={()=>{setShowSubscription(prev=>!prev)}}>Information about subscription</h1>
                                 <div className={`${showSubscription ? "block" : "hidden"}`}>
                                     {session?.user.emailVerified==="waiting" &&
                                         (
